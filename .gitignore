@@ -28,3 +28,6 @@ dist-ssr
 
 # other
 .DS_Store
+
+# environment variables
+.env

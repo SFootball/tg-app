@@ -11,6 +11,10 @@ export default defineConfig({
       src: "/src",
     },
   },
+  server: {
+    host: true,
+    port: 3000,
+  },
   // plugins: [react(), basicSsl()],
   // server: {
   //   port: 443,
