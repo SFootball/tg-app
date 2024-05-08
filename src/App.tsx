@@ -44,7 +44,6 @@ function App() {
   // }
   return (
     <>
-      <Heading>hi baby</Heading>
       <Navbar />
       <AllRoutes />
       <Footer />

@@ -17,7 +17,7 @@ jobs:
           node-version: "20.12.0"
 
       - name: Install dependencies
-        run: npm install
+        run: yarn install
 
       - name: Build
         run: yarn build
@@ -35,7 +35,7 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: space-football.cr.cloud.ru/sfootball_tgapp:latest,space-football.cr.cloud.ru/sfootball_tgapp:v.${{ github.sha }}
+          tags: space-football.cr.cloud.ru/sfootball_tgapp:${{ steps.get_version.outputs.version }},space-football.cr.cloud.ru/sfootball_tgapp:latest
           cache-from: type=registry,ref=space-football.cr.cloud.ru/sfootball_tgapp:latest
           cache-to: type=inline
 
