@@ -1,43 +1,46 @@
-# syntax=docker/dockerfile:1
-
-# Comments are provided throughout this file to help you get started.
-# If you need more help, visit the Dockerfile reference guide at
-# https://docs.docker.com/go/dockerfile-reference/
-
-# Want to help us make this template better? Share your feedback here: https://forms.gle/ybq9Krt8jtBL3iCk7
-
-ARG NODE_VERSION=20.12.1
-
-################################################################################
-# Use node image for base image for all stages.
-FROM node:${NODE_VERSION}-alpine as builder
-
-# Рабочая директория
-WORKDIR /app
-
-# Скопировать package.json и yarn.lock для установки зависимостей
-COPY package.json yarn.lock ./
-
-# Установить зависимости
+FROM node:20.9.0-alpine3.18 as build
+WORKDIR /usr/app
+COPY . /usr/app/
 RUN yarn install
-
-# Скопировать все файлы приложения
-COPY . .
-
-# Сборка проекта
 RUN yarn build
 
-# Stage 2: Nginx для раздачи статики
-FROM nginx:alpine
+FROM nginxinc/nginx-unprivileged
+EXPOSE 8080
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /usr/app/dist /usr/share/nginx/html
 
-# Копировать сгенерированные файлы в Nginx директорию
-COPY --from=builder /app/dist /usr/share/nginx/html
+# FROM node:20.12.1-alpine as builder
 
-# Копировать кастомную конфигурацию Nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Экспозировать порт 3000
-EXPOSE 3000
+# WORKDIR /usr/app
 
-# Запуск Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# COPY ./package.json ./yarn.lock ./
+# RUN yarn install
+
+# COPY ./ .
+
+# CMD ["yarn", "dev"]
+
+# FROM node:20.12.1-alpine as builder
+
+# WORKDIR /usr/app
+
+# COPY ./package.json ./yarn.lock ./
+# RUN yarn install
+
+# COPY ./ .
+
+
+# ARG NODE_ENV=production
+# ENV NODE_ENV ${NODE_ENV}
+
+# RUN yarn build
+
+# FROM nginxinc/nginx-unprivileged 
+
+# COPY --from=builder /usr/app/nginx.conf /etc/nginx/conf.d/default.conf
+# COPY --from=builder /usr/app/dist /usr/share/nginx/html
+
+# EXPOSE 3000
+
+# CMD ["nginx", "-g", "daemon off;"]

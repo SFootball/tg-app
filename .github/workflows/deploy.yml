@@ -1,0 +1,43 @@
+name: Build and Push Docker image
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.12.0"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: yarn build
+
+      - name: Log in to Docker registry
+        uses: docker/login-action@v2
+        with:
+          registry: space-football.cr.cloud.ru
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          tags: space-football.cr.cloud.ru/sfootball_tgapp:latest,space-football.cr.cloud.ru/sfootball_tgapp:v.${{ github.sha }}
+          cache-from: type=registry,ref=space-football.cr.cloud.ru/sfootball_tgapp:latest
+          cache-to: type=inline
+
+      - name: Cleanup
+        run: docker system prune -af

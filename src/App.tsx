@@ -6,6 +6,7 @@ import "./App.css";
 import AllRoutes from "./routes/AllRoutes";
 import Footer from "./entities/Footer/Footer";
 import { Navbar } from "./entities/Navbar/Navbar";
+import { Heading } from "@chakra-ui/react";
 
 function App() {
   // const [starting, setStarting] = useState(true);
@@ -43,6 +44,7 @@ function App() {
   // }
   return (
     <>
+      <Heading>hi baby</Heading>
       <Navbar />
       <AllRoutes />
       <Footer />

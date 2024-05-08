@@ -9,8 +9,9 @@
 # https://github.com/docker/awesome-compose
 services:
   server:
-    build:
-      context: .
+    image: # build:
+
+    #   context: .
     environment:
       NODE_ENV: production
     ports:
