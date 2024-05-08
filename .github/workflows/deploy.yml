@@ -4,32 +4,15 @@ on:
   push:
     branches:
       - main
+    tags:
+      - "v*"
+
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
-
-      - name: Fetch all tags
-        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-
-      - name: Get latest tag
-        id: latest_tag
-        uses: WyriHaximus/github-action-get-previous-tag@v1
-        with:
-          fallback: "v0.0.0"
-
-      - name: Calculate new tag
-        id: new_tag
-        run: |
-          latest_tag=${{ steps.latest_tag.outputs.tag }}
-          IFS='.' read -ra TAG <<< "$latest_tag"
-          new_minor=$((TAG[2] + 1))
-          echo "new_tag=v${TAG[0]}.${TAG[1]}.$new_minor" >> $GITHUB_ENV
-
-      - name: Create new tag
-        run: git tag $new_tag && git push origin $new_tag
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -49,14 +32,19 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
+      - name: Extract version tag
+        id: get_version
+        run: echo "##[set-output name=version;]$(echo ${GITHUB_REF#refs/tags/})"
+        if: startsWith(github.ref, 'refs/tags/')
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
           context: .
           file: Dockerfile
           push: true
-          tags: space-football.cr.cloud.ru/sfootball_tgapp:${{ env.new_tag }}
-          cache-from: type=registry,ref=${{ secrets.REGISTRY_URL }}/sfootball_tgapp:latest
+          tags: ${{ secrets.REGISTRY_URL }}/sfootball_tgapp:${{ steps.get_version.outputs.version }},${{ secrets.REGISTRY_URL }}/sfootball_tgapp:latest
+          cache-from: type=registry,ref=space-football.cr.cloud.ru/sfootball_tgapp:latest
           cache-to: type=inline
 
       - name: Cleanup
