@@ -2,8 +2,8 @@ name: Build and Push Docker image
 
 on:
   push:
-    branches:
-      - main
+    # branches:
+    #   - main
     tags:
       - "v*"
 
@@ -38,14 +38,14 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: Dockerfile
           push: true
           tags: ${{ secrets.REGISTRY_URL }}/sfootball_tgapp:${{ steps.get_version.outputs.version }},${{ secrets.REGISTRY_URL }}/sfootball_tgapp:latest
-          cache-from: type=registry,ref=space-football.cr.cloud.ru/sfootball_tgapp:latest
-          cache-to: type=inline
+          # cache-from: type=registry,ref=${{ secrets.REGISTRY_URL }}/sfootball_tgapp:latest
+          # cache-to: type=inline
 
       - name: Cleanup
         run: docker system prune -af

@@ -1,13 +1,16 @@
 import {
   Box,
+  ButtonProps,
   chakra,
   Container,
+  Link,
   Stack,
+  Tooltip,
   useColorModeValue,
   VisuallyHidden,
 } from "@chakra-ui/react";
-import { FaUser } from "react-icons/fa";
-import { ReactNode, SVGProps } from "react";
+import { FaLink, FaUser } from "react-icons/fa";
+import { ForwardedRef, forwardRef, ReactNode, Ref, SVGProps } from "react";
 
 export const Logo = (props: SVGProps<SVGSVGElement>) => {
   return (
@@ -35,29 +38,35 @@ type SocialButtonProps = {
   href: string;
 };
 
-const SocialButton = ({ children, label, href }: SocialButtonProps) => {
-  return (
-    <chakra.button
-      bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
-      rounded={"full"}
-      w={8}
-      h={8}
-      cursor={"pointer"}
-      as={"a"}
-      href={href}
-      display={"inline-flex"}
-      alignItems={"center"}
-      justifyContent={"center"}
-      transition={"background 0.3s ease"}
-      _hover={{
-        bg: useColorModeValue("blackAlpha.200", "whiteAlpha.200"),
-      }}
-    >
-      <VisuallyHidden>{label}</VisuallyHidden>
-      {children}
-    </chakra.button>
-  );
-};
+const SocialButton = forwardRef(
+  (
+    { children, label, href }: SocialButtonProps,
+    ref: ForwardedRef<HTMLButtonElement>
+  ) => {
+    return (
+      <chakra.button
+        ref={ref}
+        bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
+        rounded={"full"}
+        w={8}
+        h={8}
+        cursor={"pointer"}
+        as={"a"}
+        href={href}
+        display={"inline-flex"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        transition={"background 0.3s ease"}
+        _hover={{
+          bg: useColorModeValue("blackAlpha.200", "whiteAlpha.200"),
+        }}
+      >
+        <VisuallyHidden>{label}</VisuallyHidden>
+        {children}
+      </chakra.button>
+    );
+  }
+);
 
 export default function Footer() {
   return (
@@ -70,6 +79,7 @@ export default function Footer() {
       left={0}
       bottom={0}
       width="100%"
+      zIndex={10}
     >
       <Box
         borderTopWidth={1}
@@ -85,9 +95,20 @@ export default function Footer() {
           justify={{ base: "center", md: "space-between" }}
           align={{ base: "center", md: "center" }}
         >
-          <SocialButton label={"User"} href={"/user-lk"}>
-            <FaUser />
-          </SocialButton>
+          <Tooltip label="User" placement="top" color="white">
+            <Link href={"/referals"}>
+              {/* <SocialButton label={"User"} href={"/user-lk"}> */}
+              <FaUser />
+            </Link>
+          </Tooltip>
+          {/* </SocialButton> */}
+          <Tooltip label="Referals" placement="top" color="white">
+            <Link href={"/referals"}>
+              {/* <SocialButton label={"Referals"} href={"/referals"}> */}
+              <FaLink />
+            </Link>
+            {/* </SocialButton> */}
+          </Tooltip>
         </Container>
       </Box>
     </Box>
