@@ -43,7 +43,7 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ${{ secrets.REGISTRY_URL }}/sfootball_tgapp:${{ steps.get_version.outputs.version }},${{ secrets.REGISTRY_URL }}/sfootball_tgapp:latest
+          tags: ${{ secrets.REGISTRY_URL }}/sfootball_tgapp:${{ steps.get_version.outputs.version }}
           # cache-from: type=registry,ref=${{ secrets.REGISTRY_URL }}/sfootball_tgapp:latest
           # cache-to: type=inline
 
