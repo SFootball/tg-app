@@ -12,7 +12,7 @@ export default defineConfig({
     },
   },
   server: {
-    host: true,
+    // host: true,
     port: 3000,
   },
   // plugins: [react(), basicSsl()],

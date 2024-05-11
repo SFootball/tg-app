@@ -8,24 +8,28 @@ import { BrowserRouter } from "react-router-dom";
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
 import "./i18n";
 import { APP_URL } from "./shared/constants/api.constants.ts";
-// import WebApp from "@twa-dev/sdk";
-
-// WebApp.ready();
+import { WebAppProvider } from "@vkruglikov/react-telegram-web-app";
 
 export function Root() {
   return (
-    <TonConnectUIProvider manifestUrl={`${APP_URL}/tonconnect-manifest.json`}>
-      <App />
-    </TonConnectUIProvider>
+    <WebAppProvider
+      options={{
+        smoothButtonsTransition: true,
+      }}
+    >
+      <TonConnectUIProvider manifestUrl={`${APP_URL}/tonconnect-manifest.json`}>
+        <ChakraProvider theme={appTheme}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ChakraProvider>
+      </TonConnectUIProvider>
+    </WebAppProvider>
   );
 }
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ChakraProvider theme={appTheme}>
-      <BrowserRouter>
-        <Root />
-      </BrowserRouter>
-    </ChakraProvider>
+    <Root />
   </React.StrictMode>
 );

@@ -10,12 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.8.2",
+    "@chakra-ui/react": "2.8.1",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@tonconnect/ui-react": "^2.0.0",
     "@types/node": "^20.12.3",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
+    "@vkruglikov/react-telegram-web-app": "^2.1.9",
     "chakra-react-select": "^4.7.6",
     "framer-motion": "^11.0.24",
     "i18next": "^23.10.1",
@@ -33,6 +34,7 @@
     "workbox-window": "^7.0.0"
   },
   "devDependencies": {
+    "@twa-dev/types": "^7.0.0",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@types/react-slick": "^0.23.13",

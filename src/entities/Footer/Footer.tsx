@@ -3,14 +3,16 @@ import {
   ButtonProps,
   chakra,
   Container,
-  Link,
   Stack,
   Tooltip,
   useColorModeValue,
   VisuallyHidden,
 } from "@chakra-ui/react";
-import { FaLink, FaUser } from "react-icons/fa";
+import { FaHome, FaLink, FaUser, FaUserPlus } from "react-icons/fa";
 import { ForwardedRef, forwardRef, ReactNode, Ref, SVGProps } from "react";
+import { PathsName } from "src/routes/routes.config";
+import { Link } from "react-router-dom";
+import { bgFooterGradient } from "src/shared/style/bgGradient";
 
 export const Logo = (props: SVGProps<SVGSVGElement>) => {
   return (
@@ -72,9 +74,7 @@ export default function Footer() {
   return (
     <Box
       color="white"
-      bgGradient={
-        "linear-gradient(0deg, rgba(0,0,0,1) 14%, rgba(64,64,64,1) 100%)"
-      }
+      bgGradient={bgFooterGradient}
       position={"fixed"}
       left={0}
       bottom={0}
@@ -90,24 +90,27 @@ export default function Footer() {
           as={Stack}
           maxW={"6xl"}
           py={4}
-          direction={{ base: "column", md: "row" }}
+          direction={{ base: "row" }}
           spacing={4}
-          justify={{ base: "center", md: "space-between" }}
+          justify={{ base: "space-around" }}
           align={{ base: "center", md: "center" }}
         >
+          <Tooltip label="Home" placement="top" color="white">
+            <Link to={"/"}>
+              <FaHome />
+            </Link>
+          </Tooltip>
+          <Tooltip label="Referals" placement="top" color="white">
+            {/* <Link href={`/${PathsName.invite}`}> */}
+            <Link to={PathsName.invite}>
+              <FaUserPlus />
+            </Link>
+          </Tooltip>
           <Tooltip label="User" placement="top" color="white">
-            <Link href={"/referals"}>
+            <Link to={`/${PathsName.user}`}>
               {/* <SocialButton label={"User"} href={"/user-lk"}> */}
               <FaUser />
             </Link>
-          </Tooltip>
-          {/* </SocialButton> */}
-          <Tooltip label="Referals" placement="top" color="white">
-            <Link href={"/referals"}>
-              {/* <SocialButton label={"Referals"} href={"/referals"}> */}
-              <FaLink />
-            </Link>
-            {/* </SocialButton> */}
           </Tooltip>
         </Container>
       </Box>

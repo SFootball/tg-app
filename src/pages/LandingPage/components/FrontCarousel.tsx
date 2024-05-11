@@ -7,6 +7,7 @@ import {
   Text,
   Container,
   Button,
+  Flex,
 } from "@chakra-ui/react";
 import messiImg from "../assets/messi.jpeg";
 import ronaldoImg from "../assets/cristiano-ronaldo.jpeg";
@@ -79,123 +80,86 @@ export default function FrontCarousel() {
   }, []);
 
   return (
-    <Box
+    <Flex
       position={"relative"}
+      maxH={{ base: "85vh" }}
       // height={"150vh"}
       width={"full"}
       overflow={"hidden"}
       mt="-50"
       filter={"brightness(80%)"}
-    >
-      {/* CSS files for react-slick */}
-
-      <link
-        rel="stylesheet"
-        type="text/css"
-        charSet="UTF-8"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-      />
-      <link
-        rel="stylesheet"
-        type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-      />
-      {/* Left Icon */}
-      <IconButton
-        aria-label="left-arrow"
-        variant="ghost"
-        position="absolute"
-        left={side}
-        top={top}
-        transform={"translate(0%, -50%)"}
-        zIndex={2}
-        onClick={() => slider?.slickPrev()}
-      >
-        <BiLeftArrowAlt size="40px" />
-      </IconButton>
-      {/* Right Icon */}
-      <IconButton
-        aria-label="right-arrow"
-        variant="ghost"
-        position="absolute"
-        right={side}
-        top={top}
-        transform={"translate(0%, -50%)"}
-        zIndex={2}
-        onClick={() => slider?.slickNext()}
-      >
-        <BiRightArrowAlt size="40px" />
-      </IconButton>
-      {/* Slider */}
-      <Slider {...settings} ref={(slider: Slider) => setSlider(slider)}>
-        {cards.map((card, index) => (
-          <Box
-            key={index}
-            height={"6xl"}
-            position="relative"
-            backgroundPosition="center"
-            backgroundRepeat="no-repeat"
-            backgroundSize="cover"
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            // backgroundPositionX="fixed"
-            backgroundAttachment="fixed"
-            // background= "rgb(255,255,255)"
-            // background= "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 60%, rgba(0,0,0,1) 100%)"
-            backgroundImage={`url(${card.image})`}
-          >
-            {/* This is the block you need to change, to customize the caption */}
-            <Container size="container.2xxl" height="600px" position="relative">
-              {/* <Center> */}
-
-              {/* </Center> */}
-              <Box
-                // spacing={6}
-                w={"full"}
-                maxW={"lg"}
-                position="absolute"
-                top="50%"
-                transform={[
-                  "translate(10%,15%)",
-                  "translate(80%,50%)",
-                  "translate(20%,20%)",
-                  "translate(50%,-30%)",
-                ]}
-              >
-                <Heading
-                  mt="30"
-                  letterSpacing="10px"
-                  ml="2"
-                  fontSize={{ base: "sm", md: "md", lg: "xl" }}
-                  fontWeight="500"
-                  w="100%"
-                  color="#fff"
-                >
-                  {card.title}
-                </Heading>
-                <Heading
-                  color="#fff"
-                  fontSize={["50px", "60px", "70px", "90px"]}
-                >
-                  {card.be}
-                  <span style={{ color: "#f45f02" }}> {card.strong}</span>
-                </Heading>
-                <Text
-                  fontSize={["30px", "40px", "50px", "60px"]}
-                  fontWeight="650"
-                  color="#fff"
-                >
-                  {card.text}
-                </Text>
-                <Button color="#fff" ml="2" bg={"#f45f02"}>
-                  {/* GET INFO */}
-                  {t("getInfo")}
-                </Button>
-              </Box>
-            </Container>
-          </Box>
-        ))}
-      </Slider>
-    </Box>
+      bgColor={"background"}
+    ></Flex>
   );
 }
+
+// <Slider {...settings} ref={(slider: Slider) => setSlider(slider)}>
+// {cards.map((card, index) => (
+//   <Box
+//     key={index}
+//     // height={"6xl"}
+//     h={{ base: "100%" }}
+//     position="relative"
+//     backgroundPosition="center"
+//     backgroundRepeat="no-repeat"
+//     backgroundSize="cover"
+//     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//     // @ts-ignore
+//     // backgroundPositionX="fixed"
+//     backgroundAttachment="fixed"
+//     // background= "rgb(255,255,255)"
+//     // background= "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 60%, rgba(0,0,0,1) 100%)"
+//     backgroundImage={`url(${card.image})`}
+//   >
+//     {/* This is the block you need to change, to customize the caption */}
+//     <Container size="container.2xxl" height="600px" position="relative">
+//       {/* <Center> */}
+
+//       {/* </Center> */}
+//       <Box
+//         // spacing={6}
+//         w={"full"}
+//         // maxW={"lg"}
+//         position="absolute"
+//         top="50%"
+//         transform={[
+//           "translate(10%,15%)",
+//           "translate(80%,50%)",
+//           "translate(20%,20%)",
+//           "translate(50%,-30%)",
+//         ]}
+//       >
+//         <Heading
+//           mt="30"
+//           letterSpacing="10px"
+//          ml="2"
+//           fontSize={{ base: "sm", md: "md", lg: "xl" }}
+//           fontWeight="500"
+//           w="100%"
+//           color="#fff"
+//         >
+//           {card.title}
+//         </Heading>
+//         <Heading
+//           color="#fff"
+//           fontSize={["50px", "60px", "70px", "90px"]}
+//         >
+//           {card.be}
+//           <span style={{ color: "#f45f02" }}> {card.strong}</span>
+//         </Heading>
+//         <Text
+//           fontSize={["30px", "40px", "50px", "60px"]}
+//           fontWeight="650"
+//           color="#fff"
+//         >
+//           {card.text}
+//         </Text>
+//         <Button color="#fff" ml="2" bg={"#f45f02"}>
+//           {/* GET INFO */}
+//           {t("getInfo")}
+//         </Button>
+//       </Box>
+//     </Container>
+//   </Box>
+// ))}
+// </Slider>

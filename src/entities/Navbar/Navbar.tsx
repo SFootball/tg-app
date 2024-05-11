@@ -1,11 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Flex, Image, Text } from "@chakra-ui/react";
-import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
-import { FC } from "react";
+import {
+  TonConnectButton,
+  useTonAddress,
+  useTonWallet,
+} from "@tonconnect/ui-react";
+import { FC, useMemo } from "react";
 import { Select, chakraComponents } from "chakra-react-select";
 import { useTranslation } from "react-i18next";
 import ruIcon from "../../assets/ru-flag.png";
 import enIcon from "../../assets/en-flag.png";
+import { bgNavGradient } from "src/shared/style/bgGradient";
+import { useWebApp } from "@vkruglikov/react-telegram-web-app";
+import { TGWebApp } from "src/shared/types/TgWebApp";
 
 type SelectOptionType = {
   value: string;
@@ -32,6 +39,8 @@ const customComponents = {
 
 export const Navbar: FC = () => {
   const userFriendlyAddress = useTonAddress();
+  const webApp = useWebApp() as TGWebApp;
+  console.log("webApp ", webApp);
 
   const { t, i18n } = useTranslation();
 
@@ -39,18 +48,42 @@ export const Navbar: FC = () => {
     i18n.changeLanguage(lang);
   };
 
+  const userInfo = useMemo(() => {
+    if (webApp?.initDataUnsafe?.user) {
+      return {
+        username: webApp?.initDataUnsafe?.user?.username,
+        avatar: webApp?.initDataUnsafe?.user?.photo_url,
+      };
+    }
+    return null;
+  }, [webApp]);
+
+  const userInfoEl = useMemo(() => {
+    if (userInfo) {
+      return <Text>{userInfo.username}</Text>;
+    }
+    if (userFriendlyAddress) {
+      return <Text>{formatAddress(userFriendlyAddress)}</Text>;
+    }
+    return null;
+  }, [userInfo, userFriendlyAddress]);
+
   return (
     <Flex
       as="header"
+      bgGradient={bgNavGradient}
       justifyContent={"space-between"}
       alignItems={"center"}
-      h={{ base: "130px" }}
+      // h={{ base: "130px" }}
       px={{ base: 8 }}
-      backgroundColor={"gray.700"}
-      color={"gray.100"}
-      pb={{ base: 12 }}
+      py={{ base: 8 }}
+      // backgroundColor={"gray.700"}
+      // color={"gray.100"}
+      // pb={{ base: 12 }}
     >
-      <Text>Space Football</Text>
+      <Flex>
+        <Text>Space Football</Text>
+      </Flex>
       <Flex>
         <Select
           onChange={(o) => {
@@ -71,13 +104,7 @@ export const Navbar: FC = () => {
           ))}
         </Select> */}
       </Flex>
-      <Flex gap={4}>
-        {userFriendlyAddress ? (
-          <Text>{formatAddress(userFriendlyAddress)}</Text>
-        ) : (
-          <TonConnectButton />
-        )}
-      </Flex>
+      <Flex gap={4}>{userInfoEl ? userInfoEl : <TonConnectButton />}</Flex>
     </Flex>
   );
 };

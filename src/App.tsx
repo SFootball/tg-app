@@ -2,9 +2,11 @@ import logo from "./assets/logo.svg";
 import heroImg from "./assets/hero-img.jpeg";
 import "./App.css";
 import AllRoutes from "./routes/AllRoutes";
-import Footer from "./entities/Footer/Footer";
-import { Navbar } from "./entities/Navbar/Navbar";
 import { useEffect, useState } from "react";
+
+import "./main.css";
+
+import "./i18n";
 import { Image, VStack } from "@chakra-ui/react";
 
 function App() {
@@ -41,13 +43,7 @@ function App() {
       </VStack>
     );
   }
-  return (
-    <>
-      <Navbar />
-      <AllRoutes />
-      <Footer />
-    </>
-  );
+  return <AllRoutes />;
 }
 
 export default App;
