@@ -8,7 +8,7 @@ export const Layout: FC = () => {
   return (
     <>
       <Navbar />
-      <Flex as="main">
+      <Flex as="main" w="100%">
         <Outlet />
       </Flex>
       <Footer />

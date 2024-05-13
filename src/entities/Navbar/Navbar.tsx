@@ -13,6 +13,8 @@ import enIcon from "../../assets/en-flag.png";
 import { bgNavGradient } from "src/shared/style/bgGradient";
 import { useWebApp } from "@vkruglikov/react-telegram-web-app";
 import { TGWebApp } from "src/shared/types/TgWebApp";
+import { useTgWebAppStore } from "src/store/twWebApp.store";
+import { useTonStore } from "src/store/tonStore";
 
 type SelectOptionType = {
   value: string;
@@ -38,9 +40,12 @@ const customComponents = {
 };
 
 export const Navbar: FC = () => {
-  const userFriendlyAddress = useTonAddress();
-  const webApp = useWebApp() as TGWebApp;
-  console.log("webApp ", webApp);
+  // const userFriendlyAddress = useTonAddress();
+  // const webApp = useWebApp() as TGWebApp;
+  // console.log("webApp ", webApp);
+
+  const webApp = useTgWebAppStore((state) => state.tgWebApp);
+  const userFriendlyAddress = useTonStore((state) => state.userFrendlyAddress);
 
   const { t, i18n } = useTranslation();
 

@@ -7,7 +7,7 @@ import { Flex, Heading } from "@chakra-ui/react";
 // import Pricing from "./components/Pricing";
 // import Trainer from "./components/Trainer";
 // import "./styles/LandingPage.css";
-const LandingPage = () => {
+export const Component = () => {
   return (
     <Flex h={{ base: "100%" }} w="100%">
       <Flex
@@ -27,4 +27,5 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+Component.displayName = "LandingPage";
+// export default LandingPage;

@@ -1,16 +1,47 @@
 import logo from "./assets/logo.svg";
-import heroImg from "./assets/hero-img.jpeg";
+import heroImg from "./assets/hero-img.jpg";
 import "./App.css";
-import AllRoutes from "./routes/AllRoutes";
 import { useEffect, useState } from "react";
 
 import "./main.css";
 
 import "./i18n";
 import { Image, VStack } from "@chakra-ui/react";
+import { router } from "./routes/routes.config";
+import { RouterProvider } from "react-router-dom";
+import { useTonAddress } from "@tonconnect/ui-react";
+import { useWebApp } from "@vkruglikov/react-telegram-web-app";
+import { TGWebApp } from "./shared/types/TgWebApp";
+import { useTgWebAppStore } from "./store/twWebApp.store";
+import { useTonStore } from "./store/tonStore";
 
 function App() {
   const [starting, setStarting] = useState(true);
+
+  const tonAddress = useTonAddress();
+  const webApp = useWebApp() as TGWebApp;
+
+  const { tgWebApp, setTgWebApp } = useTgWebAppStore((store) => ({
+    tgWebApp: store.tgWebApp,
+    setTgWebApp: store.setTgWebApp,
+  }));
+
+  const [userFriendlyAddress, setUserFriendlyAddress] = useTonStore((store) => [
+    store.userFrendlyAddress,
+    store.setUserFriendlyAddress,
+  ]);
+
+  useEffect(() => {
+    if (webApp && !tgWebApp) {
+      setTgWebApp(webApp);
+    }
+  }, [webApp, tgWebApp, setTgWebApp]);
+
+  useEffect(() => {
+    if (tonAddress && !userFriendlyAddress) {
+      setUserFriendlyAddress(tonAddress);
+    }
+  }, [userFriendlyAddress, tonAddress, setUserFriendlyAddress]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -43,7 +74,10 @@ function App() {
       </VStack>
     );
   }
-  return <AllRoutes />;
+  return (
+    <RouterProvider router={router} fallbackElement={<div>Loading...</div>} />
+  );
+  // return <AllRoutes />;
 }
 
 export default App;

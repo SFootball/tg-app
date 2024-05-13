@@ -1,15 +1,6 @@
-import {
-  Box,
-  ButtonProps,
-  chakra,
-  Container,
-  Stack,
-  Tooltip,
-  useColorModeValue,
-  VisuallyHidden,
-} from "@chakra-ui/react";
-import { FaHome, FaLink, FaUser, FaUserPlus } from "react-icons/fa";
-import { ForwardedRef, forwardRef, ReactNode, Ref, SVGProps } from "react";
+import { Box, Container, Stack, Tooltip } from "@chakra-ui/react";
+import { FaHome, FaUser, FaUserPlus } from "react-icons/fa";
+import { SVGProps } from "react";
 import { PathsName } from "src/routes/routes.config";
 import { Link } from "react-router-dom";
 import { bgFooterGradient } from "src/shared/style/bgGradient";
@@ -34,89 +25,88 @@ export const Logo = (props: SVGProps<SVGSVGElement>) => {
   );
 };
 
-type SocialButtonProps = {
-  children: ReactNode;
-  label: string;
-  href: string;
-};
-
-const SocialButton = forwardRef(
-  (
-    { children, label, href }: SocialButtonProps,
-    ref: ForwardedRef<HTMLButtonElement>
-  ) => {
-    return (
-      <chakra.button
-        ref={ref}
-        bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
-        rounded={"full"}
-        w={8}
-        h={8}
-        cursor={"pointer"}
-        as={"a"}
-        href={href}
-        display={"inline-flex"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        transition={"background 0.3s ease"}
-        _hover={{
-          bg: useColorModeValue("blackAlpha.200", "whiteAlpha.200"),
-        }}
-      >
-        <VisuallyHidden>{label}</VisuallyHidden>
-        {children}
-      </chakra.button>
-    );
-  }
-);
-
 export default function Footer() {
   return (
     <Box
+      as="footer"
       color="white"
-      bgGradient={bgFooterGradient}
       position={"fixed"}
       left={0}
       bottom={0}
       width="100%"
       zIndex={10}
+      px={{ base: 6 }}
+      py={{ base: 8 }}
     >
-      <Box
-        borderTopWidth={1}
-        borderStyle={"solid"}
-        borderColor={useColorModeValue("gray.200", "gray.700")}
+      <Container
+        as={Stack}
+        // maxW={"6xl"}
+        py={4}
+        direction={{ base: "row" }}
+        spacing={4}
+        justify={{ base: "space-around" }}
+        align={{ base: "center", md: "center" }}
+        bgGradient={bgFooterGradient}
+        borderRadius={{ base: "24px" }}
+        overflow={"hidden"}
       >
-        <Container
-          as={Stack}
-          maxW={"6xl"}
-          py={4}
-          direction={{ base: "row" }}
-          spacing={4}
-          justify={{ base: "space-around" }}
-          align={{ base: "center", md: "center" }}
-        >
-          <Tooltip label="Home" placement="top" color="white">
-            <Link to={"/"}>
-              <FaHome />
-            </Link>
-          </Tooltip>
-          <Tooltip label="Referals" placement="top" color="white">
-            {/* <Link href={`/${PathsName.invite}`}> */}
-            <Link to={PathsName.invite}>
-              <FaUserPlus />
-            </Link>
-          </Tooltip>
-          <Tooltip label="User" placement="top" color="white">
-            <Link to={`/${PathsName.user}`}>
-              {/* <SocialButton label={"User"} href={"/user-lk"}> */}
-              <FaUser />
-            </Link>
-          </Tooltip>
-        </Container>
-      </Box>
+        <Tooltip label="Home" placement="top" color="white">
+          <Link to={"/"}>
+            <FaHome />
+          </Link>
+        </Tooltip>
+        <Tooltip label="Referals" placement="top" color="white">
+          {/* <Link href={`/${PathsName.invite}`}> */}
+          <Link to={PathsName.invite}>
+            <FaUserPlus />
+          </Link>
+        </Tooltip>
+        <Tooltip label="User" placement="top" color="white">
+          <Link to={PathsName.user}>
+            {/* <SocialButton label={"User"} href={"/user-lk"}> */}
+            <FaUser />
+          </Link>
+        </Tooltip>
+      </Container>
     </Box>
   );
 }
+
+// type SocialButtonProps = {
+//   children: ReactNode;
+//   label: string;
+//   href: string;
+// };
+
+// const SocialButton = forwardRef(
+//   (
+//     { children, label, href }: SocialButtonProps,
+//     ref: ForwardedRef<HTMLButtonElement>
+//   ) => {
+//     return (
+//       <chakra.button
+//         ref={ref}
+//         bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
+//         rounded={"full"}
+//         w={8}
+//         h={8}
+//         cursor={"pointer"}
+//         as={"a"}
+//         href={href}
+//         display={"inline-flex"}
+//         alignItems={"center"}
+//         justifyContent={"center"}
+//         transition={"background 0.3s ease"}
+//         _hover={{
+//           bg: useColorModeValue("blackAlpha.200", "whiteAlpha.200"),
+//         }}
+//       >
+//         <VisuallyHidden>{label}</VisuallyHidden>
+//         {children}
+//       </chakra.button>
+//     );
+//   }
+// );
 
 // <Stack direction={"row"} spacing={6}>
 // <SocialButton label={"Twitter"} href={"#"}>
