@@ -21,6 +21,8 @@ function App() {
   const tonAddress = useTonAddress();
   const webApp = useWebApp() as TGWebApp;
 
+  console.log("webApp ", webApp);
+
   const { tgWebApp, setTgWebApp } = useTgWebAppStore((store) => ({
     tgWebApp: store.tgWebApp,
     setTgWebApp: store.setTgWebApp,
