@@ -4,6 +4,8 @@ export const API_URL = "https://api-service.containers.cloud.ru";
 
 export const TG_API_URL = "https://t.me";
 
-export const TG_GROUP_NAME = "space_football_stage_bot";
+// stage
+// export const TG_GROUP_NAME = "space_football_stage_bot";
+export const TG_GROUP_NAME = "space_football_bot";
 
 export const TG_COMMAND_START = "start";

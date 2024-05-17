@@ -33,7 +33,7 @@ const settings = {
 
 export default function FrontCarousel() {
   const { t, i18n } = useTranslation();
-  console.log("language", i18n.language);
+  // console.log("language", i18n.language);
 
   // As we have used custom buttons, we need a reference variable to
   // change the state

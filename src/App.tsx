@@ -27,8 +27,8 @@ function App() {
 
   const setInitData = useTgWebAppStore((store) => store.setInitData);
 
-  console.log("initDataRaw: ", initDataRaw);
-  console.log("InitData: ", initData);
+  // console.log("initDataRaw: ", initDataRaw);
+  // console.log("InitData: ", initData);
 
   const [userFriendlyAddress, setUserFriendlyAddress] = useTonStore((store) => [
     store.userFrendlyAddress,
