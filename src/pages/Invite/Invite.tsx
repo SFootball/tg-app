@@ -7,10 +7,12 @@ import { generateRefLink } from "src/shared/utils/tg.utils";
 import { useTgWebAppStore } from "src/store/twWebApp.store";
 
 // const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = "https://apiservice.containers.cloud.ru";
 
 export const Component: FC = () => {
   const tg = useTgWebAppStore((state) => state.initData);
-  const url = `/api/users/referral-id`;
+  // const url = `/api/users/referral-id`;
+  const url = `${BASE_URL}/api/users/referral-id`;
   console.log("url: ", url);
   // TODO get list of referrals
   const { data } = useQuery({

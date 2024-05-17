@@ -1,9 +1,9 @@
 build:
-	docker build --platform=linux/amd64 --tag space-football.cr.cloud.ru/sfootball_tgapp:v.1 .
+	docker build --platform=linux/amd64 --tag space-football.cr.cloud.ru/sfootball_tgapp:v.1.5 .
 local_build:
 	docker build  -t sfootball_tgapp_local .
 push:
-	docker push space-football.cr.cloud.ru/sfootball_tgapp:v.1
+	docker push space-football.cr.cloud.ru/sfootball_tgapp:v.1.5
 # tag:
 # 	docker tag sfootball_tgapp space-football.cr.cloud.ru/sfootball_tgapp:v.1
 compose_run:
