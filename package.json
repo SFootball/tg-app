@@ -13,6 +13,7 @@
     "@chakra-ui/react": "2.8.1",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@tanstack/react-query": "^5.36.2",
     "@tonconnect/ui-react": "^2.0.0",
     "@types/node": "^20.12.3",
     "@vitejs/plugin-basic-ssl": "^1.1.0",

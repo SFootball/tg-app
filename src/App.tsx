@@ -10,22 +10,25 @@ import { Image, VStack } from "@chakra-ui/react";
 import { router } from "./routes/routes.config";
 import { RouterProvider } from "react-router-dom";
 import { useTonAddress } from "@tonconnect/ui-react";
-import { useWebApp } from "@vkruglikov/react-telegram-web-app";
-import { TGWebApp } from "./shared/types/TgWebApp";
+import { useInitData } from "@vkruglikov/react-telegram-web-app";
 import { useTgWebAppStore } from "./store/twWebApp.store";
 import { useTonStore } from "./store/tonStore";
 
 function App() {
   const [starting, setStarting] = useState(true);
 
+  // console.log("env: ", import.meta.env);
   const tonAddress = useTonAddress();
-  const webApp = useWebApp() as TGWebApp;
+  // const webApp = useWebApp() as TGWebApp;
 
-  console.log("webApp ", webApp);
+  const initDataRaw = useInitData();
+  console.log("InitData: ", initDataRaw);
 
-  const { tgWebApp, setTgWebApp } = useTgWebAppStore((store) => ({
-    tgWebApp: store.tgWebApp,
-    setTgWebApp: store.setTgWebApp,
+  const { initData, setInitData } = useTgWebAppStore((store) => ({
+    // tgWebApp: store.tgWebApp,
+    // setTgWebApp: store.setTgWebApp,
+    initData: store.initData,
+    setInitData: store.setInitData,
   }));
 
   const [userFriendlyAddress, setUserFriendlyAddress] = useTonStore((store) => [
@@ -34,10 +37,13 @@ function App() {
   ]);
 
   useEffect(() => {
-    if (webApp && !tgWebApp) {
-      setTgWebApp(webApp);
+    if (initData && !initDataRaw) {
+      setInitData(initData);
     }
-  }, [webApp, tgWebApp, setTgWebApp]);
+    // if (webApp && !tgWebApp) {
+    //   setTgWebApp(webApp);
+    // }
+  }, [initDataRaw, initData, setInitData]);
 
   useEffect(() => {
     if (tonAddress && !userFriendlyAddress) {

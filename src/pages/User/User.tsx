@@ -5,15 +5,18 @@ import { SubTitle } from "src/shared/components/SubTitle";
 import { useTgWebAppStore } from "src/store/twWebApp.store";
 
 export const Component: FC = () => {
-  const tgWebApp = useTgWebAppStore((state) => state.tgWebApp);
+  // const tgWebApp = useTgWebAppStore((state) => state.tgWebApp);
+
+  const initData = useTgWebAppStore((state) => state.initData);
 
   const userInfo = useMemo(() => {
-    const user = tgWebApp?.initDataUnsafe?.user;
+    // const user = tgWebApp?.initDataUnsafe?.user;
+    const user = initData?.user;
     if (user) {
       return user;
     }
     return "";
-  }, [tgWebApp]);
+  }, [initData]);
 
   return (
     <Flex direction={"column"} gap={6} px={{ base: 6 }} py={{ base: 8 }}>

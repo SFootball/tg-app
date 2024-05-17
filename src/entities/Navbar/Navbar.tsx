@@ -44,7 +44,9 @@ export const Navbar: FC = () => {
   // const webApp = useWebApp() as TGWebApp;
   // console.log("webApp ", webApp);
 
-  const webApp = useTgWebAppStore((state) => state.tgWebApp);
+  // const webApp = useTgWebAppStore((state) => state.tgWebApp);
+  const initData = useTgWebAppStore((state) => state.initData);
+
   const userFriendlyAddress = useTonStore((state) => state.userFrendlyAddress);
 
   const { t, i18n } = useTranslation();
@@ -54,14 +56,20 @@ export const Navbar: FC = () => {
   };
 
   const userInfo = useMemo(() => {
-    if (webApp?.initDataUnsafe?.user) {
+    //   if (initData?.initDataUnsafe?.user) {
+    //     return {
+    //       username: webApp?.initDataUnsafe?.user?.username,
+    //       avatar: webApp?.initDataUnsafe?.user?.photo_url,
+    //     };
+    //   }
+    if (initData?.user) {
       return {
-        username: webApp?.initDataUnsafe?.user?.username,
-        avatar: webApp?.initDataUnsafe?.user?.photo_url,
+        username: initData?.user?.username,
+        avatar: initData?.user?.photo_url,
       };
     }
     return null;
-  }, [webApp]);
+  }, [initData]);
 
   const userInfoEl = useMemo(() => {
     if (userInfo) {

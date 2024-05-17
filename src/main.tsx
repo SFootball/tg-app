@@ -8,6 +8,9 @@ import { TonConnectUIProvider } from "@tonconnect/ui-react";
 import "./i18n";
 import { APP_URL } from "./shared/constants/api.constants.ts";
 import { WebAppProvider } from "@vkruglikov/react-telegram-web-app";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 export function Root() {
   return (
@@ -18,9 +21,11 @@ export function Root() {
     >
       <TonConnectUIProvider manifestUrl={`${APP_URL}/tonconnect-manifest.json`}>
         <ChakraProvider theme={appTheme}>
-          {/* <BrowserRouter> */}
-          <App />
-          {/* </BrowserRouter> */}
+          <QueryClientProvider client={queryClient}>
+            {/* <BrowserRouter> */}
+            <App />
+            {/* </BrowserRouter> */}
+          </QueryClientProvider>
         </ChakraProvider>
       </TonConnectUIProvider>
     </WebAppProvider>
