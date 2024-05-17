@@ -22,14 +22,13 @@ function App() {
   // const webApp = useWebApp() as TGWebApp;
 
   const initDataRaw = useInitData();
-  console.log("InitData: ", initDataRaw);
 
-  const { initData, setInitData } = useTgWebAppStore((store) => ({
-    // tgWebApp: store.tgWebApp,
-    // setTgWebApp: store.setTgWebApp,
-    initData: store.initData,
-    setInitData: store.setInitData,
-  }));
+  const initData = useTgWebAppStore((store) => store.initData);
+
+  const setInitData = useTgWebAppStore((store) => store.setInitData);
+
+  console.log("initDataRaw: ", initDataRaw);
+  console.log("InitData: ", initData);
 
   const [userFriendlyAddress, setUserFriendlyAddress] = useTonStore((store) => [
     store.userFrendlyAddress,
@@ -37,8 +36,8 @@ function App() {
   ]);
 
   useEffect(() => {
-    if (initData && !initDataRaw) {
-      setInitData(initData);
+    if (!initData && initDataRaw?.[0]) {
+      setInitData(initDataRaw[0]);
     }
     // if (webApp && !tgWebApp) {
     //   setTgWebApp(webApp);
