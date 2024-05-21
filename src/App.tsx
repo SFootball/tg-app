@@ -1,4 +1,4 @@
-import logo from "./assets/logo.svg";
+import logo from "./assets/logo.png";
 import heroImg from "./assets/hero-img.jpg";
 import "./App.css";
 import { useEffect, useState } from "react";
@@ -70,7 +70,7 @@ function App() {
       >
         <Image
           zIndex={999}
-          width={{ base: "200px", md: "400px" }}
+          width={{ base: "400px", md: "400px" }}
           className="slide-in-blurred-top"
           src={logo}
         />
