@@ -1,4 +1,4 @@
-import { Box, Flex, IconButton } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Skeleton } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useInitData } from "@vkruglikov/react-telegram-web-app";
 import { FC, useMemo } from "react";
@@ -8,9 +8,10 @@ import { SubTitle } from "src/shared/components/SubTitle";
 import { UserType } from "src/shared/types/User";
 import { generateRefLink } from "src/shared/utils/tg.utils";
 // import { useTgWebAppStore } from "src/store/twWebApp.store";
+// import { mockReferrals as referrals } from "src/shared/mock/referrals";
 
-// const BASE_URL = import.meta.env.VITE_API_URL;
-const BASE_URL = "https://apiservice.containers.cloud.ru";
+const BASE_URL = import.meta.env.VITE_API_URL;
+// const BASE_URL = "https://apiservice.containers.cloud.ru";
 
 export const Component: FC = () => {
   // const tg = useTgWebAppStore((state) => state.initData);
@@ -28,15 +29,16 @@ export const Component: FC = () => {
   //   queryFn: () => fetch(`${url}?tgId=${id}`).then((res) => res.json()),
   // });
 
-  const { data: referals } = useQuery<UserType[]>({
+  const { data: referrals, isLoading } = useQuery<UserType[]>({
     queryKey: ["referals"],
     queryFn: () =>
       fetch(`${BASE_URL}/api/users/referrals?tgId=${id}`).then((res) =>
         res.json()
       ),
+    enabled: !!id,
   });
 
-  console.log("referals: ", referals);
+  // console.log("referals: ", referrals);
   const refLink = useMemo(() => {
     if (id) {
       return generateRefLink(id);
@@ -55,9 +57,10 @@ export const Component: FC = () => {
       py={{ base: 8 }}
       gap={{ base: 6, md: 8 }}
     >
-      <Flex justifyContent={"center"} alignItems={"center"}>
+      <Flex alignItems={"center"}>
         <SubTitle>Invite your friends</SubTitle>
       </Flex>
+
       <Flex>
         <Flex
           px={{ base: 6 }}
@@ -85,9 +88,14 @@ export const Component: FC = () => {
         </Flex>
       </Flex>
       <Flex direction="column" gap={6}>
-        {!!referals && <SubTitle>Your referals</SubTitle>}
-        <Flex color="gray.100">
-          {referals?.map((user) => (
+        {isLoading && (
+          <Skeleton>
+            <span>Chakra ui is cool</span>
+          </Skeleton>
+        )}
+        {!!referrals && <SubTitle>Your referals</SubTitle>}
+        <Flex color="gray.100" direction={"column"} gap={4}>
+          {referrals?.map((user) => (
             <Box
               key={user.id}
               px={{ base: 6 }}
