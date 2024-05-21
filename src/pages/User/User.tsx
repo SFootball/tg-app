@@ -49,6 +49,8 @@ export const Component: FC = () => {
 
   const userFriendlyAddress = useTonStore((state) => state.userFrendlyAddress);
 
+  const defaultLang = i18n.language === "ru" ? languages[1] : languages[0];
+
   const [initData] = useInitData();
   const userInfo = useMemo(() => {
     const user = initData?.user;
@@ -104,7 +106,7 @@ export const Component: FC = () => {
                   }
                 }}
                 variant={"unstyled"}
-                defaultValue={languages[0]}
+                defaultValue={defaultLang}
                 options={languages}
                 components={customComponents}
               />

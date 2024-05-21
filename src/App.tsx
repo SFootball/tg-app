@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 
 import "./main.css";
 
-import "./i18n";
+// import "./i18n";
+import i18n from "./i18n";
 import { Image, VStack } from "@chakra-ui/react";
 import { router } from "./routes/routes.config";
 import { RouterProvider } from "react-router-dom";
@@ -13,6 +14,7 @@ import { useTonAddress } from "@tonconnect/ui-react";
 import { useInitData } from "@vkruglikov/react-telegram-web-app";
 import { useTgWebAppStore } from "./store/twWebApp.store";
 import { useTonStore } from "./store/tonStore";
+import { I18nextProvider } from "react-i18next";
 
 function App() {
   const [starting, setStarting] = useState(true);
@@ -82,7 +84,9 @@ function App() {
     );
   }
   return (
-    <RouterProvider router={router} fallbackElement={<div>Loading...</div>} />
+    <I18nextProvider i18n={i18n} defaultNS={"translation"}>
+      <RouterProvider router={router} fallbackElement={<div>Loading...</div>} />
+    </I18nextProvider>
   );
   // return <AllRoutes />;
 }

@@ -1,6 +1,13 @@
-import { Box, Container, Stack, Tooltip } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  FlexProps,
+  Stack,
+  Tooltip,
+} from "@chakra-ui/react";
 import { FaHome, FaUser, FaUserPlus } from "react-icons/fa";
-import { SVGProps } from "react";
+import { FC, SVGProps } from "react";
 import { PathsName } from "src/routes/routes.config";
 import { Link } from "react-router-dom";
 import { bgFooterGradient } from "src/shared/style/bgGradient";
@@ -51,26 +58,47 @@ export default function Footer() {
         overflow={"hidden"}
       >
         <Tooltip label="Home" placement="top" color="white">
-          <Link to={"/"}>
-            <FaHome />
-          </Link>
+          <IconItem>
+            <Link to={"/"}>
+              <FaHome />
+            </Link>
+          </IconItem>
         </Tooltip>
         <Tooltip label="Referals" placement="top" color="white">
           {/* <Link href={`/${PathsName.invite}`}> */}
-          <Link to={PathsName.invite}>
-            <FaUserPlus />
-          </Link>
+          <IconItem>
+            <Link to={PathsName.invite}>
+              <FaUserPlus />
+            </Link>
+          </IconItem>
         </Tooltip>
         <Tooltip label="User" placement="top" color="white">
-          <Link to={PathsName.user}>
-            {/* <SocialButton label={"User"} href={"/user-lk"}> */}
-            <FaUser />
-          </Link>
+          <IconItem>
+            <Link to={PathsName.user}>
+              {/* <SocialButton label={"User"} href={"/user-lk"}> */}
+              <FaUser />
+            </Link>
+          </IconItem>
         </Tooltip>
       </Container>
     </Box>
   );
 }
+
+const IconItem: FC<FlexProps> = ({ children, ...props }) => {
+  return (
+    <Flex
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      fontSize={"xl"}
+      {...props}
+    >
+      {children}
+    </Flex>
+  );
+};
 
 // type SocialButtonProps = {
 //   children: ReactNode;
