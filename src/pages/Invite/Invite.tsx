@@ -2,6 +2,7 @@ import { Box, Flex, IconButton, Skeleton } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useInitData } from "@vkruglikov/react-telegram-web-app";
 import { FC, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { FaCopy } from "react-icons/fa";
 import { MainText } from "src/shared/components/MainText";
 import { SubTitle } from "src/shared/components/SubTitle";
@@ -14,6 +15,7 @@ const BASE_URL = import.meta.env.VITE_API_URL;
 // const BASE_URL = "https://apiservice.containers.cloud.ru";
 
 export const Component: FC = () => {
+  const { t } = useTranslation();
   // const tg = useTgWebAppStore((state) => state.initData);
   const [initData] = useInitData();
   // const url = `/api/users/referral-id`;
@@ -58,7 +60,7 @@ export const Component: FC = () => {
       gap={{ base: 6, md: 8 }}
     >
       <Flex alignItems={"center"}>
-        <SubTitle>Invite your friends</SubTitle>
+        <SubTitle>{t("Invite your friends")}</SubTitle>
       </Flex>
 
       <Flex>
@@ -75,7 +77,7 @@ export const Component: FC = () => {
           onClick={copyLink}
         >
           <MainText>
-            {id ? "Copy referral code" : "No telegram accaunt"}
+            {id ? t("Copy referral code") : t("No telegram accaunt")}
           </MainText>
           <IconButton
             colorScheme="black"
@@ -90,10 +92,10 @@ export const Component: FC = () => {
       <Flex direction="column" gap={6}>
         {isLoading && (
           <Skeleton>
-            <span>Chakra ui is cool</span>
+            <span>{t("Your referals")}</span>
           </Skeleton>
         )}
-        {!!referrals && <SubTitle>Your referals</SubTitle>}
+        {!!referrals && <SubTitle>{t("Your referals")}</SubTitle>}
         <Flex color="gray.100" direction={"column"} gap={4}>
           {referrals?.map((user) => (
             <Box

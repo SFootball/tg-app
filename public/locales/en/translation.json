@@ -1,4 +1,14 @@
 {
-  "title": "Title",
-  "getInfo": "Get Info"
+  "Title": "Title",
+  "User info": "User info",
+  "Username": "Username",
+  "User not found": "User not found",
+  "Wallet address": "Wallet address",
+  "Please connect wallet": "Please connect wallet",
+  "Language": "Language",
+  "Invite your friends": "Invite your friends",
+  "Copy referral code": "Copy referral code",
+  "No telegram accaunt": "No telegram accaunt",
+  "Your referals": "Your referals",
+  "Game comming soon": "Game comming soon"
 }
