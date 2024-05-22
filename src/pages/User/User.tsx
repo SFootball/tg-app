@@ -11,6 +11,7 @@ import enIcon from "../../assets/en-flag.png";
 import { useTranslation } from "react-i18next";
 import { BoldText } from "src/shared/components/BoldText";
 import { useTonStore } from "src/store/tonStore";
+import { useTonAddress } from "@tonconnect/ui-react";
 
 type SelectOptionType = {
   value: string;
@@ -47,7 +48,8 @@ export const Component: FC = () => {
     i18n.changeLanguage(lang);
   };
 
-  const userFriendlyAddress = useTonStore((state) => state.userFrendlyAddress);
+  // const userFriendlyAddress = useTonStore((state) => state.userFrendlyAddress);
+  const userFriendlyAddress = useTonAddress();
 
   const defaultLang = i18n.language === "ru" ? languages[1] : languages[0];
 

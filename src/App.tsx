@@ -2,25 +2,23 @@ import logo from "./assets/logo.png";
 import heroImg from "./assets/hero-img.jpg";
 import "./App.css";
 import { useEffect, useState } from "react";
-
-import "./main.css";
-
-// import "./i18n";
 import i18n from "./i18n";
 import { Image, VStack } from "@chakra-ui/react";
 import { router } from "./routes/routes.config";
 import { RouterProvider } from "react-router-dom";
-import { useTonAddress } from "@tonconnect/ui-react";
+// import { useTonAddress } from "@tonconnect/ui-react";
 import { useInitData } from "@vkruglikov/react-telegram-web-app";
 import { useTgWebAppStore } from "./store/twWebApp.store";
-import { useTonStore } from "./store/tonStore";
+// import { useTonStore } from "./store/tonStore";
 import { I18nextProvider } from "react-i18next";
+
+import "./main.css";
 
 function App() {
   const [starting, setStarting] = useState(true);
 
   // console.log("env: ", import.meta.env);
-  const tonAddress = useTonAddress();
+  // const tonAddress = useTonAddress();
   // const webApp = useWebApp() as TGWebApp;
 
   const initDataRaw = useInitData();
@@ -32,10 +30,10 @@ function App() {
   // console.log("initDataRaw: ", initDataRaw);
   // console.log("InitData: ", initData);
 
-  const [userFriendlyAddress, setUserFriendlyAddress] = useTonStore((store) => [
-    store.userFrendlyAddress,
-    store.setUserFriendlyAddress,
-  ]);
+  // const [userFriendlyAddress, setUserFriendlyAddress] = useTonStore((store) => [
+  //   store.userFrendlyAddress,
+  //   store.setUserFriendlyAddress,
+  // ]);
 
   useEffect(() => {
     if (!initData && initDataRaw?.[0]) {
@@ -46,11 +44,11 @@ function App() {
     // }
   }, [initDataRaw, initData, setInitData]);
 
-  useEffect(() => {
-    if (tonAddress && !userFriendlyAddress) {
-      setUserFriendlyAddress(tonAddress);
-    }
-  }, [userFriendlyAddress, tonAddress, setUserFriendlyAddress]);
+  // useEffect(() => {
+  //   if (tonAddress && !userFriendlyAddress) {
+  //     setUserFriendlyAddress(tonAddress);
+  //   }
+  // }, [userFriendlyAddress, tonAddress, setUserFriendlyAddress]);
 
   useEffect(() => {
     setTimeout(() => {

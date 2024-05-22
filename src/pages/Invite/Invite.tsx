@@ -11,8 +11,8 @@ import { generateRefLink } from "src/shared/utils/tg.utils";
 // import { useTgWebAppStore } from "src/store/twWebApp.store";
 // import { mockReferrals as referrals } from "src/shared/mock/referrals";
 
-// const BASE_URL = import.meta.env.VITE_API_URL;
-const BASE_URL = "https://apiservice.containers.cloud.ru";
+const BASE_URL = import.meta.env.VITE_API_URL;
+// const BASE_URL = "https://apiservice.containers.cloud.ru";
 
 export const Component: FC = () => {
   const { t } = useTranslation();

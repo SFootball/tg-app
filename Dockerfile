@@ -2,6 +2,11 @@ FROM node:20.9.0-alpine3.18 as build
 WORKDIR /usr/app
 COPY . /usr/app/
 RUN yarn install
+
+ARG VITE_API_URL=https://apiservice.containers.cloud.ru
+ENV NODE_ENV=production
+ENV VITE_API_URL=${VITE_API_URL}
+
 RUN yarn build
 
 FROM nginxinc/nginx-unprivileged
