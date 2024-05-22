@@ -1,0 +1,10 @@
+.openapi-generator-ignore
+apis/PlayersApi.ts
+apis/UsersApi.ts
+apis/index.ts
+index.ts
+models/CreateUser.ts
+models/RefLink.ts
+models/User.ts
+models/index.ts
+runtime.ts
