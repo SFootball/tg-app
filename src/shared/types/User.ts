@@ -11,18 +11,22 @@
 // Username         string              `bson:"username" json:"username"`
 // Password         string              `bson:"password" json:"password"`
 // Email            string              `bson:"email" json:"email"`
-export type UserType = {
-  id: string;
-  created_at: string;
-  update_at: string;
-  tg_id: number;
-  tg_username: string;
-  parent_id: string;
-  ton_wallet_address: string;
-  firstName: string;
-  lastName: string;
-  midleName: string;
-  username: string;
-  password: string;
-  email: string;
-};
+// export type UserType = {
+//   id: string;
+//   created_at: string;
+//   update_at: string;
+//   tg_id: number;
+//   tg_username: string;
+//   parent_id: string;
+//   ton_wallet_address: string;
+//   firstName: string;
+//   lastName: string;
+//   midleName: string;
+//   username: string;
+//   password: string;
+//   email: string;
+
+import { User } from "../api/swagger";
+
+// };
+export type UserType = User;

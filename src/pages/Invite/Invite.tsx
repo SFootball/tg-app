@@ -4,6 +4,7 @@ import { useInitData } from "@vkruglikov/react-telegram-web-app";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { FaCopy } from "react-icons/fa";
+import { usersApi } from "src/shared/api/api";
 import { MainText } from "src/shared/components/MainText";
 import { SubTitle } from "src/shared/components/SubTitle";
 import { UserType } from "src/shared/types/User";
@@ -22,9 +23,9 @@ export const Component: FC = () => {
   // const url = `${BASE_URL}/api/users/referral-id`;
   // console.log("url: ", url);
 
-  const id = initData?.user?.id;
+  // const id = initData?.user?.id;
   // test
-  // const id = 530287867;
+  const id = 530287867;
 
   // const { data } = useQuery({
   //   queryKey: [id],
@@ -34,9 +35,11 @@ export const Component: FC = () => {
   const { data: referrals, isLoading } = useQuery<UserType[]>({
     queryKey: ["referals"],
     queryFn: () =>
-      fetch(`${BASE_URL}/api/users/referrals?tgId=${id}`).then((res) =>
-        res.json()
-      ),
+      usersApi
+        .apiUsersReferralsGet({
+          userGetReferralsQueryParams: { tg_id: id! },
+        })
+        .then((resp) => resp?.data),
     enabled: !!id,
   });
 

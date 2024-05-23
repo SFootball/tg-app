@@ -7,8 +7,8 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import { FaHome, FaUser, FaUserPlus } from "react-icons/fa";
-import { FC, SVGProps } from "react";
-import { PathsName } from "src/routes/routes.config";
+import { FC, SVGProps, forwardRef } from "react";
+import { PathsName } from "src/app/routes.config";
 import { Link } from "react-router-dom";
 import { bgFooterGradient } from "src/shared/style/bgGradient";
 
@@ -85,7 +85,7 @@ export default function Footer() {
   );
 }
 
-const IconItem: FC<FlexProps> = ({ children, ...props }) => {
+const IconItem: FC<FlexProps> = forwardRef(({ children, ...props }) => {
   return (
     <Flex
       display="flex"
@@ -98,7 +98,7 @@ const IconItem: FC<FlexProps> = ({ children, ...props }) => {
       {children}
     </Flex>
   );
-};
+});
 
 // type SocialButtonProps = {
 //   children: ReactNode;

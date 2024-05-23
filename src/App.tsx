@@ -4,7 +4,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import i18n from "./i18n";
 import { Image, VStack } from "@chakra-ui/react";
-import { router } from "./routes/routes.config";
+import { router } from "./app/routes.config";
 import { RouterProvider } from "react-router-dom";
 // import { useTonAddress } from "@tonconnect/ui-react";
 import { useInitData } from "@vkruglikov/react-telegram-web-app";
@@ -15,7 +15,9 @@ import { I18nextProvider } from "react-i18next";
 import "./main.css";
 
 function App() {
-  const [starting, setStarting] = useState(true);
+  // const [starting, setStarting] = useState(true);
+  // test
+  const [starting, setStarting] = useState(false);
 
   // console.log("env: ", import.meta.env);
   // const tonAddress = useTonAddress();

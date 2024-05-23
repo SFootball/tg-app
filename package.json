@@ -19,6 +19,7 @@
     "@types/node": "^20.12.3",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "@vkruglikov/react-telegram-web-app": "^2.1.9",
+    "axios": "^1.7.2",
     "chakra-react-select": "^4.7.6",
     "framer-motion": "^11.0.24",
     "i18next": "^23.10.1",

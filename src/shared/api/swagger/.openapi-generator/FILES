@@ -1,10 +1,8 @@
-.openapi-generator-ignore
-apis/PlayersApi.ts
-apis/UsersApi.ts
-apis/index.ts
+.gitignore
+.npmignore
+api.ts
+base.ts
+common.ts
+configuration.ts
+git_push.sh
 index.ts
-models/CreateUser.ts
-models/RefLink.ts
-models/User.ts
-models/index.ts
-runtime.ts
