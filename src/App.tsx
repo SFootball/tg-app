@@ -15,9 +15,9 @@ import { I18nextProvider } from "react-i18next";
 import "./main.css";
 
 function App() {
-  // const [starting, setStarting] = useState(true);
+  const [starting, setStarting] = useState(true);
   // test
-  const [starting, setStarting] = useState(false);
+  // const [starting, setStarting] = useState(false);
 
   // console.log("env: ", import.meta.env);
   // const tonAddress = useTonAddress();

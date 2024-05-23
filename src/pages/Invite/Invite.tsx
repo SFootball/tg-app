@@ -9,28 +9,15 @@ import { MainText } from "src/shared/components/MainText";
 import { SubTitle } from "src/shared/components/SubTitle";
 import { UserType } from "src/shared/types/User";
 import { generateRefLink } from "src/shared/utils/tg.utils";
-// import { useTgWebAppStore } from "src/store/twWebApp.store";
 // import { mockReferrals as referrals } from "src/shared/mock/referrals";
-
-const BASE_URL = import.meta.env.VITE_API_URL;
-// const BASE_URL = "https://apiservice.containers.cloud.ru";
 
 export const Component: FC = () => {
   const { t } = useTranslation();
-  // const tg = useTgWebAppStore((state) => state.initData);
   const [initData] = useInitData();
-  // const url = `/api/users/referral-id`;
-  // const url = `${BASE_URL}/api/users/referral-id`;
-  // console.log("url: ", url);
 
-  // const id = initData?.user?.id;
+  const id = initData?.user?.id;
   // test
-  const id = 530287867;
-
-  // const { data } = useQuery({
-  //   queryKey: [id],
-  //   queryFn: () => fetch(`${url}?tgId=${id}`).then((res) => res.json()),
-  // });
+  // const id = 530287867;
 
   const { data: referrals, isLoading } = useQuery<UserType[]>({
     queryKey: ["referals"],
@@ -43,7 +30,6 @@ export const Component: FC = () => {
     enabled: !!id,
   });
 
-  // console.log("referals: ", referrals);
   const refLink = useMemo(() => {
     if (id) {
       return generateRefLink(id);
