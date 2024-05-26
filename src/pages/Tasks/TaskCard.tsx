@@ -61,14 +61,16 @@ export const TaskCard: FC<Props> = ({ task, user }) => {
       borderRadius={{ base: 8 }}
       borderColor={"green.800"}
       borderStyle={"solid"}
-      px={{ base: 6 }}
+      px={{ base: 4 }}
       py={{ base: 4 }}
       borderWidth={1}
     >
       <Flex gap={4} alignItems={"center"} position="relative">
-        <Link as="a" href={task.link} target="_blank">
-          {preparedTask.name}
-        </Link>
+        <Flex maxW={{ base: "150px" }}>
+          <Link as="a" href={task.link} target="_blank">
+            {preparedTask.name}
+          </Link>
+        </Flex>
         <Tooltip label={preparedTask.description} isOpen={isOpen}>
           <IconButton
             variant="unstyled"
@@ -88,7 +90,7 @@ export const TaskCard: FC<Props> = ({ task, user }) => {
         alignItems={"center"}
         flexGrow={1}
         justifyContent="end"
-        pr={8}
+        pr={{ base: 2, md: 8 }}
       >
         <MainText>{task.reward}</MainText>
         <SfsIcon />

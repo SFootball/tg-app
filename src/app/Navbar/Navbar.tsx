@@ -3,19 +3,20 @@ import { Flex, Skeleton, Stack, Text } from "@chakra-ui/react";
 import { TonConnectButton } from "@tonconnect/ui-react";
 import { FC, useMemo } from "react";
 import { bgNavGradient } from "src/shared/style/bgGradient";
-import { useTgWebAppStore } from "src/store/twWebApp.store";
 import { useTonStore } from "src/store/tonStore";
 import { MainText } from "src/shared/components/MainText";
 
 import { useUserQuery } from "src/shared/api/useUserQuery";
 import { SfsIcon } from "src/shared/components/icons/SfsIcon";
+import { useInitData } from "@vkruglikov/react-telegram-web-app";
 
 const formatAddress = (address: string) => {
   return address.slice(0, 4) + "..." + address.slice(-4);
 };
 
 export const Navbar: FC = () => {
-  const initData = useTgWebAppStore((state) => state.initData);
+  // const initData = useTgWebAppStore((state) => state.initData);
+  const [initData] = useInitData();
 
   const tgUserId = initData?.user?.id;
   // test
@@ -54,7 +55,7 @@ export const Navbar: FC = () => {
       py={{ base: 8 }}
     >
       <Flex>
-        <Text>Space Football</Text>
+        <Text>SFootball</Text>
       </Flex>
       {isUserLoading && (
         <Stack>
