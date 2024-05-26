@@ -1,11 +1,16 @@
-import { TaskType } from "./tasks.type";
+import { TaskType } from "src/shared/types/Task";
 
-export const tasks: TaskType[] = [
+export const mockTasks: TaskType[] = [
   {
     id: "1",
-    title: "Task 1",
-    description: "Task 1 description",
-    completed: false,
+    name: {
+      en: "Task 1", // "Task 1",
+      ru: "Задача 1",
+    },
+    description: {
+      en: "Task 1 description",
+      ru: "Описание задачи 1",
+    },
     reward: 100,
   },
 ];

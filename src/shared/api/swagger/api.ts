@@ -1082,6 +1082,42 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @param {number} tgId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiUsersGetByTgIdGet: async (tgId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tgId' is not null or undefined
+            assertParamExists('apiUsersGetByTgIdGet', 'tgId', tgId)
+            const localVarPath = `/api/users/get-by-tg-id`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (tgId !== undefined) {
+                localVarQueryParameter['tg_id'] = tgId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {UserGetReferralsQueryParams} [userGetReferralsQueryParams] Telegram id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1172,6 +1208,18 @@ export const UsersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {number} tgId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiUsersGetByTgIdGet(tgId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiUsersGetByTgIdGet(tgId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UsersApi.apiUsersGetByTgIdGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {UserGetReferralsQueryParams} [userGetReferralsQueryParams] Telegram id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1214,6 +1262,15 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
+         * @param {UsersApiApiUsersGetByTgIdGetRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiUsersGetByTgIdGet(requestParameters: UsersApiApiUsersGetByTgIdGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<User> {
+            return localVarFp.apiUsersGetByTgIdGet(requestParameters.tgId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {UsersApiApiUsersReferralsGetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1232,6 +1289,20 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
         },
     };
 };
+
+/**
+ * Request parameters for apiUsersGetByTgIdGet operation in UsersApi.
+ * @export
+ * @interface UsersApiApiUsersGetByTgIdGetRequest
+ */
+export interface UsersApiApiUsersGetByTgIdGetRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof UsersApiApiUsersGetByTgIdGet
+     */
+    readonly tgId: number
+}
 
 /**
  * Request parameters for apiUsersReferralsGet operation in UsersApi.
@@ -1276,6 +1347,17 @@ export class UsersApi extends BaseAPI {
      */
     public apiUsersGet(options?: RawAxiosRequestConfig) {
         return UsersApiFp(this.configuration).apiUsersGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {UsersApiApiUsersGetByTgIdGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public apiUsersGetByTgIdGet(requestParameters: UsersApiApiUsersGetByTgIdGetRequest, options?: RawAxiosRequestConfig) {
+        return UsersApiFp(this.configuration).apiUsersGetByTgIdGet(requestParameters.tgId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

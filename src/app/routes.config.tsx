@@ -22,6 +22,10 @@ export const routesConfig: RouteType[] = [
     // lazy: () => import("../pages/LandingPage/LandingPage"),
   },
   {
+    path: PathsName.tasks,
+    lazy: () => import("src/pages/Tasks/Tasks"),
+  },
+  {
     path: PathsName.invite,
     lazy: () => import("src/pages/Invite/Invite"),
   },
