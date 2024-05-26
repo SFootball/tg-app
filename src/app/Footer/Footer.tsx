@@ -7,12 +7,17 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import { FaHome, FaUser, FaUserPlus } from "react-icons/fa";
-import { FC, forwardRef } from "react";
-import { PathsName } from "src/app/routes.config";
+import { FC, forwardRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { bgFooterGradient } from "src/shared/style/bgGradient";
+import { getNavigation } from "src/entities/navigation/navigation";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const [t] = useTranslation();
+  const navigation = useMemo(() => {
+    return getNavigation(t);
+  }, [t]);
   return (
     <Box
       as="footer"
@@ -37,29 +42,23 @@ export default function Footer() {
         borderRadius={{ base: "24px" }}
         overflow={"hidden"}
       >
-        <Tooltip label="Home" placement="top" color="white">
-          <IconItem>
-            <Link to={"/"}>
-              <FaHome />
-            </Link>
-          </IconItem>
-        </Tooltip>
-        <Tooltip label="Referals" placement="top" color="white">
-          {/* <Link href={`/${PathsName.invite}`}> */}
-          <IconItem>
-            <Link to={PathsName.invite}>
-              <FaUserPlus />
-            </Link>
-          </IconItem>
-        </Tooltip>
-        <Tooltip label="User" placement="top" color="white">
-          <IconItem>
-            <Link to={PathsName.user}>
-              {/* <SocialButton label={"User"} href={"/user-lk"}> */}
-              <FaUser />
-            </Link>
-          </IconItem>
-        </Tooltip>
+        {navigation.map((item) => {
+          const NavIcon = item.icon;
+          return (
+            <Tooltip
+              key={item.path}
+              label={item.title}
+              placement="top"
+              color="white"
+            >
+              <IconItem>
+                <Link to={item.path}>
+                  <NavIcon />
+                </Link>
+              </IconItem>
+            </Tooltip>
+          );
+        })}
       </Container>
     </Box>
   );

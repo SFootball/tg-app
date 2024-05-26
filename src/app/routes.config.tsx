@@ -7,18 +7,13 @@ import {
 } from "react-router-dom";
 import { Component as MainPage } from "../pages/MainPage/MainPage";
 import { Layout } from "./Layout";
+import { PathsName } from "src/entities/navigation/navigation";
 
 export type RouteType = {
   path: PathsName;
   element?: JSX.Element;
   lazy?: LazyRouteFunction<NonIndexRouteObject>;
 };
-
-export enum PathsName {
-  main = "/",
-  invite = "/invite",
-  user = "/user",
-}
 
 export const routesConfig: RouteType[] = [
   {
