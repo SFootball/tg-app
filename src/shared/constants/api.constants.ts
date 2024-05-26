@@ -1,6 +1,6 @@
 export const APP_URL = "https://tgapp.containers.cloud.ru";
 
-export const API_URL = "https://api-service.containers.cloud.ru";
+export const API_URL = "https://apiservice.containers.cloud.ru";
 
 export const TG_API_URL = "https://t.me";
 

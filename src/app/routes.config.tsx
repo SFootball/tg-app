@@ -2,11 +2,10 @@ import {
   LazyRouteFunction,
   NonIndexRouteObject,
   Route,
-  Routes,
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import { Component as LandingPage } from "../pages/LandingPage/LandingPage";
+import { Component as MainPage } from "../pages/MainPage/MainPage";
 import { Layout } from "./Layout";
 
 export type RouteType = {
@@ -24,7 +23,7 @@ export enum PathsName {
 export const routesConfig: RouteType[] = [
   {
     path: PathsName.main,
-    element: <LandingPage />,
+    element: <MainPage />,
     // lazy: () => import("../pages/LandingPage/LandingPage"),
   },
   {

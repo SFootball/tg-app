@@ -10,7 +10,6 @@ import ruIcon from "../../assets/ru-flag.png";
 import enIcon from "../../assets/en-flag.png";
 import { useTranslation } from "react-i18next";
 import { BoldText } from "src/shared/components/BoldText";
-import { useTonStore } from "src/store/tonStore";
 import { useTonAddress } from "@tonconnect/ui-react";
 
 type SelectOptionType = {

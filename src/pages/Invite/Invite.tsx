@@ -85,7 +85,7 @@ export const Component: FC = () => {
           </Skeleton>
         )}
         {!!referrals && <SubTitle>{t("Your referals")}</SubTitle>}
-        <Flex color="gray.100" direction={"column"} gap={4}>
+        <Flex color="gray.100" direction={"column"} gap={4} pb={20}>
           {referrals?.map((user) => (
             <Box
               key={user.id}
@@ -102,7 +102,6 @@ export const Component: FC = () => {
               <MainText>{user.tg_username}</MainText>
             </Box>
           ))}
-          <MainText></MainText>
         </Flex>
       </Flex>
     </Flex>

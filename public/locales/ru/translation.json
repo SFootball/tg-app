@@ -1,14 +1,15 @@
 {
+  "Copy referral code": "Скопировать код реферала",
+  "Game comming soon": "Игра скоро будет",
+  "Invite your friends": "Пригласить друзей",
+  "Language": "Язык",
+  "No telegram accaunt": "Нет аккаунта телеграм",
+  "Please connect wallet": "Пожалуйста, подключите кошелек",
+  "Tasks": "Задания",
   "Title:": "Заголовок",
   "User info": "Информация о пользователе",
-  "Username": "Имя пользователя",
   "User not found": "Пользователь не найден",
+  "Username": "Имя пользователя",
   "Wallet address": "Адрес кошелька",
-  "Please connect wallet": "Пожалуйста, подключите кошелек",
-  "Language": "Язык",
-  "Invite your friends": "Пригласить друзей",
-  "Copy referral code":  "Скопировать код реферала",
-  "No telegram accaunt": "Нет аккаунта телеграм",
-  "Your referals": "Ваши рефералы",
-  "Game comming soon": "Игра скоро будет"
+  "Your referals": "Ваши рефералы"
 }
