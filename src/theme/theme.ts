@@ -10,6 +10,11 @@ import { mode } from "@chakra-ui/theme-tools";
 // const { Button, Select, Input, CloseButton, Tag } = chakraTheme.components;
 
 export const appTheme = extendTheme({
+  colors: {
+    bg: {
+      green: "#70AB70",
+    },
+  },
   // components: {
   //   Button,
   //   Select,
