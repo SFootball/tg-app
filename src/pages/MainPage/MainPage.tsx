@@ -1,5 +1,5 @@
 import { Box, Flex, Heading, VStack, keyframes } from "@chakra-ui/react";
-import { useState } from "react";
+import { DragEvent, TouchEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MainText } from "src/shared/components/MainText";
 import logo from "src/assets/boot.webp";
@@ -18,7 +18,7 @@ export const Component = () => {
     100% {
       transform: translateY(0%);
     }
-  }`;
+  `;
 
   const handleMouseOver = () => {
     () => {
@@ -26,8 +26,8 @@ export const Component = () => {
     };
   };
 
-  const handleDrag = (e) => {
-    const coordinateY = e.target.getBoundingClientRect().y;
+  const handleDrag = (e: DragEvent<HTMLDivElement>) => {
+    const coordinateY = (e.target as HTMLDivElement).getBoundingClientRect()?.y;
     if (coordinateY < 200) {
       setStarting(false);
     } else {
@@ -35,14 +35,14 @@ export const Component = () => {
     }
   };
 
-  const handleTouchStart = (e) => {
+  const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     e.preventDefault();
     animation ? setAnimation("") : setAnimation(bootAnimation);
   };
 
-  const handleTouchMove = (e) => {
+  const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
     e.preventDefault();
-    const coordinateY = e.target.getBoundingClientRect().y;
+    const coordinateY = (e.target as HTMLDivElement)?.getBoundingClientRect().y;
     if (coordinateY < 200) {
       setStarting(false);
     } else {
