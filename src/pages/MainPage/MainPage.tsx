@@ -1,19 +1,59 @@
-import { Box, Flex, Heading, Image, VStack } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Box, Flex, Heading, VStack, keyframes } from "@chakra-ui/react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MainText } from "src/shared/components/MainText";
 import logo from "src/assets/boot.webp";
-import heroImg from "src/assets/hero-img.jpg";
+import { motion } from "framer-motion";
 
 export const Component = () => {
   const { t } = useTranslation();
 
-  const [starting, setStarting] = useState(true);
-  useEffect(() => {
-    setTimeout(() => {
+  const jumpIcon = keyframes`
+    0% {
+      transform: translateY(0%);
+    }
+    50% {
+      transform: translateY(-10%);
+    }
+    100% {
+      transform: translateY(0%);
+    }
+  }`;
+
+  const handleMouseOver = () => {
+    () => {
+      animation ? setAnimation("") : setAnimation(bootAnimation);
+    };
+  };
+
+  const handleDrag = (e) => {
+    const coordinateY = e.target.getBoundingClientRect().y;
+    if (coordinateY < 200) {
       setStarting(false);
-    }, 2000);
-  }, []);
+    } else {
+      setStarting(true);
+    }
+  };
+
+  const handleTouchStart = (e) => {
+    e.preventDefault();
+    animation ? setAnimation("") : setAnimation(bootAnimation);
+  };
+
+  const handleTouchMove = (e) => {
+    e.preventDefault();
+    const coordinateY = e.target.getBoundingClientRect().y;
+    if (coordinateY < 200) {
+      setStarting(false);
+    } else {
+      setStarting(true);
+    }
+  };
+
+  const bootAnimation = `${jumpIcon} 0.8s ease infinite`;
+
+  const [starting, setStarting] = useState(true);
+  const [animation, setAnimation] = useState(bootAnimation);
 
   if (starting) {
     return (
@@ -21,35 +61,42 @@ export const Component = () => {
         overflow={"hidden"}
         bg="black"
         position={"relative"}
-        minH="100vh"
+        h="calc(100vh - 104px)"
         justify="center"
         align="center"
         zIndex={99}
       >
-        {/* <Image
-          zIndex={999}
-          width={{ base: "400px", md: "400px" }}
-          className="slide-in-blurred-top"
-          src={logo}
-        /> */}
-        <Image zIndex={999} className="slide-in-blurred-top" src={logo} />
-        {/* <Image
-          position={"absolute"}
-          minW={{ base: "800px", md: "none" }}
-          h="100%"
-          src={heroImg}
-        /> */}
         <Box
+          as={motion.img}
           position={"absolute"}
-          minW={{ base: "800px", md: "none" }}
-          h="100%"
-          bg="bg.green"
+          drag="y"
+          dragConstraints={{
+            top: 0,
+            bottom: 0,
+          }}
+          zIndex={999}
+          src={logo}
+          animation={animation}
+          onMouseOver={handleMouseOver}
+          onDrag={handleDrag}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
         />
+        <Box minW={{ base: "800px", md: "none" }} h="100%" bg="bg.green" />
       </VStack>
     );
   }
   return (
-    <Flex h={{ base: "100%" }} w="100%" direction={"column"}>
+    <Box
+      as={motion.div}
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition="all 0.5s linear"
+      display={"flex"}
+      h={{ base: "100%" }}
+      w="100%"
+      flexDirection={"column"}
+    >
       <Flex
         justifyContent={{ base: "center" }}
         alignItems={"center"}
@@ -60,7 +107,7 @@ export const Component = () => {
       <Flex justifyContent={{ base: "center" }} alignItems={"center"} mt={10}>
         <MainText>{t("Game comming soon")}</MainText>
       </Flex>
-    </Flex>
+    </Box>
   );
 };
 
