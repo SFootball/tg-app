@@ -33,15 +33,15 @@ export const Navbar: FC = () => {
       };
     }
     return null;
-  }, [initData]);
+  }, [initData, initData?.user]);
 
   const userInfoEl = useMemo(() => {
-    if (userInfo) {
-      return <Text>{userInfo.username}</Text>;
-    }
     if (userFriendlyAddress) {
       return <Text>{formatAddress(userFriendlyAddress)}</Text>;
     }
+    // if (userInfo) {
+    //   return <Text>{userInfo.username}</Text>;
+    // }
     return null;
   }, [userInfo, userFriendlyAddress]);
 
