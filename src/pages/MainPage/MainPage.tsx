@@ -1,4 +1,4 @@
-import { Flex, Heading, Image, VStack } from "@chakra-ui/react";
+import { Box, Flex, Heading, Image, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MainText } from "src/shared/components/MainText";
@@ -32,11 +32,17 @@ export const Component = () => {
           className="slide-in-blurred-top"
           src={logo}
         />
-        <Image
+        {/* <Image
           position={"absolute"}
           minW={{ base: "800px", md: "none" }}
           h="100%"
           src={heroImg}
+        /> */}
+        <Box
+          position={"absolute"}
+          minW={{ base: "800px", md: "none" }}
+          h="100%"
+          bg="bg.green"
         />
       </VStack>
     );
