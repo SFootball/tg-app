@@ -2,7 +2,7 @@ import { Box, Flex, Heading, Image, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MainText } from "src/shared/components/MainText";
-import logo from "src/assets/logo.png";
+import logo from "src/assets/boot.webp";
 import heroImg from "src/assets/hero-img.jpg";
 
 export const Component = () => {
@@ -26,12 +26,13 @@ export const Component = () => {
         align="center"
         zIndex={99}
       >
-        <Image
+        {/* <Image
           zIndex={999}
           width={{ base: "400px", md: "400px" }}
           className="slide-in-blurred-top"
           src={logo}
-        />
+        /> */}
+        <Image zIndex={999} className="slide-in-blurred-top" src={logo} />
         {/* <Image
           position={"absolute"}
           minW={{ base: "800px", md: "none" }}
