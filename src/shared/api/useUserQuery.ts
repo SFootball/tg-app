@@ -3,13 +3,18 @@ import { usersApi } from "./api";
 import { useInitData } from "@vkruglikov/react-telegram-web-app";
 import { TmaTypeAuthKey } from "./swagger";
 
-export const getUserQueryKey = (tgUserId?: number) => ["user", tgUserId];
+export const getUserQueryKey = (initData?: string) => ["user", initData];
 
 export const useUserQuery = () => {
-  // const userKey = getUserQueryKey(tgUserId);
   const [_, initData] = useInitData();
-  const { data: user, isLoading: isUserLoading } = useQuery({
-    queryKey: ["userInfo", initData],
+  const userKey = getUserQueryKey(initData);
+
+  const {
+    data: user,
+    isLoading: isUserLoading,
+    isError,
+  } = useQuery({
+    queryKey: userKey,
     queryFn: async () => {
       const { data } = await usersApi.apiUsersGetUserInfoGet({
         headers: {
@@ -20,5 +25,5 @@ export const useUserQuery = () => {
     },
     enabled: !!initData,
   });
-  return { user, isUserLoading };
+  return { user, isUserLoading, isUserError: isError };
 };

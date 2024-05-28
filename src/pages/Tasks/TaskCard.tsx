@@ -22,12 +22,13 @@ import { FaCheck } from "react-icons/fa";
 import { SfsIcon } from "src/shared/components/icons/SfsIcon";
 type Props = {
   task: TaskType;
+  initDataStr: string | undefined;
   user: UserType | undefined;
 };
 
-export const TaskCard: FC<Props> = ({ task, user }) => {
+export const TaskCard: FC<Props> = ({ task, initDataStr, user }) => {
   const { t, i18n } = useTranslation();
-  const userKey = getUserQueryKey(user?.tg_id);
+  const userKey = getUserQueryKey(initDataStr);
   const { mutate: completeTaskMutate, isPending } = useMutation({
     mutationKey: ["complete-task"],
     mutationFn: async (taskId: string) => {
