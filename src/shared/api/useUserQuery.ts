@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { usersApi } from "./api";
 import { useInitData } from "@vkruglikov/react-telegram-web-app";
-import { TmaTypeAuthKey } from "./swagger";
+import { generateTmaAuth } from "./api.utils";
 
 export const getUserQueryKey = (initData?: string) => ["user", initData];
 
@@ -18,7 +18,7 @@ export const useUserQuery = () => {
     queryFn: async () => {
       const { data } = await usersApi.apiUsersGetUserInfoGet({
         headers: {
-          Authorization: `${TmaTypeAuthKey.Tma} ${initData}`,
+          Authorization: generateTmaAuth(initData!),
         },
       });
       return data;

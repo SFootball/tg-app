@@ -7,6 +7,7 @@ import { tasksApi } from "src/shared/api/api";
 import { SubTitle } from "src/shared/components/SubTitle";
 import { useUserQuery } from "src/shared/api/useUserQuery";
 import { TaskCard } from "./TaskCard";
+import { generateTmaAuth } from "src/shared/api/api.utils";
 
 export const Component: FC = () => {
   const { t } = useTranslation();
@@ -18,7 +19,11 @@ export const Component: FC = () => {
   const { data: tasks, isLoading } = useQuery({
     queryKey: ["tasks"],
     queryFn: async () => {
-      const { data } = await tasksApi.apiTasksAllGet();
+      const { data } = await tasksApi.apiTasksAllGet({
+        headers: {
+          Authorization: generateTmaAuth(initData!),
+        },
+      });
       return data;
     },
   });

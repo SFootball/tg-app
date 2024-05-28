@@ -65,8 +65,15 @@ export const TaskCard: FC<Props> = ({ task, initDataStr, user }) => {
       px={{ base: 4 }}
       py={{ base: 4 }}
       borderWidth={1}
+      gap={2}
     >
-      <Flex gap={4} alignItems={"center"} position="relative">
+      <Flex
+        gap={4}
+        alignItems={"center"}
+        position="relative"
+        flexGrow={1}
+        flexWrap="wrap"
+      >
         <Flex maxW={{ base: "150px" }}>
           <Link as="a" href={task.link} target="_blank">
             {preparedTask.name}
@@ -87,7 +94,7 @@ export const TaskCard: FC<Props> = ({ task, initDataStr, user }) => {
         </Tooltip>
       </Flex>
       <Flex
-        gap={2}
+        gap={1}
         alignItems={"center"}
         flexGrow={1}
         justifyContent="end"
@@ -100,8 +107,9 @@ export const TaskCard: FC<Props> = ({ task, initDataStr, user }) => {
         isDisabled={isTaskCompleted || isPending || !user}
         onClick={() => completeTaskMutate(preparedTask.id)}
         isLoading={isPending}
+        size="sm"
       >
-        <MainText mr={4}>
+        <MainText mr={2}>
           {isTaskCompleted ? t("Claimed") : t("Check")}
         </MainText>
         {isTaskCompleted && <FaCheck color="green" />}
