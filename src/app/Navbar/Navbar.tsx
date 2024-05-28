@@ -1,49 +1,48 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Flex, Skeleton, Stack, Text } from "@chakra-ui/react";
 import { TonConnectButton } from "@tonconnect/ui-react";
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { bgNavGradient } from "src/shared/style/bgGradient";
-import { useTonStore } from "src/store/tonStore";
+
 import { MainText } from "src/shared/components/MainText";
 
 import { useUserQuery } from "src/shared/api/useUserQuery";
 import { SfsIcon } from "src/shared/components/icons/SfsIcon";
-import { useInitData } from "@vkruglikov/react-telegram-web-app";
 
-const formatAddress = (address: string) => {
-  return address.slice(0, 4) + "..." + address.slice(-4);
-};
+// const formatAddress = (address: string) => {
+//   return address.slice(0, 4) + "..." + address.slice(-4);
+// };
 
 export const Navbar: FC = () => {
   // const initData = useTgWebAppStore((state) => state.initData);
-  const [initData] = useInitData();
+  // const [initDataUnsafe, initData] = useInitData();
 
-  const tgUserId = initData?.user?.id;
+  // const tgUserId = initDataUnsafe?.user?.id;
   // test
   // const tgUserId = 530287867;
-  const { user, isUserLoading } = useUserQuery(tgUserId);
+  const { user, isUserLoading } = useUserQuery();
 
-  const userFriendlyAddress = useTonStore((state) => state.userFrendlyAddress);
+  // const userFriendlyAddress = useTonStore((state) => state.userFrendlyAddress);
 
-  const userInfo = useMemo(() => {
-    if (initData?.user) {
-      return {
-        username: initData?.user?.username,
-        avatar: initData?.user?.photo_url,
-      };
-    }
-    return null;
-  }, [initData]);
+  // const userInfo = useMemo(() => {
+  //   if (initDataUnsafe?.user) {
+  //     return {
+  //       username: initDataUnsafe?.user?.username,
+  //       avatar: initDataUnsafe?.user?.photo_url,
+  //     };
+  //   }
+  //   return null;
+  // }, [initDataUnsafe?.user]);
 
-  const userInfoEl = useMemo(() => {
-    if (userInfo) {
-      return <Text>{userInfo.username}</Text>;
-    }
-    if (userFriendlyAddress) {
-      return <Text>{formatAddress(userFriendlyAddress)}</Text>;
-    }
-    return null;
-  }, [userInfo, userFriendlyAddress]);
+  // const userInfoEl = useMemo(() => {
+  //   if (userFriendlyAddress) {
+  //     return <Text>{formatAddress(userFriendlyAddress)}</Text>;
+  //   }
+  //   // if (userInfo) {
+  //   //   return <Text>{userInfo.username}</Text>;
+  //   // }
+  //   return null;
+  // }, [user, userFriendlyAddress]);
 
   return (
     <Flex
@@ -70,7 +69,9 @@ export const Navbar: FC = () => {
           <SfsIcon />
         </Flex>
       )}
-      <Flex gap={4}>{userInfoEl ? userInfoEl : <TonConnectButton />}</Flex>
+      <Flex gap={4}>
+        <TonConnectButton />
+      </Flex>
     </Flex>
   );
 };

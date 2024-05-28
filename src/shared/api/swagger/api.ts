@@ -114,6 +114,19 @@ export interface DeleteTaskParamsSchema {
 /**
  * 
  * @export
+ * @interface GeneratePayloadSchema
+ */
+export interface GeneratePayloadSchema {
+    /**
+     * 
+     * @type {string}
+     * @memberof GeneratePayloadSchema
+     */
+    'payload'?: string;
+}
+/**
+ * 
+ * @export
  * @interface PlayerSchema
  */
 export interface PlayerSchema {
@@ -278,6 +291,19 @@ export interface TaskSchema {
      */
     'updated_at'?: string;
 }
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const TmaTypeAuthKey = {
+    Tma: 'tma'
+} as const;
+
+export type TmaTypeAuthKey = typeof TmaTypeAuthKey[keyof typeof TmaTypeAuthKey];
+
+
 /**
  * 
  * @export
@@ -1082,14 +1108,11 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
-         * @param {number} tgId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiUsersGetByTgIdGet: async (tgId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'tgId' is not null or undefined
-            assertParamExists('apiUsersGetByTgIdGet', 'tgId', tgId)
-            const localVarPath = `/api/users/get-by-tg-id`;
+        apiUsersGetUserInfoGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/users/get-user-info`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1100,10 +1123,6 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            if (tgId !== undefined) {
-                localVarQueryParameter['tg_id'] = tgId;
-            }
 
 
     
@@ -1208,14 +1227,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {number} tgId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiUsersGetByTgIdGet(tgId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiUsersGetByTgIdGet(tgId, options);
+        async apiUsersGetUserInfoGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiUsersGetUserInfoGet(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UsersApi.apiUsersGetByTgIdGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['UsersApi.apiUsersGetUserInfoGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -1262,12 +1280,11 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
-         * @param {UsersApiApiUsersGetByTgIdGetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiUsersGetByTgIdGet(requestParameters: UsersApiApiUsersGetByTgIdGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<User> {
-            return localVarFp.apiUsersGetByTgIdGet(requestParameters.tgId, options).then((request) => request(axios, basePath));
+        apiUsersGetUserInfoGet(options?: RawAxiosRequestConfig): AxiosPromise<User> {
+            return localVarFp.apiUsersGetUserInfoGet(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1289,20 +1306,6 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
         },
     };
 };
-
-/**
- * Request parameters for apiUsersGetByTgIdGet operation in UsersApi.
- * @export
- * @interface UsersApiApiUsersGetByTgIdGetRequest
- */
-export interface UsersApiApiUsersGetByTgIdGetRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof UsersApiApiUsersGetByTgIdGet
-     */
-    readonly tgId: number
-}
 
 /**
  * Request parameters for apiUsersReferralsGet operation in UsersApi.
@@ -1351,13 +1354,12 @@ export class UsersApi extends BaseAPI {
 
     /**
      * 
-     * @param {UsersApiApiUsersGetByTgIdGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public apiUsersGetByTgIdGet(requestParameters: UsersApiApiUsersGetByTgIdGetRequest, options?: RawAxiosRequestConfig) {
-        return UsersApiFp(this.configuration).apiUsersGetByTgIdGet(requestParameters.tgId, options).then((request) => request(this.axios, this.basePath));
+    public apiUsersGetUserInfoGet(options?: RawAxiosRequestConfig) {
+        return UsersApiFp(this.configuration).apiUsersGetUserInfoGet(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
