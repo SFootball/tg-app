@@ -46,7 +46,14 @@ export const Component: FC = () => {
           </Stack>
         )}
         {tasks?.map((task) => {
-          return <TaskCard task={task} user={user} initDataStr={initData} />;
+          return (
+            <TaskCard
+              key={task.id}
+              task={task}
+              user={user}
+              initDataStr={initData}
+            />
+          );
         })}
       </Flex>
     </Flex>

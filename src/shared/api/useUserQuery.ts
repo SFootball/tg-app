@@ -3,11 +3,11 @@ import { usersApi } from "./api";
 import { useInitData } from "@vkruglikov/react-telegram-web-app";
 import { generateTmaAuth } from "./api.utils";
 
-export const getUserQueryKey = (initData?: string) => ["user", initData];
+export const getUserQueryKey = () => ["userinfo"];
 
 export const useUserQuery = () => {
   const [_, initData] = useInitData();
-  const userKey = getUserQueryKey(initData);
+  const userKey = getUserQueryKey();
 
   const {
     data: user,

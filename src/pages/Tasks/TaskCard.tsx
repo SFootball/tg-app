@@ -20,6 +20,7 @@ import { UserType } from "src/shared/types/User";
 
 import { FaCheck } from "react-icons/fa";
 import { SfsIcon } from "src/shared/components/icons/SfsIcon";
+import { generateTmaAuth } from "src/shared/api/api.utils";
 type Props = {
   task: TaskType;
   initDataStr: string | undefined;
@@ -28,16 +29,23 @@ type Props = {
 
 export const TaskCard: FC<Props> = ({ task, initDataStr, user }) => {
   const { t, i18n } = useTranslation();
-  const userKey = getUserQueryKey(initDataStr);
+  const userKey = getUserQueryKey();
   const { mutate: completeTaskMutate, isPending } = useMutation({
     mutationKey: ["complete-task"],
     mutationFn: async (taskId: string) => {
-      const { data } = await tasksApi.apiTasksCheckCompletePost({
-        taskCompleteParamsSchema: {
-          task_id: taskId,
-          tg_user_id: user?.tg_id,
+      const { data } = await tasksApi.apiTasksCheckCompletePost(
+        {
+          taskCompleteParamsSchema: {
+            task_id: taskId,
+            tg_user_id: user?.tg_id,
+          },
         },
-      });
+        {
+          headers: {
+            Authorization: generateTmaAuth(initDataStr!),
+          },
+        }
+      );
       return data;
     },
     onSuccess: () => {
