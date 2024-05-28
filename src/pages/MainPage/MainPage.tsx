@@ -1,5 +1,5 @@
 import { Box, Flex, Heading, VStack, keyframes } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { MainText } from "src/shared/components/MainText";
 import logo from "src/assets/boot.webp";
@@ -8,53 +8,42 @@ import { motion } from "framer-motion";
 export const Component = () => {
   const { t } = useTranslation();
 
-  const jumpIcon = keyframes`
+  const slideIcon = keyframes`
     0% {
-      transform: translateY(0%);
+      transform: translateX(120%);
     }
-    50% {
+    18% {
+      transform: translateX(0%);
+    }
+    31% {
+      transform: translateY(-10%);
+    }
+    44% {
+      transform: translateX(0%);
+    }
+    57% {
+      transform: translateY(-10%);
+    }
+    70% {
+      transform: translateX(0%);
+    }
+    83% {
       transform: translateY(-10%);
     }
     100% {
-      transform: translateY(0%);
+      transform: translateX(-120%);
     }
   }`;
 
-  const handleMouseOver = () => {
-    () => {
-      animation ? setAnimation("") : setAnimation(bootAnimation);
-    };
-  };
-
-  const handleDrag = (e) => {
-    const coordinateY = e.target.getBoundingClientRect().y;
-    if (coordinateY < 200) {
-      setStarting(false);
-    } else {
-      setStarting(true);
-    }
-  };
-
-  const handleTouchStart = (e) => {
-    e.preventDefault();
-    animation ? setAnimation("") : setAnimation(bootAnimation);
-  };
-
-  const handleTouchMove = (e) => {
-    e.preventDefault();
-    const coordinateY = e.target.getBoundingClientRect().y;
-    if (coordinateY < 200) {
-      setStarting(false);
-    } else {
-      setStarting(true);
-    }
-  };
-
-  const bootAnimation = `${jumpIcon} 0.8s ease infinite`;
+  const bootAnimation = `${slideIcon} 3.5s ease forwards`;
 
   const [starting, setStarting] = useState(true);
-  const [animation, setAnimation] = useState(bootAnimation);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setStarting(false);
+    }, 3700);
+  }, []);
   if (starting) {
     return (
       <VStack
@@ -69,18 +58,9 @@ export const Component = () => {
         <Box
           as={motion.img}
           position={"absolute"}
-          drag="y"
-          dragConstraints={{
-            top: 0,
-            bottom: 0,
-          }}
           zIndex={999}
           src={logo}
-          animation={animation}
-          onMouseOver={handleMouseOver}
-          onDrag={handleDrag}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
+          animation={bootAnimation}
         />
         <Box minW={{ base: "800px", md: "none" }} h="100%" bg="bg.green" />
       </VStack>
@@ -89,9 +69,9 @@ export const Component = () => {
   return (
     <Box
       as={motion.div}
-      initial={{ opacity: 0, scale: 0.5 }}
+      initial={{ opacity: 0, scale: 0.7 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition="all 0.5s linear"
+      transition="0.7s linear"
       display={"flex"}
       h={{ base: "100%" }}
       w="100%"
