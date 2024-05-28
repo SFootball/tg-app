@@ -12,7 +12,7 @@ import { mode } from "@chakra-ui/theme-tools";
 export const appTheme = extendTheme({
   colors: {
     bg: {
-      green: "#70AB70",
+      green: "#96C26D",
     },
   },
   // components: {
