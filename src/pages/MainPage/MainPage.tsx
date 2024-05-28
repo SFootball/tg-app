@@ -43,7 +43,7 @@ export const Component = () => {
   const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
     e.preventDefault();
     const coordinateY = (e.target as HTMLDivElement)?.getBoundingClientRect().y;
-    if (coordinateY < 200) {
+    if (coordinateY < 350) {
       setStarting(false);
     } else {
       setStarting(true);

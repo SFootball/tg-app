@@ -5,7 +5,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import { Component as MainPage } from "../pages/MainPage/MainPage";
+// import { Component as MainPage } from "../pages/MainPage/MainPage";
 import { Layout } from "./Layout";
 import { PathsName } from "src/entities/navigation/navigation";
 
@@ -18,8 +18,8 @@ export type RouteType = {
 export const routesConfig: RouteType[] = [
   {
     path: PathsName.main,
-    element: <MainPage />,
-    // lazy: () => import("../pages/LandingPage/LandingPage"),
+    // element: <MainPage />,
+    lazy: () => import("src/pages/MainPage/MainPage"),
   },
   {
     path: PathsName.tasks,

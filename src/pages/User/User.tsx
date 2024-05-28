@@ -1,4 +1,11 @@
-import { Flex, List, Image, ListItem } from "@chakra-ui/react";
+import {
+  Flex,
+  List,
+  Image,
+  ListItem,
+  VStack,
+  Skeleton,
+} from "@chakra-ui/react";
 import { useInitData } from "@vkruglikov/react-telegram-web-app";
 import { FC, PropsWithChildren, useMemo } from "react";
 import { MainText } from "src/shared/components/MainText";
@@ -11,6 +18,7 @@ import enIcon from "../../assets/en-flag.png";
 import { useTranslation } from "react-i18next";
 import { BoldText } from "src/shared/components/BoldText";
 import { useTonAddress } from "@tonconnect/ui-react";
+import { useUserQuery } from "src/shared/api/useUserQuery";
 
 type SelectOptionType = {
   value: string;
@@ -52,16 +60,17 @@ export const Component: FC = () => {
 
   const defaultLang = i18n.language === "ru" ? languages[1] : languages[0];
 
-  const [initData] = useInitData();
-  const userInfo = useMemo(() => {
-    const user = initData?.user;
-    // for TEST
-    // const user = mockTgUser;
-    if (user) {
-      return user;
-    }
-    return null;
-  }, [initData]);
+  const { user, isUserLoading } = useUserQuery();
+  // // const [initData] = useInitData();
+  // const userInfo = useMemo(() => {
+  //   const user = initData?.user;
+  //   // for TEST
+  //   // const user = mockTgUser;
+  //   if (user) {
+  //     return user;
+  //   }
+  //   return null;
+  // }, [initData]);
 
   return (
     <Flex
@@ -80,11 +89,19 @@ export const Component: FC = () => {
         </Flex>
       )} */}
 
+      {isUserLoading && (
+        <VStack>
+          <Skeleton height="30px" />
+          <Skeleton height="30px" />
+          <Skeleton height="30px" />
+        </VStack>
+      )}
+
       <List spacing={6}>
         <ListItem>
           <KeyItem> {t("Username")}:</KeyItem>
           <ValueItem>
-            {userInfo?.username ? userInfo?.username : t("User not found")}
+            {user?.tg_username ? user?.tg_username : t("User not found")}
           </ValueItem>
         </ListItem>
 
