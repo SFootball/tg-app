@@ -55,6 +55,6 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ${{ secrets.REGISTRY_URL }}/sfootball_tgapp:${{ steps.get_version.outputs.version }}
+          tags: ${{ secrets.REGISTRY_URL }}/sfootball_tgapp:latest
           build-args: |
             VITE_API_URL=${{ secrets.VITE_API_URL_STAGE }}
