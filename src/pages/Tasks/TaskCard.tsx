@@ -33,7 +33,7 @@ type Props = {
 export const TaskCard: FC<Props> = ({ task, initDataStr, user }) => {
   const { t, i18n } = useTranslation();
   const userKey = getUserQueryKey();
-  const { copyToClipboard, refLink } = useCopyReferralLinkToClipboard();
+  const { refLink } = useCopyReferralLinkToClipboard();
 
   const { mutate: completeTaskMutate, isPending } = useMutation({
     mutationKey: ["complete-task"],

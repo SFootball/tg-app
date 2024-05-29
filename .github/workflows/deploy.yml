@@ -2,8 +2,8 @@ name: Build and Push Docker image
 
 on:
   push:
-    # branches:
-    #   - main
+    branches:
+      - main
     tags:
       - "v*"
 
@@ -37,14 +37,24 @@ jobs:
         run: echo "##[set-output name=version;]$(echo ${GITHUB_REF#refs/tags/})"
         if: startsWith(github.ref, 'refs/tags/')
 
-      - name: Build and push Docker image
+      - name: Build and push Docker image for tags
         uses: docker/build-push-action@v5
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           context: .
           file: Dockerfile
           push: true
           tags: ${{ secrets.REGISTRY_URL }}/sfootball_tgapp:${{ steps.get_version.outputs.version }}
-          # cache-from: type=registry,ref=${{ secrets.REGISTRY_URL }}/sfootball_tgapp:latest
-          # cache-to: type=inline
-      # - name: Cleanup
-      #   run: docker system prune -af
+          build-args: |
+            VITE_API_URL=${{ secrets.VITE_API_URL }}
+
+      - name: Build and push Docker image for main branch
+        uses: docker/build-push-action@v5
+        if: github.ref == 'refs/heads/main'
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          tags: ${{ secrets.REGISTRY_URL }}/sfootball_tgapp:${{ steps.get_version.outputs.version }}
+          build-args: |
+            VITE_API_URL=${{ secrets.VITE_API_URL_STAGE }}
