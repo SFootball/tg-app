@@ -10,6 +10,7 @@ import { WebAppProvider } from "@vkruglikov/react-telegram-web-app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./main.css";
 import "./App.css";
+import { SDKProvider } from "@tma.js/sdk-react";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const queryClient = new QueryClient();
@@ -21,18 +22,22 @@ function App() {
         smoothButtonsTransition: true,
       }}
     >
-      <TonConnectUIProvider manifestUrl={`${APP_URL}/tonconnect-manifest.json`}>
-        <ChakraBaseProvider theme={appTheme}>
-          <QueryClientProvider client={queryClient}>
-            <I18nextProvider i18n={i18n} defaultNS={"translation"}>
-              <RouterProvider
-                router={router}
-                fallbackElement={<div>Loading...</div>}
-              />
-            </I18nextProvider>
-          </QueryClientProvider>
-        </ChakraBaseProvider>
-      </TonConnectUIProvider>
+      <SDKProvider acceptCustomStyles>
+        <TonConnectUIProvider
+          manifestUrl={`${APP_URL}/tonconnect-manifest.json`}
+        >
+          <ChakraBaseProvider theme={appTheme}>
+            <QueryClientProvider client={queryClient}>
+              <I18nextProvider i18n={i18n} defaultNS={"translation"}>
+                <RouterProvider
+                  router={router}
+                  fallbackElement={<div>Loading...</div>}
+                />
+              </I18nextProvider>
+            </QueryClientProvider>
+          </ChakraBaseProvider>
+        </TonConnectUIProvider>
+      </SDKProvider>
     </WebAppProvider>
   );
 }

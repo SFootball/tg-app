@@ -23,7 +23,7 @@ export const useUserQuery = () => {
       });
       return data;
     },
-    enabled: !!initData,
+    // enabled: !!initData,
   });
   return { user, isUserLoading, isUserError: isError };
 };
