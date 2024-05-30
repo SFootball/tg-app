@@ -1,6 +1,5 @@
 import { Box, Flex, IconButton, Skeleton } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import { useInitData } from "@vkruglikov/react-telegram-web-app";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { FaCopy } from "react-icons/fa";
@@ -11,11 +10,12 @@ import { MainText } from "src/shared/components/MainText";
 import { SubTitle } from "src/shared/components/SubTitle";
 import { UserType } from "src/shared/types/User";
 import { generateRefLink } from "src/shared/utils/tg.utils";
+import { useInitDataTg } from "src/shared/hooks/useInitDataTg";
 // import { mockReferrals as referrals } from "src/shared/mock/referrals";
 
 export const Component: FC = () => {
   const { t } = useTranslation();
-  const [_, initData] = useInitData();
+  const initData = useInitDataTg();
 
   const { user, isUserLoading } = useUserQuery();
   // const id = initData?.user?.id;
