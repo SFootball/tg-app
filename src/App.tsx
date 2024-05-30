@@ -12,6 +12,12 @@ import "./main.css";
 import "./App.css";
 import { SDKProvider } from "@tma.js/sdk-react";
 
+const stageManifest = "tonconnect-manifest.stage.json";
+const prodManifest = "tonconnect-manifest.json";
+
+const manifestName =
+  import.meta.env.VITE_MODE === "production" ? prodManifest : stageManifest;
+
 // eslint-disable-next-line react-refresh/only-export-components
 export const queryClient = new QueryClient();
 
@@ -23,9 +29,7 @@ function App() {
       }}
     >
       <SDKProvider acceptCustomStyles>
-        <TonConnectUIProvider
-          manifestUrl={`${APP_URL}/tonconnect-manifest.json`}
-        >
+        <TonConnectUIProvider manifestUrl={`${APP_URL}/${manifestName}`}>
           <ChakraBaseProvider theme={appTheme}>
             <QueryClientProvider client={queryClient}>
               <I18nextProvider i18n={i18n} defaultNS={"translation"}>

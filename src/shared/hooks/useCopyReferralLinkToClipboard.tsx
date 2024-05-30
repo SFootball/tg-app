@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useUserQuery } from "../api/useUserQuery";
+import { useUserQuery } from "./useUserQuery";
 import { generateRefLink } from "../utils/tg.utils";
 
 export const useCopyReferralLinkToClipboard = () => {

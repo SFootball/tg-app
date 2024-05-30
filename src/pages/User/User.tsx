@@ -6,8 +6,7 @@ import {
   VStack,
   Skeleton,
 } from "@chakra-ui/react";
-import { useInitData } from "@vkruglikov/react-telegram-web-app";
-import { FC, PropsWithChildren, useMemo } from "react";
+import { FC, PropsWithChildren } from "react";
 import { MainText } from "src/shared/components/MainText";
 import { SubTitle } from "src/shared/components/SubTitle";
 // for TEST
@@ -18,7 +17,7 @@ import enIcon from "../../assets/en-flag.png";
 import { useTranslation } from "react-i18next";
 import { BoldText } from "src/shared/components/BoldText";
 import { useTonAddress } from "@tonconnect/ui-react";
-import { useUserQuery } from "src/shared/api/useUserQuery";
+import { useUserQuery } from "src/shared/hooks/useUserQuery";
 
 type SelectOptionType = {
   value: string;

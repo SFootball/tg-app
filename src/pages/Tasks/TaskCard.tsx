@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Flex,
   IconButton,
@@ -13,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { queryClient } from "src/App";
 import { tasksApi } from "src/shared/api/api";
-import { getUserQueryKey } from "src/shared/api/useUserQuery";
+import { getUserQueryKey } from "src/shared/hooks/useUserQuery";
 import { MainText } from "src/shared/components/MainText";
 import { translateTask } from "src/shared/formatters/task.formatter";
 import { TaskType } from "src/shared/types/Task";
@@ -113,7 +112,7 @@ export const TaskCard: FC<Props> = ({ task, initDataStr, user }) => {
       py={{ base: 4 }}
       borderWidth={1}
       gap={2}
-      wrap={"wrap"}
+      // wrap={"wrap"}
     >
       <Flex
         gap={2}
@@ -121,8 +120,8 @@ export const TaskCard: FC<Props> = ({ task, initDataStr, user }) => {
         // justifyContent={"space-between"}
         position="relative"
         flexGrow={2}
-        minW={"120px"}
-        // flexWrap="wrap"
+        maxW={"220px"}
+        flexWrap="wrap"
       >
         <Link
           as="a"

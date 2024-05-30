@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { FaCopy } from "react-icons/fa";
 import { usersApi } from "src/shared/api/api";
 import { generateTmaAuth } from "src/shared/api/api.utils";
-import { useUserQuery } from "src/shared/api/useUserQuery";
+import { useUserQuery } from "src/shared/hooks/useUserQuery";
 import { MainText } from "src/shared/components/MainText";
 import { SubTitle } from "src/shared/components/SubTitle";
 import { UserType } from "src/shared/types/User";

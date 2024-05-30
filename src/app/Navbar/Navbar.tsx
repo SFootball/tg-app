@@ -6,7 +6,7 @@ import { bgNavGradient } from "src/shared/style/bgGradient";
 
 import { MainText } from "src/shared/components/MainText";
 
-import { useUserQuery } from "src/shared/api/useUserQuery";
+import { useUserQuery } from "src/shared/hooks/useUserQuery";
 import { SfsIcon } from "src/shared/components/icons/SfsIcon";
 
 // const formatAddress = (address: string) => {
@@ -54,7 +54,7 @@ export const Navbar: FC = () => {
       py={{ base: 8 }}
     >
       <Flex>
-        <Text>SFootball</Text>
+        <Text fontWeight={"bold"}>SFootball</Text>
       </Flex>
       {isUserLoading && (
         <Stack>

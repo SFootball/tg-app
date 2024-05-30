@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { usersApi } from "./api";
+import { usersApi } from "../api/api";
 import { useInitData } from "@vkruglikov/react-telegram-web-app";
-import { generateTmaAuth } from "./api.utils";
+import { generateTmaAuth } from "../api/api.utils";
 
 export const getUserQueryKey = () => ["userinfo"];
 
@@ -23,6 +23,7 @@ export const useUserQuery = () => {
       });
       return data;
     },
+    staleTime: 15 * 60 * 1000,
     enabled: !!initData,
   });
   return { user, isUserLoading, isUserError: isError };
