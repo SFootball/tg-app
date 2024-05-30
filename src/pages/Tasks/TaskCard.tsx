@@ -17,7 +17,7 @@ import { MainText } from "src/shared/components/MainText";
 import { translateTask } from "src/shared/formatters/task.formatter";
 import { TaskType } from "src/shared/types/Task";
 import { UserType } from "src/shared/types/User";
-import { initUtils } from "@tma.js/sdk-react";
+// import { initUtils } from "@tma.js/sdk-react";
 import { FaCheck } from "react-icons/fa";
 import { SfsIcon } from "src/shared/components/icons/SfsIcon";
 import { generateTmaAuth } from "src/shared/api/api.utils";
@@ -72,15 +72,15 @@ export const TaskCard: FC<Props> = ({ task, initDataStr, user }) => {
     }
     if (task.resource === ResourceTypeSchema.Invite) {
       const refUrl = `https://t.me/share/url?url=${refLink}&text=invite_friend`;
-      console.log("refUrl", refUrl);
+      // console.log("refUrl", refUrl);
       // copy referral link to clipboard
-      if (import.meta.env.DEV) {
-        // window.open();
-        window.location.href = refUrl;
-      } else {
-        const tgUtils = initUtils();
-        tgUtils.openLink(refUrl);
-      }
+      // if (import.meta.env.DEV) {
+      // window.open();
+      window.location.href = refUrl;
+      // } else {
+      //   const tgUtils = initUtils();
+      //   tgUtils.openLink(refUrl);
+      // }
       // copyToClipboard();
     }
   };
