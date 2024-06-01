@@ -176,28 +176,17 @@ export interface PlayerSchema {
 /**
  * 
  * @export
- * @interface RegisterUserByTgIdParams
+ * @enum {string}
  */
-export interface RegisterUserByTgIdParams {
-    /**
-     * 
-     * @type {number}
-     * @memberof RegisterUserByTgIdParams
-     */
-    'parent_tg_id'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof RegisterUserByTgIdParams
-     */
-    'tg_id'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof RegisterUserByTgIdParams
-     */
-    'tg_username'?: string;
-}
+
+export const ResourceTypeSchema = {
+    Telegram: 'telegram',
+    Invite: 'invite'
+} as const;
+
+export type ResourceTypeSchema = typeof ResourceTypeSchema[keyof typeof ResourceTypeSchema];
+
+
 /**
  * 
  * @export
@@ -401,12 +390,6 @@ export interface User {
      * @memberof User
      */
     'midle_name'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    'parent_id'?: string;
     /**
      * 
      * @type {number}
@@ -1171,39 +1154,6 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * 
-         * @param {RegisterUserByTgIdParams} [registerUserByTgIdParams] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiUsersRegisterPost: async (registerUserByTgIdParams?: RegisterUserByTgIdParams, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/users/register`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(registerUserByTgIdParams, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -1248,18 +1198,6 @@ export const UsersApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['UsersApi.apiUsersReferralsGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
-        /**
-         * 
-         * @param {RegisterUserByTgIdParams} [registerUserByTgIdParams] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiUsersRegisterPost(registerUserByTgIdParams?: RegisterUserByTgIdParams, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiUsersRegisterPost(registerUserByTgIdParams, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UsersApi.apiUsersRegisterPost']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
     }
 };
 
@@ -1295,15 +1233,6 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
         apiUsersReferralsGet(requestParameters: UsersApiApiUsersReferralsGetRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<User>> {
             return localVarFp.apiUsersReferralsGet(requestParameters.userGetReferralsQueryParams, options).then((request) => request(axios, basePath));
         },
-        /**
-         * 
-         * @param {UsersApiApiUsersRegisterPostRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiUsersRegisterPost(requestParameters: UsersApiApiUsersRegisterPostRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<User> {
-            return localVarFp.apiUsersRegisterPost(requestParameters.registerUserByTgIdParams, options).then((request) => request(axios, basePath));
-        },
     };
 };
 
@@ -1319,20 +1248,6 @@ export interface UsersApiApiUsersReferralsGetRequest {
      * @memberof UsersApiApiUsersReferralsGet
      */
     readonly userGetReferralsQueryParams?: UserGetReferralsQueryParams
-}
-
-/**
- * Request parameters for apiUsersRegisterPost operation in UsersApi.
- * @export
- * @interface UsersApiApiUsersRegisterPostRequest
- */
-export interface UsersApiApiUsersRegisterPostRequest {
-    /**
-     * 
-     * @type {RegisterUserByTgIdParams}
-     * @memberof UsersApiApiUsersRegisterPost
-     */
-    readonly registerUserByTgIdParams?: RegisterUserByTgIdParams
 }
 
 /**
@@ -1371,17 +1286,6 @@ export class UsersApi extends BaseAPI {
      */
     public apiUsersReferralsGet(requestParameters: UsersApiApiUsersReferralsGetRequest = {}, options?: RawAxiosRequestConfig) {
         return UsersApiFp(this.configuration).apiUsersReferralsGet(requestParameters.userGetReferralsQueryParams, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {UsersApiApiUsersRegisterPostRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApi
-     */
-    public apiUsersRegisterPost(requestParameters: UsersApiApiUsersRegisterPostRequest = {}, options?: RawAxiosRequestConfig) {
-        return UsersApiFp(this.configuration).apiUsersRegisterPost(requestParameters.registerUserByTgIdParams, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

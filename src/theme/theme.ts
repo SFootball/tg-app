@@ -7,22 +7,18 @@ import {
 } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
 
-// const { Button, Select, Input, CloseButton, Tag } = chakraTheme.components;
-
 export const appTheme = extendTheme({
+  fonts: {
+    heading: `'Open Sans', sans-serif`,
+    body: `'Open Sans', sans-serif`,
+  },
   colors: {
     bg: {
       green: "#96C26D",
       green_1: "#D0F5AE",
     },
   },
-  // components: {
-  //   Button,
-  //   Select,
-  //   Input,
-  //   CloseButton,
-  //   Tag,
-  // },
+
   styles: {
     global: (props: StyleFunctionProps) => ({
       body: {

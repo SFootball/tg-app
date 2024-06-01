@@ -8,7 +8,6 @@ import { useExpand } from "@vkruglikov/react-telegram-web-app";
 export const Layout: FC = () => {
   const [isExpanded, expand] = useExpand();
   useEffect(() => {
-    console.log("isExpanded", isExpanded);
     if (!isExpanded) {
       expand();
     }

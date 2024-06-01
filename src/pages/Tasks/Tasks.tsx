@@ -1,36 +1,28 @@
 import { Flex, Skeleton, Stack } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import { useInitData } from "@vkruglikov/react-telegram-web-app";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { tasksApi, usersApi } from "src/shared/api/api";
+import { tasksApi } from "src/shared/api/api";
 import { SubTitle } from "src/shared/components/SubTitle";
-import { getUserQueryKey, useUserQuery } from "src/shared/api/useUserQuery";
+import { useUserQuery } from "src/shared/hooks/useUserQuery";
 import { TaskCard } from "./TaskCard";
+import { generateTmaAuth } from "src/shared/api/api.utils";
+import { useInitDataTg } from "src/shared/hooks/useInitDataTg";
 
 export const Component: FC = () => {
   const { t } = useTranslation();
-
-  // const [initDataUnsafe, initData] = useInitData();
-  // console.log("initData: ", initData);
-  // const tgUserId = initDataUnsafe?.user?.id;
-  // test
-  // const tgUserId = 530287867;
+  const initData = useInitDataTg();
 
   const { user, isUserLoading } = useUserQuery();
-  // const { data: user, isLoading: isUserLoading } = useQuery({
-  //   queryKey: getUserQueryKey(tgUserId),
-  //   queryFn: async () => {
-  //     const { data } = await usersApi.apiUsersGetByTgIdGet({ tgId: tgUserId! });
-  //     return data;
-  //   },
-  //   enabled: !!tgUserId,
-  // });
 
   const { data: tasks, isLoading } = useQuery({
     queryKey: ["tasks"],
     queryFn: async () => {
-      const { data } = await tasksApi.apiTasksAllGet();
+      const { data } = await tasksApi.apiTasksAllGet({
+        headers: {
+          Authorization: generateTmaAuth(initData!),
+        },
+      });
       return data;
     },
   });
@@ -53,7 +45,14 @@ export const Component: FC = () => {
           </Stack>
         )}
         {tasks?.map((task) => {
-          return <TaskCard task={task} user={user} />;
+          return (
+            <TaskCard
+              key={task.id}
+              task={task}
+              user={user}
+              initDataStr={initData}
+            />
+          );
         })}
       </Flex>
     </Flex>
