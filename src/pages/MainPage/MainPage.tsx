@@ -5,6 +5,8 @@ import { MainText } from "src/shared/components/MainText";
 import logo from "src/assets/boot.webp";
 import { motion } from "framer-motion";
 
+const bgImgURL = "url('src/assets/sfootball-main.jpg')";
+
 export const Component = () => {
   const { t } = useTranslation();
 
@@ -73,19 +75,23 @@ export const Component = () => {
       animate={{ opacity: 1, scale: 1 }}
       transition="0.7s linear"
       display={"flex"}
-      h={{ base: "100%" }}
+      h={{ base: "calc(100vh - 104px)" }}
       w="100%"
       flexDirection={"column"}
+      bgImage={bgImgURL}
+      bgRepeat="no-repeat"
+      bgSize="contain"
+      bgPosition="center"
     >
       <Flex
         justifyContent={{ base: "center" }}
         alignItems={"center"}
         w={{ base: "100%" }}
       >
-        <Heading>Space football</Heading>
+        {/* <Heading>Space football</Heading> */}
       </Flex>
       <Flex justifyContent={{ base: "center" }} alignItems={"center"} mt={10}>
-        <MainText>{t("Game comming soon")}</MainText>
+        {/* <MainText>{t("Game comming soon")}</MainText> */}
       </Flex>
     </Box>
   );

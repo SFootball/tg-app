@@ -13,6 +13,7 @@ export const appTheme = extendTheme({
   colors: {
     bg: {
       green: "#96C26D",
+      green_1: "#D0F5AE",
     },
   },
   // components: {
@@ -25,10 +26,8 @@ export const appTheme = extendTheme({
   styles: {
     global: (props: StyleFunctionProps) => ({
       body: {
-        bg: mode("gray.900", "gray.400")(props),
+        bg: mode("#78fd44", "#78fd44")(props),
         color: mode("gray.50", "gray.900")(props),
-        // bg: "gray.900",
-        // color: "green",
       },
     }),
   },
