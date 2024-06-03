@@ -96,7 +96,13 @@ export const Component: FC = () => {
         </VStack>
       )}
 
-      <List spacing={6}>
+      <List
+        spacing={6}
+        bgColor="bg.violet"
+        boxShadow="2xl"
+        p={{ base: "20px" }}
+        borderRadius={{ base: 8 }}
+      >
         <ListItem>
           <KeyItem> {t("Username")}:</KeyItem>
           <ValueItem>

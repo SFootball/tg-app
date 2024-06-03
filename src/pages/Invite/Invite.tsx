@@ -1,8 +1,8 @@
 import { Box, Flex, IconButton, Skeleton } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FaCopy } from "react-icons/fa";
+import { FaCopy, FaCheck } from "react-icons/fa";
 import { usersApi } from "src/shared/api/api";
 import { generateTmaAuth } from "src/shared/api/api.utils";
 import { useUserQuery } from "src/shared/hooks/useUserQuery";
@@ -21,6 +21,10 @@ export const Component: FC = () => {
   // const id = initData?.user?.id;
   // test
   // const id = 530287867;
+
+  const [copyStatus, setCopyStatus] = useState(false);
+
+  const copyReferralText = !copyStatus ? "Copy referral code" : "Copied";
 
   const { data: referrals, isLoading } = useQuery<UserType[]>({
     queryKey: ["referals"],
@@ -49,6 +53,7 @@ export const Component: FC = () => {
 
   const copyLink = () => {
     navigator.clipboard.writeText(refLink);
+    setCopyStatus(true);
   };
 
   return (
@@ -64,25 +69,27 @@ export const Component: FC = () => {
 
       <Flex>
         <Flex
-          px={{ base: 6 }}
-          py={{ base: 4 }}
+          px={{ base: 4 }}
+          py={{ base: 2 }}
           borderRadius={{ base: 8 }}
-          borderColor={"green.800"}
-          borderStyle={"solid"}
-          borderWidth={1}
+          // borderColor={"green.800"}
+          // borderStyle={"solid"}
+          // borderWidth={1}
+          bgColor="bg.violet"
+          boxShadow="2xl"
           justifyContent={"space-between"}
           alignItems={"center"}
-          minW={"250px"}
+          minW={"302px"}
           onClick={copyLink}
         >
           <MainText>
-            {user?.tg_id ? t("Copy referral code") : t("No telegram accaunt")}
+            {user?.tg_id ? t(`${copyReferralText}`) : t("No telegram accaunt")}
           </MainText>
           <IconButton
             colorScheme="black"
             onClick={copyLink}
             aria-label="copy"
-            icon={<FaCopy />}
+            icon={copyStatus ? <FaCheck /> : <FaCopy />}
             color="white"
             variant="ghost"
           />
@@ -102,9 +109,11 @@ export const Component: FC = () => {
               px={{ base: 6 }}
               py={{ base: 4 }}
               borderRadius={{ base: 8 }}
-              borderColor={"green.800"}
-              borderStyle={"solid"}
-              borderWidth={1}
+              // borderColor={"green.800"}
+              // borderStyle={"solid"}
+              // borderWidth={1}
+              bgColor="bg.violet"
+              boxShadow="2xl"
               justifyContent={"space-between"}
               alignItems={"center"}
               minW={"250px"}

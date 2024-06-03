@@ -48,6 +48,7 @@ export const Navbar: FC = () => {
     <Flex
       as="header"
       bgGradient={bgNavGradient}
+      // bgColor="bg.violet"
       justifyContent={"space-between"}
       alignItems={"center"}
       px={{ base: 8 }}
@@ -70,7 +71,7 @@ export const Navbar: FC = () => {
         </Flex>
       )}
       <Flex gap={4}>
-        <TonConnectButton />
+        <TonConnectButton className="ton-btn" />
       </Flex>
     </Flex>
   );

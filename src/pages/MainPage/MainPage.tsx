@@ -2,9 +2,10 @@ import { Box, Flex, Heading, VStack, keyframes } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { MainText } from "src/shared/components/MainText";
-import logo from "src/assets/boot.webp";
+import logo from "src/assets/boot_2.png";
 import { motion } from "framer-motion";
 
+const bgImgURL = "url('src/assets/sfootball-main.jpg')";
 const slideIcon = keyframes`
 0% {
   transform: translateX(120%);
@@ -64,31 +65,36 @@ export const Component = () => {
           animation={bootAnimation}
           onClick={() => setStarting(false)}
         />
-        <Box minW={{ base: "800px", md: "none" }} h="100%" bg="bg.green" />
+        <Box minW={{ base: "800px", md: "none" }} h="100%" bg="bg.green_1" />
       </VStack>
     );
   }
   return (
     <Box
       as={motion.div}
-      initial={{ opacity: 0, scale: 0.7 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition="0.7s linear"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition="1s linear"
       display={"flex"}
-      h={{ base: "100%" }}
+      h={{ base: "calc(100vh - 104px)" }}
       w="100%"
       flexDirection={"column"}
+      bgImage={bgImgURL}
+      bgRepeat="no-repeat"
+      bgSize="contain"
+      bgPosition="center"
     >
-      <Flex
+      {/* <Flex
         justifyContent={{ base: "center" }}
         alignItems={"center"}
         w={{ base: "100%" }}
       >
+        <Heading>Space football</Heading>
         <Heading>SFootball</Heading>
       </Flex>
       <Flex justifyContent={{ base: "center" }} alignItems={"center"} mt={10}>
         <MainText>{t("Game comming soon")}</MainText>
-      </Flex>
+      </Flex> */}
     </Box>
   );
 };
