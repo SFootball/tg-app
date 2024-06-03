@@ -1,4 +1,4 @@
-import { Box, Flex, IconButton, Skeleton } from "@chakra-ui/react";
+import { Box, Divider, Flex, IconButton, Skeleton } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -64,7 +64,16 @@ export const Component: FC = () => {
       gap={{ base: 6, md: 8 }}
     >
       <Flex alignItems={"center"}>
-        <SubTitle>{t("Invite your friends")}</SubTitle>
+        <SubTitle color="black">
+          {t("Invite your friends")}
+          <Divider
+            pt="10px"
+            mt="auto"
+            borderBottomWidth="2px"
+            borderColor="black"
+            width="calc(100vw - 48px)"
+          />
+        </SubTitle>
       </Flex>
 
       <Flex>
@@ -96,7 +105,7 @@ export const Component: FC = () => {
       <Flex direction="column" gap={6}>
         {(isLoading || isUserLoading) && (
           <Skeleton>
-            <span>{t("Your referals")}</span>
+            <SubTitle color="black">{t("Your referals")}</SubTitle>
           </Skeleton>
         )}
         {!!referrals && <SubTitle>{t("Your referals")}</SubTitle>}
