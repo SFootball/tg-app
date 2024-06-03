@@ -32,14 +32,12 @@ export default function Footer() {
     >
       <Container
         as={Stack}
-        // maxW={"6xl"}
         py={4}
         direction={{ base: "row" }}
         spacing={4}
         justify={{ base: "space-around" }}
         align={{ base: "center", md: "center" }}
         bgGradient={bgFooterGradient}
-        // bg="bg.violet"
         borderRadius={{ base: "24px" }}
         overflow={"hidden"}
       >
