@@ -160,3 +160,19 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #f45f02;
 }
+
+.ton-btn button {
+  background-color: #78fd44;
+}
+
+.ton-btn button div {
+  color: black;
+}
+
+.ton-btn button svg path {
+  fill: black;
+}
+
+main {
+  color: black;
+}

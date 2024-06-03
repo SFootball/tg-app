@@ -39,6 +39,7 @@ export default function Footer() {
         justify={{ base: "space-around" }}
         align={{ base: "center", md: "center" }}
         bgGradient={bgFooterGradient}
+        // bg="bg.violet"
         borderRadius={{ base: "24px" }}
         overflow={"hidden"}
       >

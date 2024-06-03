@@ -14,8 +14,15 @@ export const appTheme = extendTheme({
   },
   colors: {
     bg: {
+      violet: "#c944fd",
       green: "#96C26D",
-      green_1: "#D0F5AE",
+      green_1: "#78fd44",
+    },
+    content: {
+      violet: "#c944fd",
+      green: "#78fd44",
+      blue: "#44d5fd",
+      orange: "#fd6c44",
     },
   },
 

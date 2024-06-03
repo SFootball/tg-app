@@ -39,9 +39,9 @@ export const Component: FC = () => {
       <Flex minW={"250px"} direction={"column"} gap={6}>
         {(isUserLoading || isLoading) && (
           <Stack w="100%">
-            <Skeleton height="20px" />
-            <Skeleton height="20px" />
-            <Skeleton height="20px" />
+            <Skeleton height="64px" />
+            <Skeleton height="64px" />
+            <Skeleton height="64px" />
           </Stack>
         )}
         {tasks?.map((task) => {

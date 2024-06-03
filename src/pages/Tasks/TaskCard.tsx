@@ -106,11 +106,15 @@ export const TaskCard: FC<Props> = ({ task, initDataStr, user }) => {
       flexGrow={1}
       alignItems={"center"}
       borderRadius={{ base: 8 }}
-      borderColor={"green.800"}
-      borderStyle={"solid"}
+      // borderColor="bg.violet"
+      bgColor="bg.violet"
+      boxShadow="2xl"
+      // p="6"
+      // rounded="md"
+      // borderStyle={"solid"}
       px={{ base: 4 }}
       py={{ base: 4 }}
-      borderWidth={1}
+      // borderWidth={1}
       gap={2}
       // wrap={"wrap"}
     >
@@ -166,7 +170,7 @@ export const TaskCard: FC<Props> = ({ task, initDataStr, user }) => {
         minW={"130px"}
       >
         <MainText mr={2}>{actionButtonTitle}</MainText>
-        {isTaskCompleted && <FaCheck color="green" />}
+        {isTaskCompleted && <FaCheck color="content.violet" />}
       </Button>
     </Flex>
   );
