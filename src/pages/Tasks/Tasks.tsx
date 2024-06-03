@@ -38,7 +38,7 @@ export const Component: FC = () => {
       <SubTitle>{t("Tasks")}</SubTitle>
       <Flex minW={"250px"} direction={"column"} gap={6}>
         {(isUserLoading || isLoading) && (
-          <Stack w="100%">
+          <Stack w="100%" spacing="24px">
             <Skeleton height="64px" />
             <Skeleton height="64px" />
             <Skeleton height="64px" />
