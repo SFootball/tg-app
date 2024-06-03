@@ -23,6 +23,7 @@ import { SfsIcon } from "src/shared/components/icons/SfsIcon";
 import { generateTmaAuth } from "src/shared/api/api.utils";
 import { ResourceTypeSchema } from "src/shared/api/swagger";
 import { useCopyReferralLinkToClipboard } from "src/shared/hooks/useCopyReferralLinkToClipboard";
+import { useInitDataTg } from "src/shared/hooks/useInitDataTg";
 type Props = {
   task: TaskType;
   initDataStr: string | undefined;
@@ -31,7 +32,8 @@ type Props = {
 
 export const TaskCard: FC<Props> = ({ task, initDataStr, user }) => {
   const { t, i18n } = useTranslation();
-  const userKey = getUserQueryKey();
+  const initData = useInitDataTg();
+  const userKey = getUserQueryKey(initData);
   const { refLink } = useCopyReferralLinkToClipboard();
 
   const { mutate: completeTaskMutate, isPending } = useMutation({

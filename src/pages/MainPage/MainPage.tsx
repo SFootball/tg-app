@@ -1,11 +1,9 @@
-import { Box, Flex, Heading, VStack, keyframes } from "@chakra-ui/react";
+import { Box, VStack, keyframes } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { MainText } from "src/shared/components/MainText";
 import logo from "src/assets/boot_2.png";
 import { motion } from "framer-motion";
 
-const bgImgURL = "url('src/assets/sfootball-main.jpg')";
+const bgImgURL = "url('/imgs/sfootball-main.jpg')";
 const slideIcon = keyframes`
 0% {
   transform: translateX(120%);
@@ -33,8 +31,6 @@ const slideIcon = keyframes`
 }`;
 
 export const Component = () => {
-  const { t } = useTranslation();
-
   const bootAnimation = `${slideIcon} 3.5s ease forwards`;
 
   const [starting, setStarting] = useState(true);
