@@ -2,8 +2,11 @@ import { Box, VStack, keyframes } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import logo from "src/assets/boot_2.png";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
-const bgImgURL = "url('/imgs/sfootball-main.jpg')";
+const bgImgURL_EN = "url('/imgs/sfootball-main_en.jpg')";
+const bgImgURL_RU = "url('/imgs/sfootball-main_ru.jpg')";
+
 const slideIcon = keyframes`
 0% {
   transform: translateX(120%);
@@ -32,6 +35,8 @@ const slideIcon = keyframes`
 
 export const Component = () => {
   const bootAnimation = `${slideIcon} 3.5s ease forwards`;
+
+  const { i18n } = useTranslation();
 
   const [starting, setStarting] = useState(true);
 
@@ -75,23 +80,11 @@ export const Component = () => {
       h={{ base: "calc(100vh - 188px)" }}
       w="100%"
       flexDirection={"column"}
-      bgImage={bgImgURL}
+      bgImage={i18n.language === "ru" ? bgImgURL_RU : bgImgURL_EN}
       bgRepeat="no-repeat"
       bgSize="contain"
       bgPosition="center"
-    >
-      {/* <Flex
-        justifyContent={{ base: "center" }}
-        alignItems={"center"}
-        w={{ base: "100%" }}
-      >
-        <Heading>Space football</Heading>
-        <Heading>SFootball</Heading>
-      </Flex>
-      <Flex justifyContent={{ base: "center" }} alignItems={"center"} mt={10}>
-        <MainText>{t("Game comming soon")}</MainText>
-      </Flex> */}
-    </Box>
+    ></Box>
   );
 };
 

@@ -72,9 +72,6 @@ export const Component: FC = () => {
           px={{ base: 4 }}
           py={{ base: 2 }}
           borderRadius={{ base: 8 }}
-          // borderColor={"green.800"}
-          // borderStyle={"solid"}
-          // borderWidth={1}
           bgColor="bg.violet"
           boxShadow="2xl"
           justifyContent={"space-between"}
@@ -110,9 +107,6 @@ export const Component: FC = () => {
               px={{ base: 6 }}
               py={{ base: 4 }}
               borderRadius={{ base: 8 }}
-              // borderColor={"green.800"}
-              // borderStyle={"solid"}
-              // borderWidth={1}
               bgColor="bg.violet"
               boxShadow="2xl"
               justifyContent={"space-between"}
