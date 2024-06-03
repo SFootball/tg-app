@@ -76,7 +76,7 @@ export const Component = () => {
       animate={{ opacity: 1 }}
       transition="1s linear"
       display={"flex"}
-      h={{ base: "calc(100vh - 104px)" }}
+      h={{ base: "calc(100vh - 188px)" }}
       w="100%"
       flexDirection={"column"}
       bgImage={bgImgURL}
