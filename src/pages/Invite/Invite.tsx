@@ -1,4 +1,4 @@
-import { Box, Flex, IconButton, Skeleton } from "@chakra-ui/react";
+import { Box, Divider, Flex, IconButton, Skeleton } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -64,7 +64,16 @@ export const Component: FC = () => {
       gap={{ base: 6, md: 8 }}
     >
       <Flex alignItems={"center"}>
-        <SubTitle>{t("Invite your friends")}</SubTitle>
+        <SubTitle color="black">
+          {t("Invite your friends")}
+          <Divider
+            pt="10px"
+            mt="auto"
+            borderBottomWidth="2px"
+            borderColor="black"
+            width="calc(100vw - 48px)"
+          />
+        </SubTitle>
       </Flex>
 
       <Flex>
@@ -72,9 +81,6 @@ export const Component: FC = () => {
           px={{ base: 4 }}
           py={{ base: 2 }}
           borderRadius={{ base: 8 }}
-          // borderColor={"green.800"}
-          // borderStyle={"solid"}
-          // borderWidth={1}
           bgColor="bg.violet"
           boxShadow="2xl"
           justifyContent={"space-between"}
@@ -91,6 +97,7 @@ export const Component: FC = () => {
             aria-label="copy"
             icon={copyStatus ? <FaCheck /> : <FaCopy />}
             color="white"
+            isDisabled={copyStatus ? true : false}
             variant="ghost"
           />
         </Flex>
@@ -98,7 +105,7 @@ export const Component: FC = () => {
       <Flex direction="column" gap={6}>
         {(isLoading || isUserLoading) && (
           <Skeleton>
-            <span>{t("Your referals")}</span>
+            <SubTitle color="black">{t("Your referals")}</SubTitle>
           </Skeleton>
         )}
         {!!referrals && <SubTitle>{t("Your referals")}</SubTitle>}
@@ -109,9 +116,6 @@ export const Component: FC = () => {
               px={{ base: 6 }}
               py={{ base: 4 }}
               borderRadius={{ base: 8 }}
-              // borderColor={"green.800"}
-              // borderStyle={"solid"}
-              // borderWidth={1}
               bgColor="bg.violet"
               boxShadow="2xl"
               justifyContent={"space-between"}

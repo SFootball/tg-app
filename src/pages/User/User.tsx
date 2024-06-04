@@ -5,6 +5,7 @@ import {
   ListItem,
   VStack,
   Skeleton,
+  Divider,
 } from "@chakra-ui/react";
 import { FC, PropsWithChildren } from "react";
 import { MainText } from "src/shared/components/MainText";
@@ -80,7 +81,16 @@ export const Component: FC = () => {
       w="100%"
     >
       <Flex alignItems={"center"}>
-        <SubTitle>{t("User info")}</SubTitle>
+        <SubTitle color="black">
+          {t("User info")}
+          <Divider
+            pt="10px"
+            mt="auto"
+            borderBottomWidth="2px"
+            borderColor="black"
+            width="calc(100vw - 48px)"
+          />
+        </SubTitle>
       </Flex>
       {/* {!userInfo && (
         <Flex>

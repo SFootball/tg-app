@@ -1,4 +1,4 @@
-import { Flex, Skeleton, Stack } from "@chakra-ui/react";
+import { Divider, Flex, Skeleton, Stack } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -35,7 +35,16 @@ export const Component: FC = () => {
       py={{ base: 8 }}
       pb="200px"
     >
-      <SubTitle>{t("Tasks")}</SubTitle>
+      <SubTitle color="black">
+        {t("Tasks")}
+        <Divider
+          pt="10px"
+          mt="auto"
+          borderBottomWidth="2px"
+          borderColor="black"
+        />
+      </SubTitle>
+
       <Flex minW={"250px"} direction={"column"} gap={6}>
         {(isUserLoading || isLoading) && (
           <Stack w="100%" spacing="24px">
