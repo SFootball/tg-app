@@ -102,6 +102,10 @@
   }
 }
 
+svg path {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 .activeS {
   text-decoration: none;
 

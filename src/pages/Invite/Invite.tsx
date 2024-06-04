@@ -54,6 +54,9 @@ export const Component: FC = () => {
   const copyLink = () => {
     navigator.clipboard.writeText(refLink);
     setCopyStatus(true);
+    setTimeout(() => {
+      setCopyStatus(false);
+    }, 2000);
   };
 
   return (
@@ -97,7 +100,6 @@ export const Component: FC = () => {
             aria-label="copy"
             icon={copyStatus ? <FaCheck /> : <FaCopy />}
             color="white"
-            isDisabled={copyStatus ? true : false}
             variant="ghost"
           />
         </Flex>
