@@ -53,7 +53,7 @@ export const Component: FC = () => {
 
   const copyLink = () => {
     navigator.clipboard.writeText(refLink);
-    setCopyStatus(true);
+    if (user?.tg_id) setCopyStatus(true);
     setTimeout(() => {
       setCopyStatus(false);
     }, 2000);
@@ -107,10 +107,30 @@ export const Component: FC = () => {
       <Flex direction="column" gap={6}>
         {(isLoading || isUserLoading) && (
           <Skeleton>
-            <SubTitle color="black">{t("Your referals")}</SubTitle>
+            <SubTitle color="black">
+              {t("Your referals")}
+              <Divider
+                pt="10px"
+                mt="auto"
+                borderBottomWidth="2px"
+                borderColor="black"
+                width="calc(100vw - 48px)"
+              />
+            </SubTitle>
           </Skeleton>
         )}
-        {!!referrals && <SubTitle>{t("Your referals")}</SubTitle>}
+        {!!referrals && (
+          <SubTitle color="black">
+            {t("Your referals")}
+            <Divider
+              pt="10px"
+              mt="auto"
+              borderBottomWidth="2px"
+              borderColor="black"
+              width="calc(100vw - 48px)"
+            />
+          </SubTitle>
+        )}
         <Flex color="gray.100" direction={"column"} gap={4} pb={20}>
           {referrals?.map((user) => (
             <Box
