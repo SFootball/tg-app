@@ -6,6 +6,7 @@ export enum PathsName {
   tasks = "/tasks",
   invite = "/invite",
   user = "/user",
+  game = "/game",
 }
 
 export const getNavigation = (t: TFunction) => [

@@ -4,7 +4,6 @@ const mockTokenInitData =
 // export const generateTmaAuth = (initData: string) => mockTokenInitData;
 export const useInitDataTg = () => {
   const [_, initData] = useInitData();
-  console.log("import.meta.env.DEV: ", import.meta.env.DEV);
   if (import.meta.env.DEV) {
     return mockTokenInitData;
   }
