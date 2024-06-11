@@ -1,7 +1,6 @@
 type ballObj = {
   id: number;
   src: string;
-  display: string;
   left: number | undefined;
   top: number | undefined;
 };

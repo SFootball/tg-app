@@ -1,7 +1,6 @@
 import { Box, Flex, VStack, keyframes } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-// import Footer from "./Footer/Footer";
 import { Navbar } from "./Navbar/Navbar";
 import { useExpand } from "@vkruglikov/react-telegram-web-app";
 import logo from "src/assets/boot_2.png";

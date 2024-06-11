@@ -7,7 +7,6 @@ import { shuffle } from "./utils/shuffle";
 type ballObj = {
   id: number;
   src: string;
-  display: string;
   left: number | undefined;
   top: number | undefined;
 };
@@ -54,42 +53,36 @@ export const Component: FC = () => {
     {
       id: 1,
       src: "/imgs/game/simple-ball.png",
-      display: "block",
       left: playWidth && ballCoor1.x * playWidth,
       top: playHeight && ballCoor1.y * playHeight,
     },
     {
       id: 2,
       src: "/imgs/game/simple-ball.png",
-      display: "block",
       left: playWidth && ballCoor2.x * playWidth,
       top: playHeight && ballCoor2.y * playHeight,
     },
     {
       id: 3,
       src: "/imgs/game/simple-ball.png",
-      display: "block",
       left: playWidth && ballCoor3.x * playWidth,
       top: playHeight && ballCoor3.y * playHeight,
     },
     {
       id: 4,
       src: "/imgs/game/bonus-ball.png",
-      display: "block",
       left: playWidth && ballCoor4.x * playWidth,
       top: playHeight && ballCoor4.y * playHeight,
     },
     {
       id: 5,
       src: "/imgs/game/simple-ball.png",
-      display: "block",
       left: playWidth && ballCoor5.x * playWidth,
       top: playHeight && ballCoor5.y * playHeight,
     },
     {
       id: 6,
       src: "/imgs/game/simple-ball.png",
-      display: "block",
       left: playWidth && ballCoor6.x * playWidth,
       top: playHeight && ballCoor6.y * playHeight,
     },
@@ -121,6 +114,10 @@ export const Component: FC = () => {
         position="absolute"
         left={ball.left}
         top={ball.top}
+        onClick={({ target }) => {
+          (target as HTMLImageElement).style.display = "none";
+        }}
+        cursor="pointer"
       />
     );
   });
