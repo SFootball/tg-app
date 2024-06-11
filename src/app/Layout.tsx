@@ -1,7 +1,7 @@
 import { Box, Flex, VStack, keyframes } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import Footer from "./Footer/Footer";
+// import Footer from "./Footer/Footer";
 import { Navbar } from "./Navbar/Navbar";
 import { useExpand } from "@vkruglikov/react-telegram-web-app";
 import logo from "src/assets/boot_2.png";
@@ -81,11 +81,11 @@ export const Layout: FC = () => {
 
   return (
     <>
-      <Navbar />
-      <Flex as="main" direction="column">
+      {/* <Navbar /> */}
+      <Flex as="main" direction="column" position="relative">
         <Outlet />
       </Flex>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

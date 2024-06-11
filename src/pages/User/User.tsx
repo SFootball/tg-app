@@ -19,6 +19,8 @@ import { useTranslation } from "react-i18next";
 import { BoldText } from "src/shared/components/BoldText";
 import { useTonAddress } from "@tonconnect/ui-react";
 import { useUserQuery } from "src/shared/hooks/useUserQuery";
+import Footer from "src/app/Footer/Footer";
+import { Navbar } from "src/app/Navbar/Navbar";
 
 type SelectOptionType = {
   value: string;
@@ -73,81 +75,85 @@ export const Component: FC = () => {
   // }, [initData]);
 
   return (
-    <Flex
-      direction={"column"}
-      gap={6}
-      px={{ base: 6 }}
-      py={{ base: 8 }}
-      w="100%"
-    >
-      <Flex alignItems={"center"}>
-        <SubTitle color="black">
-          {t("User info")}
-          <Divider
-            pt="10px"
-            mt="auto"
-            borderBottomWidth="2px"
-            borderColor="black"
-            width="calc(100vw - 48px)"
-          />
-        </SubTitle>
-      </Flex>
-      {/* {!userInfo && (
+    <>
+      <Navbar />
+      <Flex
+        direction={"column"}
+        gap={6}
+        px={{ base: 6 }}
+        py={{ base: 8 }}
+        w="100%"
+      >
+        <Flex alignItems={"center"}>
+          <SubTitle color="black">
+            {t("User info")}
+            <Divider
+              pt="10px"
+              mt="auto"
+              borderBottomWidth="2px"
+              borderColor="black"
+              width="calc(100vw - 48px)"
+            />
+          </SubTitle>
+        </Flex>
+        {/* {!userInfo && (
         <Flex>
           <MainText>{t("User not found")}</MainText>
         </Flex>
       )} */}
 
-      {isUserLoading && (
-        <VStack>
-          <Skeleton height="30px" />
-          <Skeleton height="30px" />
-          <Skeleton height="30px" />
-        </VStack>
-      )}
+        {isUserLoading && (
+          <VStack>
+            <Skeleton height="30px" />
+            <Skeleton height="30px" />
+            <Skeleton height="30px" />
+          </VStack>
+        )}
 
-      <List
-        spacing={6}
-        bgColor="bg.violet"
-        boxShadow="2xl"
-        p={{ base: "20px" }}
-        borderRadius={{ base: 8 }}
-      >
-        <ListItem>
-          <KeyItem> {t("Username")}:</KeyItem>
-          <ValueItem>
-            {user?.tg_username ? user?.tg_username : t("User not found")}
-          </ValueItem>
-        </ListItem>
-
-        <ListItem>
-          <KeyItem> {t("Wallet address")}:</KeyItem>
-          <ValueItem>
-            {userFriendlyAddress
-              ? userFriendlyAddress
-              : t("Please connect wallet")}
-          </ValueItem>
-        </ListItem>
-        <ListItem w="200px">
-          <Flex alignItems={"center"}>
-            <KeyItem> {t("Language")}:</KeyItem>
+        <List
+          spacing={6}
+          bgColor="bg.violet"
+          boxShadow="2xl"
+          p={{ base: "20px" }}
+          borderRadius={{ base: 8 }}
+        >
+          <ListItem>
+            <KeyItem> {t("Username")}:</KeyItem>
             <ValueItem>
-              <Select
-                onChange={(o) => {
-                  if (o) {
-                    changeLanguage(o?.value);
-                  }
-                }}
-                variant={"unstyled"}
-                defaultValue={defaultLang}
-                options={languages}
-                components={customComponents}
-              />
+              {user?.tg_username ? user?.tg_username : t("User not found")}
             </ValueItem>
-          </Flex>
-        </ListItem>
-      </List>
-    </Flex>
+          </ListItem>
+
+          <ListItem>
+            <KeyItem> {t("Wallet address")}:</KeyItem>
+            <ValueItem>
+              {userFriendlyAddress
+                ? userFriendlyAddress
+                : t("Please connect wallet")}
+            </ValueItem>
+          </ListItem>
+          <ListItem w="200px">
+            <Flex alignItems={"center"}>
+              <KeyItem> {t("Language")}:</KeyItem>
+              <ValueItem>
+                <Select
+                  onChange={(o) => {
+                    if (o) {
+                      changeLanguage(o?.value);
+                    }
+                  }}
+                  variant={"unstyled"}
+                  defaultValue={defaultLang}
+                  options={languages}
+                  components={customComponents}
+                />
+              </ValueItem>
+            </Flex>
+          </ListItem>
+        </List>
+      </Flex>
+      <Footer />
+    </>
   );
 };
 
