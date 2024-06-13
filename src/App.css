@@ -180,3 +180,7 @@ svg path {
 main {
   color: white;
 }
+
+.without-bg-onclick {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
