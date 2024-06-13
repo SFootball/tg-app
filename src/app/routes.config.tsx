@@ -41,12 +41,10 @@ export const routesConfig: RouteType[] = [
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    // <Routes>
     <Route path="/" element={<Layout />}>
       {routesConfig.map(({ path, element, lazy }) => (
         <Route key={path} path={path} lazy={lazy} element={element} />
       ))}
     </Route>
-    // </Routes>
   )
 );

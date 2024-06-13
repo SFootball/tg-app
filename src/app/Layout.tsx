@@ -41,7 +41,7 @@ export const Layout: FC = () => {
 
   const bootAnimation = `${slideIcon} 3.5s ease forwards`;
 
-  const [starting, setStarting] = useState(true);
+  const [starting, setStarting] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {

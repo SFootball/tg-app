@@ -1,67 +1,19 @@
-import { Box, Image } from "@chakra-ui/react";
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import Footer from "src/app/Footer/Footer";
-import { Navbar } from "src/app/Navbar/Navbar";
-import { shuffle } from "./utils/shuffle";
+import { Box, Flex, Image, Text, useInterval } from "@chakra-ui/react";
+import { FC, useCallback, useRef, useState } from "react";
+import { genRandomNumber } from "./utils/randomaiser";
 
-type ballObj = {
+type BallsTypes = "simple" | "bonus" | "bomb";
+
+type BallsType = {
   id: number;
   src: string;
-  left: number | undefined;
-  top: number | undefined;
+  top: number;
+  left: number;
+  type: BallsTypes;
 };
 
-const ballCoor1 = {
-  x: Math.random() * 0.8,
-  y: Math.random() * 0.5,
-};
-
-const ballCoor2 = {
-  x: Math.random() * 0.8,
-  y: Math.random() * 0.5,
-};
-
-const ballCoor3 = {
-  x: Math.random() * 0.8,
-  y: Math.random() * 0.5,
-};
-
-const ballCoor4 = {
-  x: Math.random() * 0.8,
-  y: Math.random() * 0.5,
-};
-
-const ballCoor5 = {
-  x: Math.random() * 0.8,
-  y: Math.random() * 0.5,
-};
-
-const ballCoor6 = {
-  x: Math.random() * 0.8,
-  y: Math.random() * 0.5,
-};
-
-// enum BallsEnum {
-//   simple,
-//   bonus,
-//   bomb,
-// }
-
-// const { simple, bonus, bomb } = BallsEnum;
-
-type BallsType =
-  | {
-      id: number;
-      src: string;
-      top: number;
-      left: number;
-      type: string;
-      // coef: number;
-    }
-  | undefined;
-
-// let countId = 1;
-const ballTypesByCoef: string[] = [
+const ballTypesByCoef: BallsTypes[] = [
+  "simple",
   "simple",
   "simple",
   "simple",
@@ -71,52 +23,102 @@ const ballTypesByCoef: string[] = [
   "bomb",
 ];
 
+const ballDiametr = 50;
+let countId = 1;
+const maxElCounts = 30;
+
+const generateTopLeftWithoutOverlapAndPaddingByBorders = (
+  existingBalls: BallsType[],
+  el: HTMLDivElement
+): {
+  top: number;
+  left: number;
+} => {
+  const containerWidth = el.offsetWidth || 0;
+  const containerHeight = el.offsetHeight || 0;
+
+  let top = genRandomNumber(0, containerHeight - ballDiametr);
+  let left = genRandomNumber(0, containerWidth - ballDiametr);
+
+  while (
+    existingBalls.some(
+      (ball) =>
+        top > ball.top - ballDiametr &&
+        top < ball.top + ballDiametr &&
+        left > ball.left - ballDiametr &&
+        left < ball.left + ballDiametr
+    )
+  ) {
+    top = genRandomNumber(0, containerHeight - ballDiametr);
+    left = genRandomNumber(0, containerWidth - ballDiametr);
+  }
+
+  return { top, left };
+};
+
 export const Component: FC = () => {
   const bgRef = useRef<HTMLDivElement | null>(null);
-
-  const [playHeight, setPlayHeight] = useState<number | undefined>(0);
-  const [playWidth, setPlayWidth] = useState<number | undefined>(0);
+  const [gamePointCount, setGamePointCount] = useState(0);
+  const [balls, setBalls] = useState<BallsType[]>([]);
 
   const generateBallObjects = useCallback(
-    (
-      count: number,
-      playWidth: number | undefined,
-      playHeight: number | undefined
-    ) => {
+    (count: number) => {
       const arr = Array(count).fill(1);
-      arr.map((el, i) => {
+      if (!bgRef.current) {
+        return [];
+      }
+      if (balls.length >= maxElCounts) {
+        return [];
+      }
+      arr.map((_, i) => {
         const type =
           ballTypesByCoef[Math.floor(Math.random() * ballTypesByCoef.length)];
 
-        // countId++;
-
-        if (playHeight && playWidth) {
-          return (arr[i] = {
-            id: i,
-            src: `/imgs/game/ball-${type}`,
-            type,
-            top: playHeight * Math.random() * 0.5,
-            left: playWidth * Math.random() * 0.7,
-          });
-        }
+        countId += 1;
+        const { top, left } = generateTopLeftWithoutOverlapAndPaddingByBorders(
+          [...balls],
+          bgRef.current!
+        );
+        return (arr[i] = {
+          id: countId,
+          src: `/imgs/game/ball-${type}`,
+          type,
+          top,
+          left,
+        });
       });
+
       return arr;
     },
-    []
+    [balls]
   );
 
-  const [balls, setBalls] = useState<BallsType[]>([]);
-
-  useEffect(() => {
-    setPlayHeight(bgRef.current?.offsetHeight);
-    setPlayWidth(bgRef.current?.offsetWidth);
-    setBalls(generateBallObjects(10, playWidth, playHeight));
-  }, [playHeight, playWidth]);
-  // const [count, setCount] = useState(0);
+  useInterval(() => {
+    setBalls((prev) => {
+      const randomNumPerIterate = genRandomNumber(1, 5);
+      const newBalls = generateBallObjects(randomNumPerIterate);
+      return [...prev, ...newBalls];
+    });
+  }, 2000);
 
   const handleClickBall = useCallback(
-    (id: number | undefined) => {
-      setBalls((prev) => prev.filter((ball) => ball?.id !== id));
+    (id: number | undefined, type: BallsTypes) => {
+      switch (type) {
+        case "simple":
+          setGamePointCount((prev) => prev + 1);
+          setBalls((prev) => prev.filter((ball) => ball?.id !== id));
+
+          break;
+        case "bonus":
+          setGamePointCount((prev) => prev + 3);
+          setBalls((prev) => prev.filter((ball) => ball?.id !== id));
+
+          break;
+        case "bomb":
+          setGamePointCount(0);
+          setBalls([]);
+          break;
+      }
     },
     [setBalls]
   );
@@ -124,26 +126,22 @@ export const Component: FC = () => {
   const ballsList = balls.map((ball) => {
     return (
       <Box
-        width="50px"
-        height="50px"
+        width={`${ballDiametr}px`}
+        height={`${ballDiametr}px`}
         key={ball?.id}
         position="absolute"
         left={ball?.left}
         top={ball?.top}
-        onClick={() => handleClickBall(ball?.id)}
+        onClick={() => handleClickBall(ball?.id, ball?.type)}
         cursor="pointer"
-        m="50px"
       >
-        <Image src={`${ball?.src}.png`} />
+        <Image src={`${ball?.src}.png`} width="100%" height="100%" />
       </Box>
     );
   });
 
-  console.log("ballsList", ballsList);
-
   return (
     <>
-      {/* <Navbar /> */}
       <Box
         position="absolute"
         alignSelf="center"
@@ -152,6 +150,17 @@ export const Component: FC = () => {
         width="100%"
         h="100vh"
       >
+        <Flex alignItems={"center"} pl={4} gap={6}>
+          <Text>Game points:</Text>
+          <Text
+            color="white"
+            fontSize="3xl"
+            fontWeight="bold"
+            textAlign="center"
+          >
+            {gamePointCount}
+          </Text>
+        </Flex>
         <Box
           position="relative"
           width="100%"
@@ -161,12 +170,6 @@ export const Component: FC = () => {
           bgSize="cover"
           ref={bgRef}
         >
-          {/* <Image
-            src="/imgs/game/game-bg.jpg"
-            objectFit="contain"
-            height="calc(100vh - 104px)"
-            
-          /> */}
           <Image
             position="absolute"
             src="/imgs/game/player.png"
@@ -178,70 +181,8 @@ export const Component: FC = () => {
           {ballsList}
         </Box>
       </Box>
-      {/* <Footer /> */}
     </>
   );
 };
 
 Component.displayName = "GamePage";
-
-// const [playWidth, setPlayWidth] = useState(bgRef.current?.width);
-// const [playHeight, setPlayHeight] = useState(bgRef.current?.height);
-
-// const ballArr: ballObj[] = useMemo(()=>{
-//   const playWidth = bgRef.current?.width
-//   const playHeight = bgRef.current?.height
-//   return [
-//   {
-//     id: 1,
-//     src: "/imgs/game/simple-ball.png",
-//     left: playWidth && ballCoor1.x * playWidth,
-//     top: playHeight && ballCoor1.y * playHeight,
-//   },
-//   {
-//     id: 2,
-//     src: "/imgs/game/simple-ball.png",
-//     left: playWidth && ballCoor2.x * playWidth,
-//     top: playHeight && ballCoor2.y * playHeight,
-//   },
-//   {
-//     id: 3,
-//     src: "/imgs/game/simple-ball.png",
-//     left: playWidth && ballCoor3.x * playWidth,
-//     top: playHeight && ballCoor3.y * playHeight,
-//   },
-//   {
-//     id: 4,
-//     src: "/imgs/game/bonus-ball.png",
-//     left: playWidth && ballCoor4.x * playWidth,
-//     top: playHeight && ballCoor4.y * playHeight,
-//   },
-//   {
-//     id: 5,
-//     src: "/imgs/game/simple-ball.png",
-//     left: playWidth && ballCoor5.x * playWidth,
-//     top: playHeight && ballCoor5.y * playHeight,
-//   },
-//   {
-//     id: 6,
-//     src: "/imgs/game/simple-ball.png",
-//     left: playWidth && ballCoor6.x * playWidth,
-//     top: playHeight && ballCoor6.y * playHeight,
-//   },
-// ];},[])
-
-// const newBalls = useMemo(() => shuffle(ballArr), [playWidth]);
-
-// useEffect(() => {
-//   let counter = count;
-//   const interval = setInterval(() => {
-//     if (counter >= ballArr.length) {
-//       clearInterval(interval);
-//     } else {
-//       setCount((count) => count + 1);
-//       counter++;
-//     }
-//   }, 500);
-
-//   return () => clearInterval(interval);
-// }, []);
