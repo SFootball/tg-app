@@ -1,13 +1,8 @@
-import {
-  Box,
-  Flex,
-  Image,
-  Text,
-  keyframes,
-  useInterval,
-} from "@chakra-ui/react";
+import { Box, Image, keyframes, useInterval } from "@chakra-ui/react";
 import { FC, useCallback, useRef, useState } from "react";
 import { genRandomNumber } from "./utils/randomaiser";
+import GameHeader from "./GameHeader";
+import GameFooter from "./GameFooter";
 
 type BallsTypes = "simple" | "bonus" | "bomb";
 
@@ -19,7 +14,8 @@ type BallsType = {
   type: BallsTypes;
   animation: string;
   bgImg: string;
-  // display: string;
+  width: string;
+  height: string;
 };
 
 const ballTypesByCoef: BallsTypes[] = [
@@ -76,7 +72,7 @@ const ball = keyframes`
     pointer-events: none
   }
   100% {
-    background-position: 2400px 0;
+    background-position: 4800px 0;
     opacity: 0;
     display: none;
     pointer-events: none
@@ -91,8 +87,13 @@ export const Component: FC = () => {
   const bgRef = useRef<HTMLDivElement | null>(null);
   const [gamePointCount, setGamePointCount] = useState(0);
   const [balls, setBalls] = useState<BallsType[]>([]);
+  const [delay, setDelay] = useState<null | number>(null);
 
   const ballAnimation = `${ball} 1s steps(48) forwards`;
+
+  const handleRunGame = () => {
+    setDelay(2000);
+  };
 
   const generateBallObjects = useCallback(
     (count: number) => {
@@ -132,7 +133,7 @@ export const Component: FC = () => {
       const newBalls = generateBallObjects(randomNumPerIterate);
       return [...prev, ...newBalls];
     });
-  }, 2000);
+  }, delay);
 
   const handleClickBall = useCallback(
     (id: number | undefined, type: BallsTypes) => {
@@ -150,6 +151,8 @@ export const Component: FC = () => {
                   type: "simple",
                   bgImg: simpleURL,
                   animation: ballAnimation,
+                  width: "100px",
+                  height: "100px",
                 });
               }
               return ball;
@@ -170,6 +173,8 @@ export const Component: FC = () => {
                   type: "bonus",
                   bgImg: bonusURL,
                   animation: ballAnimation,
+                  width: "100px",
+                  height: "100px",
                 });
               }
               return ball;
@@ -189,6 +194,8 @@ export const Component: FC = () => {
                   type: "bonus",
                   bgImg: bombURL,
                   animation: ballAnimation,
+                  width: "100px",
+                  height: "100px",
                 });
               }
               return ball;
@@ -196,19 +203,20 @@ export const Component: FC = () => {
           );
           setTimeout(() => {
             setBalls([]);
+            setDelay(null);
           }, 1000);
           break;
       }
     },
-    [setBalls]
+    [ballAnimation, balls]
   );
 
   const ballsList = balls.map((ball) => {
     return (
       <>
         <Box
-          width={`${ballDiametr}px`}
-          height={`${ballDiametr}px`}
+          width={ball.width ? ball.width : `${ballDiametr}px`}
+          height={ball.height ? ball.height : `${ballDiametr}px`}
           key={ball?.id}
           position="absolute"
           left={ball?.left}
@@ -216,6 +224,7 @@ export const Component: FC = () => {
           onClick={() => handleClickBall(ball?.id, ball?.type)}
           cursor="pointer"
           bgImg={ball.bgImg}
+          transform={ball.animation ? "translate(-30%, -25%)" : ""}
           animation={ball.animation}
           className="without-bg-onclick"
         >
@@ -231,25 +240,15 @@ export const Component: FC = () => {
   });
   return (
     <>
+      <GameHeader gamePointCount={gamePointCount} />
       <Box
         position="absolute"
         alignSelf="center"
-        top="0"
+        top="80px"
         left="0"
         width="100%"
-        h="100vh"
+        h="calc(100vh - 180px)"
       >
-        <Flex alignItems={"center"} pl={4} gap={6}>
-          <Text>Game points:</Text>
-          <Text
-            color="white"
-            fontSize="3xl"
-            fontWeight="bold"
-            textAlign="center"
-          >
-            {gamePointCount}
-          </Text>
-        </Flex>
         <Box
           position="relative"
           width="100%"
@@ -259,17 +258,10 @@ export const Component: FC = () => {
           bgSize="cover"
           ref={bgRef}
         >
-          <Image
-            position="absolute"
-            src="/imgs/game/player.png"
-            height="40%"
-            width="auto"
-            right="0"
-            bottom="0"
-          />
           {ballsList}
         </Box>
       </Box>
+      <GameFooter handleRunGame={handleRunGame} delay={delay} />
     </>
   );
 };
