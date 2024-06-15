@@ -35,7 +35,7 @@ export const routesConfig: RouteType[] = [
   },
   {
     path: PathsName.game,
-    lazy: () => import("src/pages/game/Game"),
+    lazy: () => import("src/pages/game/GamePage"),
   },
 ];
 
