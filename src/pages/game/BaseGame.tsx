@@ -1,4 +1,4 @@
-import { Box, Image, useInterval } from "@chakra-ui/react";
+import { Box, Image, keyframes, useInterval } from "@chakra-ui/react";
 import {
   Dispatch,
   FC,
@@ -19,6 +19,23 @@ const bgImagePath = "/imgs/game/game-bg.jpg";
 const imagePatternPath = "/imgs/game/ball";
 
 let countId = 1;
+
+const ballKeyframes = keyframes`
+  0% {
+    background-position: 0 0;
+    pointer-events: none
+  }
+  99% {
+    opacity: 1;
+    pointer-events: none
+  }
+  100% {
+    background-position: 4800px 0;
+    opacity: 0;
+    display: none;
+    pointer-events: none
+  }
+`;
 
 type Props = {
   setGamePointCount: Dispatch<SetStateAction<number>>;
