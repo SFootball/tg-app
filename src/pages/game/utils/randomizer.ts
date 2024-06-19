@@ -1,4 +1,4 @@
-import { ballDiametr } from "src/pages/game.constants";
+import { ballDiametr } from "../game.constants";
 import { BallsType } from "../game.types";
 
 export const genRandomNumber = (min: number, max: number) => {
@@ -15,7 +15,7 @@ export const generateTopLeftWithoutOverlapAndPaddingByBorders = (
   const containerWidth = el.offsetWidth || 0;
   const containerHeight = el.offsetHeight || 0;
 
-  const maxTop = containerHeight - ballDiametr - 10;
+  const maxTop = containerHeight - ballDiametr - 270;
   const minTop = ballDiametr + 20;
   const maxLeft = containerWidth - ballDiametr - 10;
   const minLeft = ballDiametr + 10;

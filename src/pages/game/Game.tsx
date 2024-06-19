@@ -1,6 +1,6 @@
 import { Box, Image, keyframes, useInterval } from "@chakra-ui/react";
 import { FC, useCallback, useRef, useState } from "react";
-import { genRandomNumber } from "./utils/randomaiser";
+import { genRandomNumber } from "./utils/randomizer";
 import GameHeader from "./GameHeader";
 import GameFooter from "./GameFooter";
 

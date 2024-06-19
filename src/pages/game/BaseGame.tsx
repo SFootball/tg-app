@@ -1,4 +1,4 @@
-import { Box, Image, keyframes, useInterval } from "@chakra-ui/react";
+import { Box, Image, useInterval } from "@chakra-ui/react";
 import {
   Dispatch,
   FC,
@@ -12,30 +12,15 @@ import {
   generateTopLeftWithoutOverlapAndPaddingByBorders,
 } from "./utils/randomizer";
 import { BallsType, BallsTypes } from "./game.types";
-import { ballDiametr, ballTypesByCoef, maxElCounts } from "../game.constants";
+import { ballTypesByCoef, maxElCounts } from "./game.constants";
+import { BallComponent } from "./componets/BallComponent";
+import { AnimatePresence } from "framer-motion";
 
 const playerImagePath = "/imgs/game/player.png";
 const bgImagePath = "/imgs/game/game-bg.jpg";
 const imagePatternPath = "/imgs/game/ball";
 
 let countId = 1;
-
-const ballKeyframes = keyframes`
-  0% {
-    background-position: 0 0;
-    pointer-events: none
-  }
-  99% {
-    opacity: 1;
-    pointer-events: none
-  }
-  100% {
-    background-position: 4800px 0;
-    opacity: 0;
-    display: none;
-    pointer-events: none
-  }
-`;
 
 type Props = {
   setGamePointCount: Dispatch<SetStateAction<number>>;
@@ -65,7 +50,7 @@ export const BaseGame: FC<Props> = ({ setGamePointCount }) => {
         );
         return (arr[i] = {
           id: countId,
-          src: `${imagePatternPath}-${type}`,
+          src: `${imagePatternPath}-${type}.png`,
           type,
           top,
           left,
@@ -76,6 +61,10 @@ export const BaseGame: FC<Props> = ({ setGamePointCount }) => {
     },
     [balls]
   );
+
+  const removeBall = useCallback((id: number) => {
+    setBalls((prev) => prev.filter((ball) => ball?.id !== id));
+  }, []);
 
   useInterval(() => {
     setBalls((prev) => {
@@ -107,25 +96,6 @@ export const BaseGame: FC<Props> = ({ setGamePointCount }) => {
     [setBalls, setGamePointCount]
   );
 
-  const ballsList = balls.map((ball) => {
-    return (
-      <Box
-        width={`${ballDiametr}px`}
-        height={`${ballDiametr}px`}
-        key={ball?.id}
-        position="absolute"
-        // to center
-        transform={`translate(-50%, -50%)`}
-        left={ball?.left}
-        top={ball?.top}
-        onClick={() => handleClickBall(ball?.id, ball?.type)}
-        cursor="pointer"
-      >
-        <Image src={`${ball?.src}.png`} width="100%" height="100%" />
-      </Box>
-    );
-  });
-
   return (
     <Box
       position="relative"
@@ -144,7 +114,18 @@ export const BaseGame: FC<Props> = ({ setGamePointCount }) => {
         right="0"
         bottom="0"
       />
-      {ballsList}
+      <AnimatePresence initial={false}>
+        {balls.map((ball) => {
+          return (
+            <BallComponent
+              key={`${ball.id}-${ball.type}`}
+              ball={ball}
+              handleClickBall={handleClickBall}
+              removeBall={removeBall}
+            />
+          );
+        })}
+      </AnimatePresence>
     </Box>
   );
 };

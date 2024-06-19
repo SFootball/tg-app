@@ -1,4 +1,4 @@
-import { BallsTypes } from "./game/game.types";
+import { BallsTypes } from "./game.types";
 
 export const ballTypesByCoef: BallsTypes[] = [
   "simple",

@@ -81,7 +81,12 @@ export const Layout: FC = () => {
   return (
     <>
       {/* <Navbar /> */}
-      <Flex as="main" direction="column" position="relative">
+      <Flex
+        as="main"
+        color="whiteAlpha.900"
+        direction="column"
+        position="relative"
+      >
         <Outlet />
       </Flex>
       {/* <Footer /> */}
