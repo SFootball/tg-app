@@ -1,12 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import { mainApi } from "../api/api";
 import { useInitDataTg } from "./useInitDataTg";
+import { useEffect } from "react";
 
 export const getUserQueryKey = (initData?: string) => ["userinfo", initData];
 
 export const useUserQuery = () => {
   const initData = useInitDataTg();
   const userKey = getUserQueryKey(initData);
+  useEffect(() => {
+    if (initData) {
+      mainApi.setToken(initData);
+    }
+  }, [initData]);
 
   const {
     data: user,
@@ -19,7 +25,7 @@ export const useUserQuery = () => {
       return data;
     },
     staleTime: 15 * 60 * 1000,
-    enabled: !!initData,
+    enabled: !!initData || !mainApi.accessToken,
   });
   return { user, isUserLoading, isUserError: isError };
 };
