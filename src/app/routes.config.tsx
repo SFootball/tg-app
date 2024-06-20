@@ -35,18 +35,16 @@ export const routesConfig: RouteType[] = [
   },
   {
     path: PathsName.game,
-    lazy: () => import("src/pages/game/Game"),
+    lazy: () => import("src/pages/game/GamePage"),
   },
 ];
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    // <Routes>
     <Route path="/" element={<Layout />}>
       {routesConfig.map(({ path, element, lazy }) => (
         <Route key={path} path={path} lazy={lazy} element={element} />
       ))}
     </Route>
-    // </Routes>
   )
 );

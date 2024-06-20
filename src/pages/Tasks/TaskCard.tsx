@@ -11,7 +11,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { queryClient } from "src/App";
-import { tasksApi } from "src/shared/api/api";
+import { mainApi } from "src/shared/api/api";
 import { getUserQueryKey } from "src/shared/hooks/useUserQuery";
 import { MainText } from "src/shared/components/MainText";
 import { translateTask } from "src/shared/formatters/task.formatter";
@@ -20,7 +20,7 @@ import { UserType } from "src/shared/types/User";
 // import { initUtils } from "@tma.js/sdk-react";
 import { FaCheck } from "react-icons/fa";
 import { SfsIcon } from "src/shared/components/icons/SfsIcon";
-import { generateTmaAuth } from "src/shared/api/api.utils";
+// import { generateTmaAuth } from "src/shared/api/api.utils";
 import { ResourceTypeSchema } from "src/shared/api/swagger";
 import { useCopyReferralLinkToClipboard } from "src/shared/hooks/useCopyReferralLinkToClipboard";
 import { useInitDataTg } from "src/shared/hooks/useInitDataTg";
@@ -30,7 +30,7 @@ type Props = {
   user: UserType | undefined;
 };
 
-export const TaskCard: FC<Props> = ({ task, initDataStr, user }) => {
+export const TaskCard: FC<Props> = ({ task, user }) => {
   const { t, i18n } = useTranslation();
   const initData = useInitDataTg();
   const userKey = getUserQueryKey(initData);
@@ -39,18 +39,18 @@ export const TaskCard: FC<Props> = ({ task, initDataStr, user }) => {
   const { mutate: completeTaskMutate, isPending } = useMutation({
     mutationKey: ["complete-task"],
     mutationFn: async (taskId: string) => {
-      const { data } = await tasksApi.apiTasksCheckCompletePost(
+      const { data } = await mainApi.tasksApi.apiTasksCheckCompletePost(
         {
           taskCompleteParamsSchema: {
             task_id: taskId,
             tg_user_id: user?.tg_id,
           },
-        },
-        {
-          headers: {
-            Authorization: generateTmaAuth(initDataStr!),
-          },
         }
+        // {
+        //   headers: {
+        //     Authorization: generateTmaAuth(initDataStr!),
+        //   },
+        // }
       );
       return data;
     },
