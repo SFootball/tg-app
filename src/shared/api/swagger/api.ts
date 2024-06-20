@@ -26,6 +26,21 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @enum {string}
+ */
+
+export const AuthPrefixToken = {
+    Tma: 'tma',
+    Bearer: 'Bearer',
+    Token: 'token'
+} as const;
+
+export type AuthPrefixToken = typeof AuthPrefixToken[keyof typeof AuthPrefixToken];
+
+
+/**
+ * 
+ * @export
  * @interface CreatePlayerParams
  */
 export interface CreatePlayerParams {
@@ -110,19 +125,6 @@ export interface DeleteTaskParamsSchema {
      * @memberof DeleteTaskParamsSchema
      */
     'id'?: string;
-}
-/**
- * 
- * @export
- * @interface GeneratePayloadSchema
- */
-export interface GeneratePayloadSchema {
-    /**
-     * 
-     * @type {string}
-     * @memberof GeneratePayloadSchema
-     */
-    'payload'?: string;
 }
 /**
  * 
@@ -283,16 +285,209 @@ export interface TaskSchema {
 /**
  * 
  * @export
- * @enum {string}
+ * @interface TonproofCheckPayloadBodySchema
  */
-
-export const TmaTypeAuthKey = {
-    Tma: 'tma'
-} as const;
-
-export type TmaTypeAuthKey = typeof TmaTypeAuthKey[keyof typeof TmaTypeAuthKey];
-
-
+export interface TonproofCheckPayloadBodySchema {
+    /**
+     * 
+     * @type {string}
+     * @memberof TonproofCheckPayloadBodySchema
+     */
+    'address'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TonproofCheckPayloadBodySchema
+     */
+    'network'?: string;
+    /**
+     * 
+     * @type {TonproofCheckPayloadBodySchemaProof}
+     * @memberof TonproofCheckPayloadBodySchema
+     */
+    'proof'?: TonproofCheckPayloadBodySchemaProof;
+}
+/**
+ * 
+ * @export
+ * @interface TonproofCheckPayloadBodySchemaProof
+ */
+export interface TonproofCheckPayloadBodySchemaProof {
+    /**
+     * 
+     * @type {TonproofCheckPayloadBodySchemaProofDomain}
+     * @memberof TonproofCheckPayloadBodySchemaProof
+     */
+    'domain'?: TonproofCheckPayloadBodySchemaProofDomain;
+    /**
+     * 
+     * @type {string}
+     * @memberof TonproofCheckPayloadBodySchemaProof
+     */
+    'payload'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TonproofCheckPayloadBodySchemaProof
+     */
+    'signature'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TonproofCheckPayloadBodySchemaProof
+     */
+    'state_init'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof TonproofCheckPayloadBodySchemaProof
+     */
+    'timestamp'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface TonproofCheckPayloadBodySchemaProofDomain
+ */
+export interface TonproofCheckPayloadBodySchemaProofDomain {
+    /**
+     * 
+     * @type {number}
+     * @memberof TonproofCheckPayloadBodySchemaProofDomain
+     */
+    'lengthBytes'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TonproofCheckPayloadBodySchemaProofDomain
+     */
+    'value'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface TonproofCheckPayloadResponseSchema
+ */
+export interface TonproofCheckPayloadResponseSchema {
+    /**
+     * 
+     * @type {string}
+     * @memberof TonproofCheckPayloadResponseSchema
+     */
+    'token'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface TonproofGeneratePayloadResponseSchema
+ */
+export interface TonproofGeneratePayloadResponseSchema {
+    /**
+     * 
+     * @type {string}
+     * @memberof TonproofGeneratePayloadResponseSchema
+     */
+    'payload'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface TonproofGetAccauntInfoResponseSchema
+ */
+export interface TonproofGetAccauntInfoResponseSchema {
+    /**
+     * 
+     * @type {TonproofGetAccauntInfoResponseSchemaStandardClaims}
+     * @memberof TonproofGetAccauntInfoResponseSchema
+     */
+    'StandardClaims'?: TonproofGetAccauntInfoResponseSchemaStandardClaims;
+    /**
+     * 
+     * @type {number}
+     * @memberof TonproofGetAccauntInfoResponseSchema
+     */
+    'tg_id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TonproofGetAccauntInfoResponseSchema
+     */
+    'tg_username'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TonproofGetAccauntInfoResponseSchema
+     */
+    'ton_wallet_address'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TonproofGetAccauntInfoResponseSchema
+     */
+    'user_id'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface TonproofGetAccauntInfoResponseSchemaStandardClaims
+ */
+export interface TonproofGetAccauntInfoResponseSchemaStandardClaims {
+    /**
+     * 
+     * @type {string}
+     * @memberof TonproofGetAccauntInfoResponseSchemaStandardClaims
+     */
+    'aud'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof TonproofGetAccauntInfoResponseSchemaStandardClaims
+     */
+    'exp'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TonproofGetAccauntInfoResponseSchemaStandardClaims
+     */
+    'iat'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TonproofGetAccauntInfoResponseSchemaStandardClaims
+     */
+    'iss'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TonproofGetAccauntInfoResponseSchemaStandardClaims
+     */
+    'jti'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof TonproofGetAccauntInfoResponseSchemaStandardClaims
+     */
+    'nbf'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TonproofGetAccauntInfoResponseSchemaStandardClaims
+     */
+    'sub'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface TonproofPayloadResponseSchema
+ */
+export interface TonproofPayloadResponseSchema {
+    /**
+     * 
+     * @type {string}
+     * @memberof TonproofPayloadResponseSchema
+     */
+    'payload'?: string;
+}
 /**
  * 
  * @export
@@ -464,6 +659,253 @@ export interface UserGetReferralsQueryParams {
      */
     'tg_id'?: number;
 }
+/**
+ * 
+ * @export
+ * @interface UserUpdateSfsCount
+ */
+export interface UserUpdateSfsCount {
+    /**
+     * 
+     * @type {number}
+     * @memberof UserUpdateSfsCount
+     */
+    'sfs_count'?: number;
+}
+
+/**
+ * AuthApi - axios parameter creator
+ * @export
+ */
+export const AuthApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiAuthTonproofAccauntInfoGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/auth/tonproof/accaunt-info`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {TonproofCheckPayloadBodySchema} [tonproofCheckPayloadBodySchema]  {   \&quot;address\&quot;: \&quot;0:f63660ff947e5fe6ed4a8f729f1b24ef859497d0483aaa9d9ae48414297c4e1b\&quot;, // user\&#39;s address   \&quot;network\&quot;: \&quot;-1\&quot;, // \&quot;-239\&quot; for mainnet and \&quot;-1\&quot; for testnet   \&quot;proof\&quot;: {     \&quot;timestamp\&quot;: 1668094767, // unix epoch seconds    \&quot;domain\&quot;: {     \&quot;lengthBytes\&quot;: 21,     \&quot;value\&quot;: \&quot;ton-connect.github.io\&quot;    },    \&quot;signature\&quot;: \&quot;28tWSg8RDB3P/iIYupySINq1o3F5xLodndzNFHOtdi16Z+MuII8LAPnHLT3E6WTB27//qY4psU5Rf5/aJaIIAA&#x3D;&#x3D;\&quot;,    \&quot;payload\&quot;: \&quot;E5B4ARS6CdOI2b5e1jz0jnS-x-a3DgfNXprrg_3pec0&#x3D;\&quot; // payload from the step 1.   }  } \&quot; 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiAuthTonproofCheckPayloadPost: async (tonproofCheckPayloadBodySchema?: TonproofCheckPayloadBodySchema, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/auth/tonproof/check-payload`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tonproofCheckPayloadBodySchema, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiAuthTonproofGeneratePayloadPost: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/auth/tonproof/generate-payload`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * AuthApi - functional programming interface
+ * @export
+ */
+export const AuthApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = AuthApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiAuthTonproofAccauntInfoGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TonproofGetAccauntInfoResponseSchema>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiAuthTonproofAccauntInfoGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.apiAuthTonproofAccauntInfoGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {TonproofCheckPayloadBodySchema} [tonproofCheckPayloadBodySchema]  {   \&quot;address\&quot;: \&quot;0:f63660ff947e5fe6ed4a8f729f1b24ef859497d0483aaa9d9ae48414297c4e1b\&quot;, // user\&#39;s address   \&quot;network\&quot;: \&quot;-1\&quot;, // \&quot;-239\&quot; for mainnet and \&quot;-1\&quot; for testnet   \&quot;proof\&quot;: {     \&quot;timestamp\&quot;: 1668094767, // unix epoch seconds    \&quot;domain\&quot;: {     \&quot;lengthBytes\&quot;: 21,     \&quot;value\&quot;: \&quot;ton-connect.github.io\&quot;    },    \&quot;signature\&quot;: \&quot;28tWSg8RDB3P/iIYupySINq1o3F5xLodndzNFHOtdi16Z+MuII8LAPnHLT3E6WTB27//qY4psU5Rf5/aJaIIAA&#x3D;&#x3D;\&quot;,    \&quot;payload\&quot;: \&quot;E5B4ARS6CdOI2b5e1jz0jnS-x-a3DgfNXprrg_3pec0&#x3D;\&quot; // payload from the step 1.   }  } \&quot; 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiAuthTonproofCheckPayloadPost(tonproofCheckPayloadBodySchema?: TonproofCheckPayloadBodySchema, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TonproofCheckPayloadResponseSchema>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiAuthTonproofCheckPayloadPost(tonproofCheckPayloadBodySchema, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.apiAuthTonproofCheckPayloadPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiAuthTonproofGeneratePayloadPost(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TonproofGeneratePayloadResponseSchema>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiAuthTonproofGeneratePayloadPost(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.apiAuthTonproofGeneratePayloadPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * AuthApi - factory interface
+ * @export
+ */
+export const AuthApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = AuthApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiAuthTonproofAccauntInfoGet(options?: RawAxiosRequestConfig): AxiosPromise<TonproofGetAccauntInfoResponseSchema> {
+            return localVarFp.apiAuthTonproofAccauntInfoGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {AuthApiApiAuthTonproofCheckPayloadPostRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiAuthTonproofCheckPayloadPost(requestParameters: AuthApiApiAuthTonproofCheckPayloadPostRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<TonproofCheckPayloadResponseSchema> {
+            return localVarFp.apiAuthTonproofCheckPayloadPost(requestParameters.tonproofCheckPayloadBodySchema, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiAuthTonproofGeneratePayloadPost(options?: RawAxiosRequestConfig): AxiosPromise<TonproofGeneratePayloadResponseSchema> {
+            return localVarFp.apiAuthTonproofGeneratePayloadPost(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for apiAuthTonproofCheckPayloadPost operation in AuthApi.
+ * @export
+ * @interface AuthApiApiAuthTonproofCheckPayloadPostRequest
+ */
+export interface AuthApiApiAuthTonproofCheckPayloadPostRequest {
+    /**
+     *  {   \&quot;address\&quot;: \&quot;0:f63660ff947e5fe6ed4a8f729f1b24ef859497d0483aaa9d9ae48414297c4e1b\&quot;, // user\&#39;s address   \&quot;network\&quot;: \&quot;-1\&quot;, // \&quot;-239\&quot; for mainnet and \&quot;-1\&quot; for testnet   \&quot;proof\&quot;: {     \&quot;timestamp\&quot;: 1668094767, // unix epoch seconds    \&quot;domain\&quot;: {     \&quot;lengthBytes\&quot;: 21,     \&quot;value\&quot;: \&quot;ton-connect.github.io\&quot;    },    \&quot;signature\&quot;: \&quot;28tWSg8RDB3P/iIYupySINq1o3F5xLodndzNFHOtdi16Z+MuII8LAPnHLT3E6WTB27//qY4psU5Rf5/aJaIIAA&#x3D;&#x3D;\&quot;,    \&quot;payload\&quot;: \&quot;E5B4ARS6CdOI2b5e1jz0jnS-x-a3DgfNXprrg_3pec0&#x3D;\&quot; // payload from the step 1.   }  } \&quot; 
+     * @type {TonproofCheckPayloadBodySchema}
+     * @memberof AuthApiApiAuthTonproofCheckPayloadPost
+     */
+    readonly tonproofCheckPayloadBodySchema?: TonproofCheckPayloadBodySchema
+}
+
+/**
+ * AuthApi - object-oriented interface
+ * @export
+ * @class AuthApi
+ * @extends {BaseAPI}
+ */
+export class AuthApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthApi
+     */
+    public apiAuthTonproofAccauntInfoGet(options?: RawAxiosRequestConfig) {
+        return AuthApiFp(this.configuration).apiAuthTonproofAccauntInfoGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {AuthApiApiAuthTonproofCheckPayloadPostRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthApi
+     */
+    public apiAuthTonproofCheckPayloadPost(requestParameters: AuthApiApiAuthTonproofCheckPayloadPostRequest = {}, options?: RawAxiosRequestConfig) {
+        return AuthApiFp(this.configuration).apiAuthTonproofCheckPayloadPost(requestParameters.tonproofCheckPayloadBodySchema, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthApi
+     */
+    public apiAuthTonproofGeneratePayloadPost(options?: RawAxiosRequestConfig) {
+        return AuthApiFp(this.configuration).apiAuthTonproofGeneratePayloadPost(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
 
 /**
  * PlayersApi - axios parameter creator
@@ -1154,6 +1596,41 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {UserUpdateSfsCount} userUpdateSfsCount 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiUsersUpdateSfsCountPost: async (userUpdateSfsCount: UserUpdateSfsCount, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userUpdateSfsCount' is not null or undefined
+            assertParamExists('apiUsersUpdateSfsCountPost', 'userUpdateSfsCount', userUpdateSfsCount)
+            const localVarPath = `/api/users/update-sfs-count`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(userUpdateSfsCount, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -1198,6 +1675,18 @@ export const UsersApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['UsersApi.apiUsersReferralsGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @param {UserUpdateSfsCount} userUpdateSfsCount 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiUsersUpdateSfsCountPost(userUpdateSfsCount: UserUpdateSfsCount, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiUsersUpdateSfsCountPost(userUpdateSfsCount, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UsersApi.apiUsersUpdateSfsCountPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -1233,6 +1722,15 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
         apiUsersReferralsGet(requestParameters: UsersApiApiUsersReferralsGetRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<User>> {
             return localVarFp.apiUsersReferralsGet(requestParameters.userGetReferralsQueryParams, options).then((request) => request(axios, basePath));
         },
+        /**
+         * 
+         * @param {UsersApiApiUsersUpdateSfsCountPostRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiUsersUpdateSfsCountPost(requestParameters: UsersApiApiUsersUpdateSfsCountPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.apiUsersUpdateSfsCountPost(requestParameters.userUpdateSfsCount, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -1248,6 +1746,20 @@ export interface UsersApiApiUsersReferralsGetRequest {
      * @memberof UsersApiApiUsersReferralsGet
      */
     readonly userGetReferralsQueryParams?: UserGetReferralsQueryParams
+}
+
+/**
+ * Request parameters for apiUsersUpdateSfsCountPost operation in UsersApi.
+ * @export
+ * @interface UsersApiApiUsersUpdateSfsCountPostRequest
+ */
+export interface UsersApiApiUsersUpdateSfsCountPostRequest {
+    /**
+     * 
+     * @type {UserUpdateSfsCount}
+     * @memberof UsersApiApiUsersUpdateSfsCountPost
+     */
+    readonly userUpdateSfsCount: UserUpdateSfsCount
 }
 
 /**
@@ -1286,6 +1798,17 @@ export class UsersApi extends BaseAPI {
      */
     public apiUsersReferralsGet(requestParameters: UsersApiApiUsersReferralsGetRequest = {}, options?: RawAxiosRequestConfig) {
         return UsersApiFp(this.configuration).apiUsersReferralsGet(requestParameters.userGetReferralsQueryParams, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {UsersApiApiUsersUpdateSfsCountPostRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public apiUsersUpdateSfsCountPost(requestParameters: UsersApiApiUsersUpdateSfsCountPostRequest, options?: RawAxiosRequestConfig) {
+        return UsersApiFp(this.configuration).apiUsersUpdateSfsCountPost(requestParameters.userUpdateSfsCount, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -6,7 +6,6 @@ import {
   Stack,
   Tooltip,
 } from "@chakra-ui/react";
-import { FaHome, FaUser, FaUserPlus } from "react-icons/fa";
 import { FC, forwardRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { bgFooterGradient } from "src/shared/style/bgGradient";
@@ -63,7 +62,7 @@ export default function Footer() {
   );
 }
 
-const IconItem: FC<FlexProps> = forwardRef(({ children, ...props }) => {
+const IconItem: FC<FlexProps> = forwardRef(({ children, ...props }, ref) => {
   return (
     <Flex
       display="flex"
@@ -71,6 +70,7 @@ const IconItem: FC<FlexProps> = forwardRef(({ children, ...props }) => {
       alignItems="center"
       justifyContent="center"
       fontSize={"xl"}
+      ref={ref}
       {...props}
     >
       {children}

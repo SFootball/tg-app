@@ -1,5 +1,5 @@
-import { TmaTypeAuthKey } from "./swagger";
+import { AuthPrefixToken } from "./swagger";
 
 export const generateTmaAuth = (initData: string) =>
-  `${TmaTypeAuthKey.Tma} ${initData}`;
+  `${AuthPrefixToken.Tma} ${initData}`;
 // mock test
