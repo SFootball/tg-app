@@ -12,11 +12,11 @@ import "./main.css";
 import "./App.css";
 import { SDKProvider } from "@tma.js/sdk-react";
 
-const stageManifest = "tonconnect-manifest.stage.json";
+// const stageManifest = "tonconnect-manifest.stage.json";
 const prodManifest = "tonconnect-manifest.json";
 
-const manifestName =
-  import.meta.env.VITE_MODE === "production" ? prodManifest : stageManifest;
+const manifestName = prodManifest;
+// import.meta.env.VITE_MODE === "production" ? prodManifest : stageManifest;
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const queryClient = new QueryClient();
