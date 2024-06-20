@@ -3,8 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaCopy, FaCheck } from "react-icons/fa";
-import { usersApi } from "src/shared/api/api";
-import { generateTmaAuth } from "src/shared/api/api.utils";
+import { mainApi } from "src/shared/api/api";
+// import { generateTmaAuth } from "src/shared/api/api.utils";
 import { useUserQuery } from "src/shared/hooks/useUserQuery";
 import { MainText } from "src/shared/components/MainText";
 import { SubTitle } from "src/shared/components/SubTitle";
@@ -31,16 +31,16 @@ export const Component: FC = () => {
   const { data: referrals, isLoading } = useQuery<UserType[]>({
     queryKey: ["referals"],
     queryFn: () =>
-      usersApi
+      mainApi.usersApi
         .apiUsersReferralsGet(
           {
             userGetReferralsQueryParams: { tg_id: user?.tg_id },
-          },
-          {
-            headers: {
-              Authorization: generateTmaAuth(initData!),
-            },
           }
+          // {
+          //   headers: {
+          //     Authorization: generateTmaAuth(initData!),
+          //   },
+          // }
         )
         .then((resp) => resp?.data),
     enabled: !!user,

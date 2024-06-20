@@ -2,11 +2,11 @@ import { Divider, Flex, Skeleton, Stack } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { tasksApi } from "src/shared/api/api";
+import { mainApi } from "src/shared/api/api";
 import { SubTitle } from "src/shared/components/SubTitle";
 import { useUserQuery } from "src/shared/hooks/useUserQuery";
 import { TaskCard } from "./TaskCard";
-import { generateTmaAuth } from "src/shared/api/api.utils";
+// import { generateTmaAuth } from "src/shared/api/api.utils";
 import { useInitDataTg } from "src/shared/hooks/useInitDataTg";
 import Footer from "src/app/Footer/Footer";
 import { Navbar } from "src/app/Navbar/Navbar";
@@ -20,10 +20,10 @@ export const Component: FC = () => {
   const { data: tasks, isLoading } = useQuery({
     queryKey: ["tasks"],
     queryFn: async () => {
-      const { data } = await tasksApi.apiTasksAllGet({
-        headers: {
-          Authorization: generateTmaAuth(initData!),
-        },
+      const { data } = await mainApi.tasksApi.apiTasksAllGet({
+        // headers: {
+        //   Authorization: generateTmaAuth(initData!),
+        // },
       });
       return data;
     },

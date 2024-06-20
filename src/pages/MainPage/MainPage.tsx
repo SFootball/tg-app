@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import Footer from "src/app/Footer/Footer";
 import { Navbar } from "src/app/Navbar/Navbar";
-import { GameLinkButton } from "./GameLinkButton";
+// import { GameLinkButton } from "./GameLinkButton";
 
 const bgImgURL_EN = "url('/imgs/sfootball-main_en.jpg')";
 const bgImgURL_RU = "url('/imgs/sfootball-main_ru.jpg')";
@@ -38,7 +38,7 @@ export const Component = () => {
           bgPosition="center"
         />
       )}
-      <GameLinkButton />
+      {/* <GameLinkButton /> */}
       <Footer />
     </>
   );
