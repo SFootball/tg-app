@@ -57,6 +57,7 @@ export class MainApi {
   }
 
   setToken = (tmaToken: string) => {
+    if (isDev) return;
     this.accessToken = tmaToken;
     const Authorization = `tma ${this.accessToken}`;
     this.conf.baseOptions.headers = {

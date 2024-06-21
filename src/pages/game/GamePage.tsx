@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import { FC } from "react";
 import { BaseGame } from "./BaseGame";
-import { GameProvider } from "./game-context/GameProvider";
+import { GameProvider } from "./GameContext/GameProvider";
 import { GameHeader } from "./componets/GameHeader";
 
 export const Component: FC = () => {
@@ -13,6 +13,7 @@ export const Component: FC = () => {
         top="0"
         left="0"
         width="100%"
+        // w="100vw"
         h="100vh"
       >
         {/* header */}

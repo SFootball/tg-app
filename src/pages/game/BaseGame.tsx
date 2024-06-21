@@ -10,17 +10,17 @@ import { BallComponent } from "./componets/BallComponent";
 import { AnimatePresence } from "framer-motion";
 import { GameFooter } from "./componets/GameFooter";
 import { CloseGameModal } from "./componets/CloseGameModal";
-import { useGameContext } from "./game-context/useGameContext";
+import { useGameContext } from "./GameContext/useGameContext";
 
 const playerImagePath = "/imgs/game/player.png";
 const bgImagePath = "/imgs/game/game-bg.jpg";
 const imagePatternPath = "/imgs/game/ball";
 
 let countId = 1;
+// let isGameRunning = true;
 
 export const BaseGame: FC = () => {
-  const [isGameEnded, setGameEnded] = useState(false);
-  const { gamePoints, setGamePoints } = useGameContext();
+  const { isGameStarted, setGameStarted, setGamePoints } = useGameContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bgRef = useRef<HTMLDivElement | null>(null);
   const [balls, setBalls] = useState<BallsType[]>([]);
@@ -38,6 +38,7 @@ export const BaseGame: FC = () => {
       if (balls.length >= maxElCounts) {
         return [];
       }
+      console.log("isGameStarted", isGameStarted);
       arr.map((_, i, newArr) => {
         const type =
           ballTypesByCoef[Math.floor(Math.random() * ballTypesByCoef.length)];
@@ -58,23 +59,24 @@ export const BaseGame: FC = () => {
 
       return arr;
     },
-    [balls]
+    [balls, isGameStarted]
   );
 
   const removeBall = useCallback((id: number) => {
     setBalls((prev) => prev.filter((ball) => ball?.id !== id));
   }, []);
 
-  useInterval(() => {
-    if (isGameEnded) {
-      return;
-    }
-    setBalls((prev) => {
-      const randomNumPerIterate = genRandomNumber(1, 5);
-      const newBalls = generateBallObjects(randomNumPerIterate);
-      return [...prev, ...newBalls];
-    });
-  }, 1000);
+  useInterval(
+    () => {
+      console.log("interval");
+      setBalls((prev) => {
+        const randomNumPerIterate = genRandomNumber(1, 5);
+        const newBalls = generateBallObjects(randomNumPerIterate);
+        return [...prev, ...newBalls];
+      });
+    },
+    isGameStarted ? 1000 : null
+  );
 
   const handleClickBall = useCallback(
     (id: number | undefined, type: BallsTypes) => {
@@ -98,17 +100,18 @@ export const BaseGame: FC = () => {
     [setBalls, setGamePoints, clearBalls]
   );
 
-  const onEndEffect = useCallback(() => {
-    setGameEnded(true);
-    onOpen();
+  const onEndTimerEffect = useCallback(() => {
+    setGameStarted(false);
     clearBalls();
-  }, [onOpen, setGameEnded, clearBalls]);
+    onOpen();
+  }, [onOpen, setGameStarted, clearBalls]);
 
   return (
     <>
       <Box
         position="relative"
-        width="100%"
+        // width="100%"
+        width="100vw"
         height="90vh"
         bgImage={`url(${bgImagePath})`}
         bgRepeat="no-repeat"
@@ -124,19 +127,19 @@ export const BaseGame: FC = () => {
           right="0"
           bottom="0"
         />
-        <AnimatePresence initial={false}>
-          {balls.map((ball) => {
-            return (
-              <BallComponent
-                key={`${ball.id}-${ball.type}`}
-                ball={ball}
-                handleClickBall={handleClickBall}
-                removeBall={removeBall}
-              />
-            );
-          })}
-        </AnimatePresence>
-        <GameFooter onEndEffect={onEndEffect} />
+        {/* <AnimatePresence initial={false}> */}
+        {balls.map((ball) => {
+          return (
+            <BallComponent
+              key={`${ball.id}-${ball.type}`}
+              ball={ball}
+              handleClickBall={handleClickBall}
+              removeBall={removeBall}
+            />
+          );
+        })}
+        {/* </AnimatePresence> */}
+        <GameFooter onEndEffect={onEndTimerEffect} />
       </Box>
       <CloseGameModal isOpen={isOpen} onClose={onClose} />
     </>

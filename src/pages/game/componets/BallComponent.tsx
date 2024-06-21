@@ -3,6 +3,7 @@ import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { ballDiametr, ballTypesByCoef, maxElCounts } from "../game.constants";
 import { BallsType, BallsTypes } from "../game.types";
 import { motion, useIsPresent, usePresence } from "framer-motion";
+import { useGameContext } from "../GameContext/useGameContext";
 
 const ballKeyframes = keyframes`
   0% {
@@ -40,31 +41,29 @@ export const BallComponent: FC<Props> = ({
   // const [isPresent, safeToRemove] = usePresence();
   const isPresent = useIsPresent();
 
+  // const { isGameStarted } = useGameContext();
+
+  // useEffect(() => {
+  //   if (!isGameStarted) {
+  //     console.log("isGameStarted", isGameStarted);
+  //     removeBall(ball?.id);
+  //     // console.log("safeToRemove");
+  //     // safeToRemove();
+  //   }
+  // }, [isGameStarted]);
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      removeBall(ball?.id || 0);
+      removeBall(ball?.id);
     }, 3500);
     return () => {
       clearTimeout(timeoutId);
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (!isPresent) {
-  //     if (isBang) {
-  //       return;
-  //     } else {
-  //       safeToRemove();
-  //     }
-  //   }
-  // }, [isPresent, isBang, safeToRemove]);
-
   const onClickBall = useCallback(() => {
     setIsBang(true);
     handleClickBall(ball.id, ball.type);
-    // bangTimeout.current = setTimeout(() => {
-    //   handleClickBall(ball.id, ball.type);
-    // }, 1000);
   }, [handleClickBall, ball]);
 
   return (

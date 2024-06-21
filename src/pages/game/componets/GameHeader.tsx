@@ -2,7 +2,7 @@ import { Button, Flex, Text } from "@chakra-ui/react";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useGameContext } from "../game-context/useGameContext";
+import { useGameContext } from "../GameContext/useGameContext";
 
 type GameHeaderProps = {
   // gamePointCount: number;
@@ -11,14 +11,15 @@ type GameHeaderProps = {
 export const GameHeader: React.FC<GameHeaderProps> = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { gamePoints } = useGameContext();
-  const moveToMain = useCallback(() => {
+  const { gamePoints, setGameStarted } = useGameContext();
+  const closeGame = useCallback(() => {
+    setGameStarted(false);
     navigate("/");
-  }, [navigate]);
+  }, [navigate, setGameStarted]);
   return (
     <Flex alignItems={"center"} py={2} px={4} gap={6}>
       <Button
-        onClick={moveToMain}
+        onClick={closeGame}
         bgColor={"content.violet"}
         color={"whiteAlpha.900"}
       >

@@ -1,37 +1,57 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Box, Button, Flex, Text, useInterval } from "@chakra-ui/react";
+import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import style from "../game.module.css";
+import { useGameContext } from "../GameContext/useGameContext";
 
 type GameFooterProps = {
   onEndEffect: () => void;
 };
 
 const timerDelay = 1000;
+const gamePeriod = 2;
 
 export const GameFooter: React.FC<GameFooterProps> = ({ onEndEffect }) => {
-  const [seconds, setSeconds] = useState(2);
-  const { t } = useTranslation();
+  const [seconds, setSeconds] = useState(gamePeriod);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
+  const { t } = useTranslation();
+  const { setGameStarted, isGameStarted } = useGameContext();
+
+  useInterval(
+    () => {
       if (seconds !== 0) {
         setSeconds(seconds - 1);
       } else {
         onEndEffect();
-        clearInterval(timer);
+        setSeconds(gamePeriod);
       }
-    }, timerDelay);
+    },
+    !isGameStarted ? null : timerDelay
+  );
 
-    return () => {
-      clearInterval(timer);
-    };
-  }, [seconds, onEndEffect]);
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     if (seconds !== 0) {
+  //       setSeconds(seconds - 1);
+  //     } else {
+  //       onEndEffect();
+  //       clearInterval(timer);
+  //     }
+  //   }, timerDelay);
+
+  //   return () => {
+  //     clearInterval(timer);
+  //   };
+  // }, [seconds, onEndEffect]);
+
+  const handleRunGame = useCallback(() => {
+    setGameStarted(true);
+  }, [setGameStarted]);
 
   return (
     <Flex
       bgColor="bg.violet"
-      h="5vh"
+      // h="5vh"
       bottom="0"
       left="0"
       position="fixed"
@@ -39,11 +59,17 @@ export const GameFooter: React.FC<GameFooterProps> = ({ onEndEffect }) => {
       align="center"
       justify="space-between"
       px="16px"
+      py={2}
       zIndex={10}
     >
       <Box className={style.gameText} fontSize="30px">
-        <Text>{`${t("TIMER")}: ${seconds}`}</Text>
+        {isGameStarted && <Text>{`${t("TIMER")}: ${seconds}`}</Text>}
       </Box>
+      {!isGameStarted && (
+        <Button className="game-text" fontSize="30px" onClick={handleRunGame}>
+          {t("PLAY")}
+        </Button>
+      )}
     </Flex>
   );
 };
