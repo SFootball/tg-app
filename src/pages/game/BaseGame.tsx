@@ -17,7 +17,7 @@ const bgImagePath = "/imgs/game/game-bg.jpg";
 const imagePatternPath = "/imgs/game/ball";
 
 let countId = 1;
-// let isGameRunning = true;
+let isGameRunning = true;
 
 export const BaseGame: FC = () => {
   const { isGameStarted, setGameStarted, setGamePoints } = useGameContext();
@@ -38,7 +38,6 @@ export const BaseGame: FC = () => {
       if (balls.length >= maxElCounts) {
         return [];
       }
-      console.log("isGameStarted", isGameStarted);
       arr.map((_, i, newArr) => {
         const type =
           ballTypesByCoef[Math.floor(Math.random() * ballTypesByCoef.length)];
@@ -66,17 +65,18 @@ export const BaseGame: FC = () => {
     setBalls((prev) => prev.filter((ball) => ball?.id !== id));
   }, []);
 
-  useInterval(
-    () => {
-      console.log("interval");
-      setBalls((prev) => {
-        const randomNumPerIterate = genRandomNumber(1, 5);
-        const newBalls = generateBallObjects(randomNumPerIterate);
-        return [...prev, ...newBalls];
-      });
-    },
-    isGameStarted ? 1000 : null
-  );
+  const addBallInInterval = useCallback(() => {
+    setBalls((prev) => {
+      if (!isGameRunning) {
+        return prev;
+      }
+      const randomNumPerIterate = genRandomNumber(1, 5);
+      const newBalls = generateBallObjects(randomNumPerIterate);
+      return [...prev, ...newBalls];
+    });
+  }, [generateBallObjects]);
+
+  useInterval(addBallInInterval, isGameStarted ? 1000 : null);
 
   const handleClickBall = useCallback(
     (id: number | undefined, type: BallsTypes) => {
@@ -100,8 +100,14 @@ export const BaseGame: FC = () => {
     [setBalls, setGamePoints, clearBalls]
   );
 
+  const handleRunGame = useCallback(() => {
+    setGameStarted(true);
+    isGameRunning = true;
+  }, [setGameStarted]);
+
   const onEndTimerEffect = useCallback(() => {
     setGameStarted(false);
+    isGameRunning = false;
     clearBalls();
     onOpen();
   }, [onOpen, setGameStarted, clearBalls]);
@@ -127,19 +133,22 @@ export const BaseGame: FC = () => {
           right="0"
           bottom="0"
         />
-        {/* <AnimatePresence initial={false}> */}
-        {balls.map((ball) => {
-          return (
-            <BallComponent
-              key={`${ball.id}-${ball.type}`}
-              ball={ball}
-              handleClickBall={handleClickBall}
-              removeBall={removeBall}
-            />
-          );
-        })}
-        {/* </AnimatePresence> */}
-        <GameFooter onEndEffect={onEndTimerEffect} />
+        <AnimatePresence initial={false}>
+          {balls.map((ball) => {
+            return (
+              <BallComponent
+                key={`${ball.id}-${ball.type}`}
+                ball={ball}
+                handleClickBall={handleClickBall}
+                removeBall={removeBall}
+              />
+            );
+          })}
+        </AnimatePresence>
+        <GameFooter
+          onEndEffect={onEndTimerEffect}
+          handleRunGame={handleRunGame}
+        />
       </Box>
       <CloseGameModal isOpen={isOpen} onClose={onClose} />
     </>

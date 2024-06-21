@@ -1,21 +1,25 @@
 import { Box, Button, Flex, Text, useInterval } from "@chakra-ui/react";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import style from "../game.module.css";
 import { useGameContext } from "../GameContext/useGameContext";
 
 type GameFooterProps = {
   onEndEffect: () => void;
+  handleRunGame: () => void;
 };
 
 const timerDelay = 1000;
-const gamePeriod = 2;
+const gamePeriod = 20;
 
-export const GameFooter: React.FC<GameFooterProps> = ({ onEndEffect }) => {
+export const GameFooter: React.FC<GameFooterProps> = ({
+  onEndEffect,
+  handleRunGame,
+}) => {
   const [seconds, setSeconds] = useState(gamePeriod);
 
   const { t } = useTranslation();
-  const { setGameStarted, isGameStarted } = useGameContext();
+  const { isGameStarted } = useGameContext();
 
   useInterval(
     () => {
@@ -43,10 +47,6 @@ export const GameFooter: React.FC<GameFooterProps> = ({ onEndEffect }) => {
   //     clearInterval(timer);
   //   };
   // }, [seconds, onEndEffect]);
-
-  const handleRunGame = useCallback(() => {
-    setGameStarted(true);
-  }, [setGameStarted]);
 
   return (
     <Flex

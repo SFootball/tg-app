@@ -1,8 +1,8 @@
 import { Box, Image, keyframes } from "@chakra-ui/react";
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
-import { ballDiametr, ballTypesByCoef, maxElCounts } from "../game.constants";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
+import { ballDiametr } from "../game.constants";
 import { BallsType, BallsTypes } from "../game.types";
-import { motion, useIsPresent, usePresence } from "framer-motion";
+import { motion, usePresence } from "framer-motion";
 import { useGameContext } from "../GameContext/useGameContext";
 
 const ballKeyframes = keyframes`
@@ -38,10 +38,11 @@ export const BallComponent: FC<Props> = ({
   removeBall,
 }) => {
   const [isBang, setIsBang] = useState(false);
-  // const [isPresent, safeToRemove] = usePresence();
-  const isPresent = useIsPresent();
+  const [isPresent, safeToRemove] = usePresence();
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  // const isPresent = useIsPresent();
 
-  // const { isGameStarted } = useGameContext();
+  const { isGameStarted } = useGameContext();
 
   // useEffect(() => {
   //   if (!isGameStarted) {
@@ -51,20 +52,36 @@ export const BallComponent: FC<Props> = ({
   //     // safeToRemove();
   //   }
   // }, [isGameStarted]);
+  useEffect(() => {
+    if (!isGameStarted && safeToRemove) {
+      safeToRemove();
+    }
+  }, [isGameStarted, safeToRemove]);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      removeBall(ball?.id);
+      if (ball?.id) {
+        removeBall(ball?.id);
+      }
     }, 3500);
     return () => {
       clearTimeout(timeoutId);
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
     };
   }, []);
 
   const onClickBall = useCallback(() => {
     setIsBang(true);
     handleClickBall(ball.id, ball.type);
-  }, [handleClickBall, ball]);
+    timerRef.current = setTimeout(() => {
+      // setIsBang(false);
+      if (safeToRemove) {
+        safeToRemove();
+      }
+    }, 1000);
+  }, [handleClickBall, ball, safeToRemove]);
 
   return (
     <Box
@@ -74,7 +91,8 @@ export const BallComponent: FC<Props> = ({
       left={ball?.left}
       top={ball?.top}
     >
-      {!isPresent && (
+      {/* {!isPresent && ( */}
+      {isBang && (
         <Box
           // animate={{ opacity: 0 }}
           // exit={{ opacity: 0 }}
