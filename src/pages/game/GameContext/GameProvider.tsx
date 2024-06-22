@@ -1,7 +1,9 @@
 import { FC, PropsWithChildren, useCallback, useState } from "react";
 import { gameContext } from "./GameContext";
+import { useUserQuery } from "src/shared/hooks/useUserQuery";
 
 export const GameProvider: FC<PropsWithChildren> = ({ children }) => {
+  useUserQuery();
   const [gamePoints, setGamePoints] = useState(0);
   const [isGameStarted, setGameStarted] = useState(false);
 
@@ -9,8 +11,7 @@ export const GameProvider: FC<PropsWithChildren> = ({ children }) => {
     setGamePoints(0);
   }, []);
 
-  // check if null
-  if (!gameContext) {
+  if (gameContext === null) {
     throw new Error("GameProvider must be used within a GameProvider");
   }
   return (

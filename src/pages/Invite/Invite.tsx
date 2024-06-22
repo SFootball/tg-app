@@ -10,14 +10,14 @@ import { MainText } from "src/shared/components/MainText";
 import { SubTitle } from "src/shared/components/SubTitle";
 import { UserType } from "src/shared/types/User";
 import { generateRefLink } from "src/shared/utils/tg.utils";
-import { useInitDataTg } from "src/shared/hooks/useInitDataTg";
+// import { useInitDataTg } from "src/shared/hooks/useInitDataTg";
 import Footer from "src/app/Footer/Footer";
 import { Navbar } from "src/app/Navbar/Navbar";
 // import { mockReferrals as referrals } from "src/shared/mock/referrals";
 
 export const Component: FC = () => {
   const { t } = useTranslation();
-  const initData = useInitDataTg();
+  // const initData = useInitDataTg();
 
   const { user, isUserLoading } = useUserQuery();
   // const id = initData?.user?.id;
@@ -83,7 +83,7 @@ export const Component: FC = () => {
           </SubTitle>
         </Flex>
 
-        <Flex>
+        <Flex direction={"column"}>
           <Flex
             px={{ base: 4 }}
             py={{ base: 2 }}
@@ -92,7 +92,7 @@ export const Component: FC = () => {
             boxShadow="2xl"
             justifyContent={"space-between"}
             alignItems={"center"}
-            minW={"302px"}
+            minW={"270px"}
             onClick={copyLink}
           >
             <MainText>
