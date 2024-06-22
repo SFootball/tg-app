@@ -2,8 +2,6 @@ import { Box, Image, keyframes } from "@chakra-ui/react";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { ballDiametr } from "../game.constants";
 import { BallsType, BallsTypes } from "../game.types";
-import { motion, usePresence } from "framer-motion";
-import { useGameContext } from "../GameContext/useGameContext";
 
 const ballKeyframes = keyframes`
   0% {
@@ -38,25 +36,8 @@ export const BallComponent: FC<Props> = ({
   removeBall,
 }) => {
   const [isBang, setIsBang] = useState(false);
-  const [isPresent, safeToRemove] = usePresence();
+
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  // const isPresent = useIsPresent();
-
-  const { isGameStarted } = useGameContext();
-
-  // useEffect(() => {
-  //   if (!isGameStarted) {
-  //     console.log("isGameStarted", isGameStarted);
-  //     removeBall(ball?.id);
-  //     // console.log("safeToRemove");
-  //     // safeToRemove();
-  //   }
-  // }, [isGameStarted]);
-  useEffect(() => {
-    if (!isGameStarted && safeToRemove) {
-      safeToRemove();
-    }
-  }, [isGameStarted, safeToRemove]);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -74,14 +55,11 @@ export const BallComponent: FC<Props> = ({
 
   const onClickBall = useCallback(() => {
     setIsBang(true);
-    handleClickBall(ball.id, ball.type);
+    // if (ball.type === "bomb") {}
     timerRef.current = setTimeout(() => {
-      // setIsBang(false);
-      if (safeToRemove) {
-        safeToRemove();
-      }
-    }, 1000);
-  }, [handleClickBall, ball, safeToRemove]);
+      handleClickBall(ball.id, ball.type);
+    }, 700);
+  }, [ball, handleClickBall]);
 
   return (
     <Box
@@ -91,33 +69,25 @@ export const BallComponent: FC<Props> = ({
       left={ball?.left}
       top={ball?.top}
     >
-      {/* {!isPresent && ( */}
-      {isBang && (
+      {isBang ? (
         <Box
-          // animate={{ opacity: 0 }}
-          // exit={{ opacity: 0 }}
-          // display={isBang ? "block" : "none"}
-          // opacity={isBang ? 0 : 1}
-          as={motion.div}
           width={ballDiametrBang}
           height={ballDiametrBang}
           bgImage={`url(/imgs/game/${ball.type}.png)`}
           transform={"translate(-30%, -25%)"}
           animation={ballAnimation}
           position="absolute"
-          left={ball?.left}
-          top={ball?.top}
+        />
+      ) : (
+        <Image
+          src={`${ball?.src}`}
+          width="100%"
+          height="100%"
+          display={isBang ? "none" : "block"}
+          onClick={onClickBall}
+          cursor="pointer"
         />
       )}
-
-      <Image
-        src={`${ball?.src}`}
-        width="100%"
-        height="100%"
-        display={isBang ? "none" : "block"}
-        onClick={onClickBall}
-        cursor="pointer"
-      />
     </Box>
   );
 };

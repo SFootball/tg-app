@@ -27,7 +27,6 @@ export const CloseGameModal: FC<Props> = ({ isOpen, onClose }) => {
   const onCloseModal = useCallback(() => {
     onClose();
     resetPoints();
-    // navigate("/");
   }, [onClose, resetPoints]);
 
   const onClickCollectButton = useCallback(() => {

@@ -52,6 +52,7 @@ export const GameFooter: React.FC<GameFooterProps> = ({
     <Flex
       bgColor="bg.violet"
       // h="5vh"
+      h={"70px"}
       bottom="0"
       left="0"
       position="fixed"

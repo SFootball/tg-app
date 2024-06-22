@@ -7,7 +7,6 @@ import {
 import { BallsType, BallsTypes } from "./game.types";
 import { ballTypesByCoef, maxElCounts } from "./game.constants";
 import { BallComponent } from "./componets/BallComponent";
-import { AnimatePresence } from "framer-motion";
 import { GameFooter } from "./componets/GameFooter";
 import { CloseGameModal } from "./componets/CloseGameModal";
 import { useGameContext } from "./GameContext/useGameContext";
@@ -115,13 +114,12 @@ export const BaseGame: FC = () => {
   return (
     <>
       <Box
-        position="relative"
-        // width="100%"
+        // position="relative"
         width="100vw"
         height="90vh"
+        overflow={"hidden"}
         bgImage={`url(${bgImagePath})`}
         bgRepeat="no-repeat"
-        // bgSize="cover"
         backgroundSize={"100% 100%"}
         ref={bgRef}
       >
@@ -133,18 +131,16 @@ export const BaseGame: FC = () => {
           right="0"
           bottom="0"
         />
-        <AnimatePresence initial={false}>
-          {balls.map((ball) => {
-            return (
-              <BallComponent
-                key={`${ball.id}-${ball.type}`}
-                ball={ball}
-                handleClickBall={handleClickBall}
-                removeBall={removeBall}
-              />
-            );
-          })}
-        </AnimatePresence>
+        {balls.map((ball) => {
+          return (
+            <BallComponent
+              key={`${ball.id}-${ball.type}`}
+              ball={ball}
+              handleClickBall={handleClickBall}
+              removeBall={removeBall}
+            />
+          );
+        })}
         <GameFooter
           onEndEffect={onEndTimerEffect}
           handleRunGame={handleRunGame}
