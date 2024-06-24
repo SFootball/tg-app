@@ -6,6 +6,7 @@ import {
   TasksApi,
   AuthApi,
   AuthPrefixToken,
+  GameApi,
 } from "./swagger/api";
 
 // const basePath = "http://localhost:5050";
@@ -31,12 +32,13 @@ export class MainApi {
   playersApi: PlayersApi;
   tasksApi: TasksApi;
   authApi: AuthApi;
+  gameApi: GameApi;
   constructor() {
     this.basePath = basePath;
     this.accessToken = "";
     let Authorization;
     if (isDev) {
-      Authorization = `${AuthPrefixToken.Token} 530287867`;
+      Authorization = `${AuthPrefixToken.DevToken} 530287867`;
     } else if (this.accessToken) {
       Authorization = `tma ${this.accessToken}`;
     }
@@ -50,10 +52,11 @@ export class MainApi {
         },
       },
     });
+    this.authApi = new AuthApi(this.conf, this.basePath, axiosAuth);
     this.usersApi = new UsersApi(this.conf, this.basePath, axiosAuth);
     this.playersApi = new PlayersApi(this.conf, this.basePath, axiosAuth);
     this.tasksApi = new TasksApi(this.conf, this.basePath, axiosAuth);
-    this.authApi = new AuthApi(this.conf, this.basePath, axiosAuth);
+    this.gameApi = new GameApi(this.conf, this.basePath, axiosAuth);
   }
 
   setToken = (tmaToken: string) => {
@@ -67,32 +70,14 @@ export class MainApi {
   };
 
   initApi = () => {
+    this.authApi = new AuthApi(this.conf, this.basePath, axiosAuth);
     this.usersApi = new UsersApi(this.conf, this.basePath, axiosAuth);
     this.playersApi = new PlayersApi(this.conf, this.basePath, axiosAuth);
     this.tasksApi = new TasksApi(this.conf, this.basePath, axiosAuth);
-    this.authApi = new AuthApi(this.conf, this.basePath, axiosAuth);
+    this.gameApi = new GameApi(this.conf, this.basePath, axiosAuth);
   };
 
-  // init = () => {
-  //   this.accessToken = localStorage.getItem(localStorageAuthTokenKey) || "";
-  //   const Authorization = this.accessToken
-  //     ? `Bearer ${this.accessToken}`
-  //     : undefined;
-  //   this.conf = new Configuration({
-  //     basePath: this.basePath,
-  //     accessToken: this.accessToken,
-  //     baseOptions: {
-  //       headers: {
-  //         Authorization,
-  //       },
-  //     },
-  //   });
-  //   this.usersApi = new UsersApi(this.conf, this.basePath, axiosAuth);
-  //   this.playersApi = new PlayersApi(this.conf, this.basePath, axiosAuth);
-  //   this.tasksApi = new TasksApi(this.conf, this.basePath, axiosAuth);
-  //   this.authApi = new AuthApi(this.conf, this.basePath, axiosAuth);
-  // };
-
+  // TODO make reset Auth jwt token after making ton auth on server in tma
   // resetAuthJwtTocken = () => {
   //   localStorage.removeItem(localStorageAuthTokenKey);
   //   this.authApi.apiAuthTonproofGeneratePayloadPost();

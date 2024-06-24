@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import style from "../game.module.css";
 import { useGameContext } from "../GameContext/useGameContext";
+import { useCalculateGameAttempts } from "src/entities/game/useCalculateGameAttempts";
 
 type GameFooterProps = {
   onEndEffect: () => void;
@@ -17,6 +18,8 @@ export const GameFooter: React.FC<GameFooterProps> = ({
   handleRunGame,
 }) => {
   const [seconds, setSeconds] = useState(gamePeriod);
+
+  const { attempts, isGameAttemptsLoading } = useCalculateGameAttempts();
 
   const { t } = useTranslation();
   const { isGameStarted } = useGameContext();
@@ -67,9 +70,20 @@ export const GameFooter: React.FC<GameFooterProps> = ({
         {isGameStarted && <Text>{`${t("TIMER")}: ${seconds}`}</Text>}
       </Box>
       {!isGameStarted && (
-        <Button className="game-text" fontSize="30px" onClick={handleRunGame}>
-          {t("PLAY")}
-        </Button>
+        <Flex gap={4} alignItems={"center"}>
+          <Text fontWeight="bold">
+            {t("ATTEMPTS")}: {attempts}
+          </Text>
+          <Button
+            className="game-text"
+            fontSize="30px"
+            onClick={handleRunGame}
+            isDisabled={attempts === 0}
+            isLoading={isGameAttemptsLoading}
+          >
+            {t("PLAY")}
+          </Button>
+        </Flex>
       )}
     </Flex>
   );

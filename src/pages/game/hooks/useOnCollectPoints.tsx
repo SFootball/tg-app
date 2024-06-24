@@ -6,15 +6,9 @@ import { getUserQueryKey } from "src/shared/hooks/useUserQuery";
 
 export const useOnCollectPoints = () => {
   const initData = useInitDataTg();
-  const { mutate, isPending } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationKey: ["onCollectPoints"],
-    mutationFn: async ({
-      sfsCount,
-      cb,
-    }: {
-      sfsCount: number;
-      cb: () => void;
-    }) => {
+    mutationFn: async ({ sfsCount }: { sfsCount: number }) => {
       await mainApi.usersApi.apiUsersUpdateSfsCountPost({
         userUpdateSfsCount: {
           sfs_count: sfsCount,
@@ -22,14 +16,13 @@ export const useOnCollectPoints = () => {
       });
       const userInfoQueryKey = getUserQueryKey(initData);
       queryClient.invalidateQueries({ queryKey: userInfoQueryKey });
-      cb();
     },
     onError: (error) => {
       console.log(error);
     },
   });
   return {
-    onCollectPoints: mutate,
-    isLoading: isPending,
+    onCollectPoints: mutateAsync,
+    isCollectPointsLoading: isPending,
   };
 };

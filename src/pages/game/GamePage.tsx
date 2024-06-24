@@ -7,18 +7,8 @@ import { GameHeader } from "./componets/GameHeader";
 export const Component: FC = () => {
   return (
     <GameProvider>
-      <Box
-        // position="absolute"
-        alignSelf="center"
-        top="0"
-        left="0"
-        width="100%"
-        // w="100vw"
-        h="100vh"
-      >
-        {/* header */}
+      <Box alignSelf="center" top="0" left="0" width="100%" h="100vh">
         <GameHeader />
-        {/* game */}
         <BaseGame />
       </Box>
     </GameProvider>

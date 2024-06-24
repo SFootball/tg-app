@@ -13,6 +13,7 @@ import React, { FC, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useOnCollectPoints } from "../hooks/useOnCollectPoints";
 import { useGameContext } from "../GameContext/useGameContext";
+import { useDecreaseAttempts } from "../hooks/useDecreaseAttempts";
 
 type Props = {
   isOpen: boolean;
@@ -21,7 +22,9 @@ type Props = {
 
 export const CloseGameModal: FC<Props> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
-  const { onCollectPoints, isLoading } = useOnCollectPoints();
+  const { onCollectPoints, isCollectPointsLoading } = useOnCollectPoints();
+  const { decreaseAttempts, isLoadingDecreaseAttempts } = useDecreaseAttempts();
+
   const { gamePoints, resetPoints } = useGameContext();
 
   const onCloseModal = useCallback(() => {
@@ -29,12 +32,15 @@ export const CloseGameModal: FC<Props> = ({ isOpen, onClose }) => {
     resetPoints();
   }, [onClose, resetPoints]);
 
-  const onClickCollectButton = useCallback(() => {
-    onCollectPoints({
+  const onClickCollectButton = useCallback(async () => {
+    await onCollectPoints({
       sfsCount: gamePoints,
-      cb: onCloseModal,
     });
-  }, [gamePoints, onCloseModal, onCollectPoints]);
+    await decreaseAttempts();
+    onCloseModal();
+  }, [gamePoints, onCloseModal, onCollectPoints, decreaseAttempts]);
+
+  const isLoading = isCollectPointsLoading || isLoadingDecreaseAttempts;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>

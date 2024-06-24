@@ -26,13 +26,26 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface AttemptsSchema
+ */
+export interface AttemptsSchema {
+    /**
+     * 
+     * @type {number}
+     * @memberof AttemptsSchema
+     */
+    'attempts'?: number;
+}
+/**
+ * 
+ * @export
  * @enum {string}
  */
 
 export const AuthPrefixToken = {
     Tma: 'tma',
     Bearer: 'Bearer',
-    Token: 'token'
+    DevToken: 'dev-token'
 } as const;
 
 export type AuthPrefixToken = typeof AuthPrefixToken[keyof typeof AuthPrefixToken];
@@ -902,6 +915,161 @@ export class AuthApi extends BaseAPI {
      */
     public apiAuthTonproofGeneratePayloadPost(options?: RawAxiosRequestConfig) {
         return AuthApiFp(this.configuration).apiAuthTonproofGeneratePayloadPost(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * GameApi - axios parameter creator
+ * @export
+ */
+export const GameApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiGameCalculateAttemptsPut: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/game/calculate-attempts`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiGameDecreaseAttemptsPut: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/game/decrease-attempts`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * GameApi - functional programming interface
+ * @export
+ */
+export const GameApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = GameApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiGameCalculateAttemptsPut(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AttemptsSchema>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiGameCalculateAttemptsPut(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['GameApi.apiGameCalculateAttemptsPut']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiGameDecreaseAttemptsPut(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiGameDecreaseAttemptsPut(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['GameApi.apiGameDecreaseAttemptsPut']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * GameApi - factory interface
+ * @export
+ */
+export const GameApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = GameApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiGameCalculateAttemptsPut(options?: RawAxiosRequestConfig): AxiosPromise<AttemptsSchema> {
+            return localVarFp.apiGameCalculateAttemptsPut(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiGameDecreaseAttemptsPut(options?: RawAxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.apiGameDecreaseAttemptsPut(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * GameApi - object-oriented interface
+ * @export
+ * @class GameApi
+ * @extends {BaseAPI}
+ */
+export class GameApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GameApi
+     */
+    public apiGameCalculateAttemptsPut(options?: RawAxiosRequestConfig) {
+        return GameApiFp(this.configuration).apiGameCalculateAttemptsPut(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GameApi
+     */
+    public apiGameDecreaseAttemptsPut(options?: RawAxiosRequestConfig) {
+        return GameApiFp(this.configuration).apiGameDecreaseAttemptsPut(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

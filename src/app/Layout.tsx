@@ -44,11 +44,14 @@ export const Layout: FC = () => {
   const [starting, setStarting] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       if (starting) {
         setStarting(false);
       }
     }, 3700);
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [starting]);
 
   if (starting) {
