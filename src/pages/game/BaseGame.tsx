@@ -5,11 +5,13 @@ import {
   generateTopLeftWithoutOverlapAndPaddingByBorders,
 } from "./utils/randomizer";
 import { BallsType, BallsTypes } from "./game.types";
-import { ballTypesByCoef, maxElCounts } from "./game.constants";
+import { ballTypes, ballTypesByCoef, maxElCounts } from "./game.constants";
 import { BallComponent } from "./componets/BallComponent";
 import { GameFooter } from "./componets/GameFooter";
 import { CloseGameModal } from "./componets/CloseGameModal";
 import { useGameContext } from "./GameContext/useGameContext";
+import { getImgPathForBallComponent } from "./game.utils";
+import { usePreloadImages } from "./hooks/usePreloadImages";
 
 const playerImagePath = "/imgs/game/player.png";
 const bgImagePath = "/imgs/game/game-bg.jpg";
@@ -76,6 +78,8 @@ export const BaseGame: FC = () => {
   }, [generateBallObjects]);
 
   useInterval(addBallInInterval, isGameStarted ? 1000 : null);
+
+  usePreloadImages(ballTypes.map((type) => getImgPathForBallComponent(type)));
 
   const handleClickBall = useCallback(
     (id: number | undefined, type: BallsTypes) => {

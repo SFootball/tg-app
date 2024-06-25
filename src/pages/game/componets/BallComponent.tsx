@@ -2,6 +2,10 @@ import { Box, Image, keyframes } from "@chakra-ui/react";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { ballDiametr } from "../game.constants";
 import { BallsType, BallsTypes } from "../game.types";
+import { useWebApp } from "@vkruglikov/react-telegram-web-app";
+import { TGWebApp } from "src/shared/types/TgWebApp";
+import { usePreloadImages } from "../hooks/usePreloadImages";
+import { getImgPathForBallComponent } from "../game.utils";
 
 const ballKeyframes = keyframes`
   0% {
@@ -39,6 +43,8 @@ export const BallComponent: FC<Props> = ({
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  const webApp = useWebApp() as TGWebApp;
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (ball?.id) {
@@ -54,12 +60,14 @@ export const BallComponent: FC<Props> = ({
   }, []);
 
   const onClickBall = useCallback(() => {
+    console.log("webApp HapticFeedback ", webApp?.HapticFeedback);
+    webApp?.HapticFeedback.impactOccurred("medium");
     setIsBang(true);
     // if (ball.type === "bomb") {}
     timerRef.current = setTimeout(() => {
       handleClickBall(ball.id, ball.type);
     }, 700);
-  }, [ball, handleClickBall]);
+  }, [ball, handleClickBall, webApp]);
 
   return (
     <Box
@@ -73,7 +81,7 @@ export const BallComponent: FC<Props> = ({
         <Box
           width={ballDiametrBang}
           height={ballDiametrBang}
-          bgImage={`url(/imgs/game/${ball.type}.png)`}
+          bgImage={`url(${getImgPathForBallComponent(ball.type)})`}
           transform={"translate(-30%, -25%)"}
           animation={ballAnimation}
           position="absolute"

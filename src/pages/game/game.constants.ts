@@ -1,5 +1,7 @@
 import { BallsTypes } from "./game.types";
 
+export const ballTypes: BallsTypes[] = ["simple", "bonus", "bomb"];
+
 export const ballTypesByCoef: BallsTypes[] = [
   "simple",
   "simple",
