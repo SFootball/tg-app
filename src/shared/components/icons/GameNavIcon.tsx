@@ -5,9 +5,11 @@ type Props = IconProps & {
   isActive: boolean;
 };
 
+const gameGradientId = "nav_linear_gradient_game";
+
 export const GameNavIcon: FC<Props> = ({ isActive, ...props }) => {
-  const strokeColor = isActive ? "black" : "url(#nav_linear_gradient)";
-  const fillColor = isActive ? "url(#game_linear_gradient)" : "black";
+  const strokeColor = isActive ? "black" : `url(#${gameGradientId})`;
+  const fillColor = isActive ? `url(#${gameGradientId})` : "black";
   return (
     <Icon
       viewBox="0 0 39 33"
@@ -25,7 +27,7 @@ export const GameNavIcon: FC<Props> = ({ isActive, ...props }) => {
       />
       <defs>
         <linearGradient
-          id="game_linear_gradient"
+          id={gameGradientId}
           x1="19.5"
           y1="0"
           x2="19.5"

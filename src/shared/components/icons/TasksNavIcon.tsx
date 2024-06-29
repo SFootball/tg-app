@@ -5,9 +5,11 @@ type Props = IconProps & {
   isActive: boolean;
 };
 
+const tasksGradientId = "nav_linear_gradient_tasks";
+
 export const TaskNavIcon: FC<Props> = ({ isActive, ...props }) => {
-  const strokeColor = isActive ? "black" : "url(#nav_linear_gradient)";
-  const fillColor = isActive ? "url(#nav_linear_gradient)" : "black";
+  const strokeColor = isActive ? "black" : `url(#${tasksGradientId})`;
+  const fillColor = isActive ? `url(#${tasksGradientId})` : "black";
   return (
     <Icon
       mt="5px"
@@ -27,7 +29,7 @@ export const TaskNavIcon: FC<Props> = ({ isActive, ...props }) => {
       />
       <defs>
         <linearGradient
-          id="nav_linear_gradient"
+          id={tasksGradientId}
           x1="19.5"
           y1="0"
           x2="19.5"

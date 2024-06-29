@@ -8,7 +8,6 @@ import {
 } from "@chakra-ui/react";
 import { FC, forwardRef, useMemo } from "react";
 import { Link } from "react-router-dom";
-// import { bgFooterGradient } from "src/shared/style/bgGradient";
 import { getNavigation } from "src/entities/navigation/navigation";
 import { useTranslation } from "react-i18next";
 
@@ -46,7 +45,7 @@ export default function Footer() {
             <Tooltip key={item.path} label={item.title} placement="top">
               <IconItem>
                 <Link to={item.path}>
-                  <NavIcon isActive={false} />
+                  <NavIcon isActive={true} />
                 </Link>
               </IconItem>
             </Tooltip>

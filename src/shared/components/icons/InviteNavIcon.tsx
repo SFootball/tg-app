@@ -5,9 +5,11 @@ type Props = IconProps & {
   isActive: boolean;
 };
 
+const inviteGradientId = "nav_linear_gradient_invite";
+
 export const InviteNavIcon: FC<Props> = ({ isActive, ...props }) => {
-  const strokeColor = isActive ? "black" : "url(#nav_linear_gradient)";
-  const fillColor = isActive ? "url(#nav_linear_gradient)" : "black";
+  const strokeColor = isActive ? "black" : `url(#${inviteGradientId})`;
+  const fillColor = isActive ? `url(#${inviteGradientId})` : "black";
   return (
     <Icon
       width="29"
@@ -48,7 +50,7 @@ export const InviteNavIcon: FC<Props> = ({ isActive, ...props }) => {
       <path
         d="M4.26018 19.3288L4.26043 19.3286C6.07833 18.149 8.32359 17.5002 10.6489 17.5002C12.9738 17.5002 15.2193 18.1501 17.0377 19.3289C18.5007 20.2777 19.6115 21.5215 20.2861 22.9102C20.2775 22.9163 20.265 22.9227 20.2476 22.9267C13.9285 24.3578 7.3693 24.3578 1.05017 22.9267C1.03273 22.9227 1.02024 22.9163 1.01167 22.9102C1.68605 21.5205 2.79673 20.2779 4.26018 19.3288Z"
         fill={fillColor}
-        stroke="url(#nav_linear_gradient)"
+        stroke={`url(#${inviteGradientId})`}
         stroke-width="2"
       />
       <defs>

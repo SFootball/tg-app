@@ -5,9 +5,11 @@ type Props = IconProps & {
   isActive: boolean;
 };
 
+const mainGradientId = "nav_linear_gradient_main";
+
 export const MainNavIcon: FC<Props> = ({ isActive, ...props }) => {
-  const strokeColor = isActive ? "black" : "url(#nav_linear_gradient)";
-  const fillColor = isActive ? "url(#nav_linear_gradient)" : "black";
+  const strokeColor = isActive ? "black" : `url(#${mainGradientId})`;
+  const fillColor = isActive ? `url(#${mainGradientId})` : "black";
   return (
     <Icon
       width="29"
@@ -26,7 +28,7 @@ export const MainNavIcon: FC<Props> = ({ isActive, ...props }) => {
       />
       <defs>
         <linearGradient
-          id="nav_linear_gradient"
+          id={mainGradientId}
           x1="19.5"
           y1="0"
           x2="19.5"
