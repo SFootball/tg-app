@@ -55,7 +55,7 @@ export const InviteNavIcon: FC<Props> = ({ isActive, ...props }) => {
       />
       <defs>
         <linearGradient
-          id="nav_linear_gradient"
+          id={inviteGradientId}
           x1="19.5"
           y1="0"
           x2="19.5"
