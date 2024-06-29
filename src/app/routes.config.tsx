@@ -5,8 +5,6 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import { Component as MainPage } from "../pages/MainPage/MainPage";
-import { Layout } from "./Layout";
 import { PathsName } from "src/entities/navigation/navigation";
 
 export type RouteType = {
@@ -18,8 +16,11 @@ export type RouteType = {
 export const routesConfig: RouteType[] = [
   {
     path: PathsName.main,
-    element: <MainPage />,
-    // lazy: () => import("src/pages/MainPage/MainPage"),
+    lazy: () => import("src/pages/MainGame/MainGame"),
+  },
+  {
+    path: PathsName.home,
+    lazy: () => import("src/pages/HomePage/HomePage"),
   },
   {
     path: PathsName.tasks,
@@ -33,22 +34,18 @@ export const routesConfig: RouteType[] = [
     path: PathsName.user,
     lazy: () => import("src/pages/User/User"),
   },
+  {
+    path: PathsName.game,
+    lazy: () => import("src/pages/game/GamePage"),
+  },
 ];
-
-const gamePage = {
-  path: PathsName.game,
-  lazy: () => import("src/pages/game/GamePage"),
-};
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<Layout />}>
-        {routesConfig.map(({ path, element, lazy }) => (
-          <Route key={path} path={path} lazy={lazy} element={element} />
-        ))}
-      </Route>
-      <Route path="/game" lazy={gamePage.lazy} />
+      {routesConfig.map(({ path, element, lazy }) => (
+        <Route key={path} path={path} lazy={lazy} element={element} />
+      ))}
     </>
   )
 );

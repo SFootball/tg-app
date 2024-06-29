@@ -7,16 +7,12 @@ import { useCalculateGameAttempts } from "src/entities/game/useCalculateGameAtte
 
 type GameFooterProps = {
   onEndEffect: () => void;
-  handleRunGame: () => void;
 };
 
 const timerDelay = 1000;
 const gamePeriod = 20;
 
-export const GameFooter: React.FC<GameFooterProps> = ({
-  onEndEffect,
-  handleRunGame,
-}) => {
+export const GameFooter: React.FC<GameFooterProps> = ({ onEndEffect }) => {
   const [seconds, setSeconds] = useState(gamePeriod);
 
   const { attempts, isGameAttemptsLoading } = useCalculateGameAttempts();
@@ -36,25 +32,9 @@ export const GameFooter: React.FC<GameFooterProps> = ({
     !isGameStarted ? null : timerDelay
   );
 
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     if (seconds !== 0) {
-  //       setSeconds(seconds - 1);
-  //     } else {
-  //       onEndEffect();
-  //       clearInterval(timer);
-  //     }
-  //   }, timerDelay);
-
-  //   return () => {
-  //     clearInterval(timer);
-  //   };
-  // }, [seconds, onEndEffect]);
-
   return (
     <Flex
       bgColor="bg.violet"
-      // h="5vh"
       h={"70px"}
       bottom="0"
       left="0"
@@ -75,9 +55,7 @@ export const GameFooter: React.FC<GameFooterProps> = ({
             {t("ATTEMPTS")}: {attempts}
           </Text>
           <Button
-            className="game-text"
             fontSize="30px"
-            onClick={handleRunGame}
             isDisabled={attempts === 0}
             isLoading={isGameAttemptsLoading}
           >
