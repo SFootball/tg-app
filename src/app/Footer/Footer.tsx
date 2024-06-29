@@ -8,7 +8,6 @@ import {
 } from "@chakra-ui/react";
 import { FC, forwardRef, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { bgFooterGradient } from "src/shared/style/bgGradient";
 import { getNavigation } from "src/entities/navigation/navigation";
 import { useTranslation } from "react-i18next";
 
@@ -25,19 +24,19 @@ export default function Footer() {
       left={0}
       bottom={0}
       width="100%"
+      height="112px"
       zIndex={10}
-      px={{ base: 6 }}
-      py={{ base: 8 }}
     >
       <Container
         as={Stack}
         py={4}
+        height="100%"
         direction={{ base: "row" }}
         spacing={4}
         justify={{ base: "space-around" }}
         align={{ base: "center", md: "center" }}
-        bgGradient={bgFooterGradient}
-        borderRadius={{ base: "24px" }}
+        bgColor="black"
+        borderRadius={{ base: "45px 45px 0 0" }}
         overflow={"hidden"}
       >
         {navigation.map((item) => {
@@ -46,7 +45,7 @@ export default function Footer() {
             <Tooltip key={item.path} label={item.title} placement="top">
               <IconItem>
                 <Link to={item.path}>
-                  <NavIcon isActive={false} />
+                  <NavIcon isActive={true} />
                 </Link>
               </IconItem>
             </Tooltip>
