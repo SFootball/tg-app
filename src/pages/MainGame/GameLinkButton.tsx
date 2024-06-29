@@ -14,7 +14,7 @@ export const GameLinkButton: FC = () => {
     navigate("/game");
   };
   return (
-    <Flex position={"fixed"} bottom={24} right={8}>
+    <Flex position={"fixed"} bottom={28} right={8}>
       <Button
         onClick={moveToGame}
         bgColor={"content.violet"}

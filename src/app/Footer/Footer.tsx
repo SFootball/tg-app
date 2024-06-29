@@ -43,15 +43,10 @@ export default function Footer() {
         {navigation.map((item) => {
           const NavIcon = item.icon;
           return (
-            <Tooltip
-              key={item.path}
-              label={item.title}
-              placement="top"
-              color="white"
-            >
+            <Tooltip key={item.path} label={item.title} placement="top">
               <IconItem>
                 <Link to={item.path}>
-                  <NavIcon />
+                  <NavIcon isActive={false} />
                 </Link>
               </IconItem>
             </Tooltip>

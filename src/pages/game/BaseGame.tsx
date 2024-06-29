@@ -1,5 +1,5 @@
 import { Box, Image, useDisclosure, useInterval } from "@chakra-ui/react";
-import { FC, useCallback, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import {
   genRandomNumber,
   generateTopLeftWithoutOverlapAndPaddingByBorders,
@@ -12,6 +12,7 @@ import { CloseGameModal } from "./componets/CloseGameModal";
 import { useGameContext } from "./GameContext/useGameContext";
 import { getImgPathForBallComponent } from "./game.utils";
 import { usePreloadImages } from "./hooks/usePreloadImages";
+import { useNavigate } from "react-router-dom";
 
 const playerImagePath = "/imgs/game/player.png";
 const bgImagePath = "/imgs/game/game-bg.jpg";
@@ -25,6 +26,17 @@ export const BaseGame: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bgRef = useRef<HTMLDivElement | null>(null);
   const [balls, setBalls] = useState<BallsType[]>([]);
+
+  const navigate = useNavigate();
+
+  useEffect(
+    function autoRunGame() {
+      // auto runing game
+      setGameStarted(true);
+      isGameRunning = true;
+    },
+    [setGameStarted]
+  );
 
   const clearBalls = useCallback(() => {
     setBalls([]);
@@ -103,11 +115,6 @@ export const BaseGame: FC = () => {
     [setBalls, setGamePoints, clearBalls]
   );
 
-  const handleRunGame = useCallback(() => {
-    setGameStarted(true);
-    isGameRunning = true;
-  }, [setGameStarted]);
-
   const onEndTimerEffect = useCallback(() => {
     setGameStarted(false);
     isGameRunning = false;
@@ -115,10 +122,14 @@ export const BaseGame: FC = () => {
     onOpen();
   }, [onOpen, setGameStarted, clearBalls]);
 
+  const closeModalHandle = useCallback(() => {
+    onClose();
+    navigate("/");
+  }, [navigate, onClose]);
+
   return (
     <>
       <Box
-        // position="relative"
         width="100vw"
         height="90vh"
         overflow={"hidden"}
@@ -145,12 +156,9 @@ export const BaseGame: FC = () => {
             />
           );
         })}
-        <GameFooter
-          onEndEffect={onEndTimerEffect}
-          handleRunGame={handleRunGame}
-        />
+        <GameFooter onEndEffect={onEndTimerEffect} />
       </Box>
-      <CloseGameModal isOpen={isOpen} onClose={onClose} />
+      <CloseGameModal isOpen={isOpen} onClose={closeModalHandle} />
     </>
   );
 };
