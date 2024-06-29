@@ -1,7 +1,10 @@
 import { TFunction } from "i18next";
-import { FaHome, FaTasks, FaUser, FaUserPlus } from "react-icons/fa";
 
 import { GameNavIcon } from "src/shared/components/icons/GameNavIcon";
+import { InviteNavIcon } from "src/shared/components/icons/InviteNavIcon";
+import { MainNavIcon } from "src/shared/components/icons/MainNavIcon";
+import { TaskNavIcon } from "src/shared/components/icons/TasksNavIcon";
+import { UserNavIcon } from "src/shared/components/icons/UserNavIcon";
 
 export enum PathsName {
   main = "/",
@@ -21,21 +24,21 @@ export const getNavigation = (t: TFunction) => [
   {
     title: t("Home"),
     path: PathsName.home,
-    icon: FaHome,
+    icon: MainNavIcon,
   },
   {
     title: t("Tasks"),
     path: PathsName.tasks,
-    icon: FaTasks,
+    icon: TaskNavIcon,
   },
   {
     title: t("Invite"),
     path: PathsName.invite,
-    icon: FaUserPlus,
+    icon: InviteNavIcon,
   },
   {
     title: t("User"),
     path: PathsName.user,
-    icon: FaUser,
+    icon: UserNavIcon,
   },
 ];
