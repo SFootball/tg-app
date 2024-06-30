@@ -7,12 +7,14 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import { FC, forwardRef, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { getNavigation } from "src/entities/navigation/navigation";
 import { useTranslation } from "react-i18next";
 
 export default function Footer() {
   const [t] = useTranslation();
+  const location = useLocation();
+  console.log("Path: ", location.pathname);
   const navigation = useMemo(() => {
     return getNavigation(t);
   }, [t]);
@@ -45,7 +47,7 @@ export default function Footer() {
             <Tooltip key={item.path} label={item.title} placement="top">
               <IconItem>
                 <Link to={item.path}>
-                  <NavIcon isActive={true} />
+                  <NavIcon isActive={item.path === location.pathname} />
                 </Link>
               </IconItem>
             </Tooltip>
