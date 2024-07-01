@@ -16,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 import Footer from "src/app/Footer/Footer";
 import { GameHeader } from "./componets/GameHeader";
 
-const playerImagePath = "/imgs/game/player.png";
 const bgImagePath = "/imgs/game/football-field.png";
 const imagePatternPath = "/imgs/game/ball";
 
@@ -64,7 +63,7 @@ export const BaseGame: FC = () => {
         );
         return (arr[i] = {
           id: countId,
-          src: `${imagePatternPath}-${type}.png`,
+          src: `${imagePatternPath}-${type}.svg`,
           type,
           top,
           left,
@@ -92,7 +91,6 @@ export const BaseGame: FC = () => {
   }, [generateBallObjects]);
 
   useInterval(addBallInInterval, isGameStarted ? 1000 : null);
-  // useInterval(addBallInInterval, null);
 
   usePreloadImages(ballTypes.map((type) => getImgPathForBallComponent(type)));
 
@@ -138,20 +136,11 @@ export const BaseGame: FC = () => {
         overflow={"hidden"}
         bgImage={`url(${bgImagePath})`}
         bgRepeat="no-repeat"
-        // backgroundSize={"100% 100%"}
         backgroundSize="contain"
         bgPosition="center"
         ref={bgRef}
       >
         <GameHeader />
-        {/* <Image
-          position="absolute"
-          src={playerImagePath}
-          height="40%"
-          width="auto"
-          right="0"
-          bottom="0"
-        /> */}
         {balls.map((ball) => {
           return (
             <BallComponent
