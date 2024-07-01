@@ -9,7 +9,7 @@ export const TimerIcon = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_2051_59)">
+      <g clipPath="url(#clip0_2051_59)">
         <path
           d="M13.0238 13.0237C13.4133 12.6342 13.6548 12.0951 13.6548 11.5C13.6548 10.9049 13.4133 10.3658 13.0238 9.97624C12.1756 9.12811 3.36375 3.36374 3.36375 3.36374C3.36375 3.36374 9.11375 12.1756 9.96188 13.0237C10.162 13.2264 10.4004 13.3872 10.6632 13.497C10.926 13.6068 11.208 13.6634 11.4928 13.6634C11.7776 13.6634 12.0596 13.6068 12.3224 13.497C12.5852 13.3872 12.8236 13.2264 13.0238 13.0237Z"
           fill="url(#paint0_linear_2051_59)"
@@ -29,9 +29,9 @@ export const TimerIcon = () => {
           gradientUnits="userSpaceOnUse"
         >
           <stop />
-          <stop offset="0.5" stop-color="#1A1919" />
-          <stop offset="0.75" stop-color="#4C484A" />
-          <stop offset="0.875" stop-color="#272626" />
+          <stop offset="0.5" stopColor="#1A1919" />
+          <stop offset="0.75" stopColor="#4C484A" />
+          <stop offset="0.875" stopColor="#272626" />
           <stop offset="1" />
         </linearGradient>
         <linearGradient
@@ -43,9 +43,9 @@ export const TimerIcon = () => {
           gradientUnits="userSpaceOnUse"
         >
           <stop />
-          <stop offset="0.5" stop-color="#1A1919" />
-          <stop offset="0.75" stop-color="#4C484A" />
-          <stop offset="0.875" stop-color="#272626" />
+          <stop offset="0.5" stopColor="#1A1919" />
+          <stop offset="0.75" stopColor="#4C484A" />
+          <stop offset="0.875" stopColor="#272626" />
           <stop offset="1" />
         </linearGradient>
         <clipPath id="clip0_2051_59">

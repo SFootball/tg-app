@@ -22,5 +22,7 @@
   "User": "User",
   "Play game": "Play game",
   "Game points": "Game points",
-  "TIMER": "TIMER"
+  "TIMER": "TIMER",
+  "SCORE": "SCORE",
+  "TOTAL": "TOTAL"
 }

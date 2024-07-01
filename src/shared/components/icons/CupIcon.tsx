@@ -21,9 +21,9 @@ export const CupIcon = () => {
           gradientUnits="userSpaceOnUse"
         >
           <stop />
-          <stop offset="0.225215" stop-color="#1A1919" />
-          <stop offset="0.545915" stop-color="#4C484A" />
-          <stop offset="0.748462" stop-color="#272626" />
+          <stop offset="0.225215" stopColor="#1A1919" />
+          <stop offset="0.545915" stopColor="#4C484A" />
+          <stop offset="0.748462" stopColor="#272626" />
           <stop offset="1" />
         </linearGradient>
       </defs>

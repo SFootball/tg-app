@@ -1,4 +1,4 @@
-import { Box, Image, useDisclosure, useInterval } from "@chakra-ui/react";
+import { Box, useDisclosure, useInterval } from "@chakra-ui/react";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import {
   genRandomNumber,
@@ -7,7 +7,6 @@ import {
 import { BallsType, BallsTypes } from "./game.types";
 import { ballTypes, ballTypesByCoef, maxElCounts } from "./game.constants";
 import { BallComponent } from "./componets/BallComponent";
-// import { GameFooter } from "./componets/GameFooter";
 import { CloseGameModal } from "./componets/CloseGameModal";
 import { useGameContext } from "./GameContext/useGameContext";
 import { getImgPathForBallComponent } from "./game.utils";
@@ -116,12 +115,12 @@ export const BaseGame: FC = () => {
     [setBalls, setGamePoints, clearBalls]
   );
 
-  // const onEndTimerEffect = useCallback(() => {
-  //   setGameStarted(false);
-  //   isGameRunning = false;
-  //   clearBalls();
-  //   onOpen();
-  // }, [onOpen, setGameStarted, clearBalls]);
+  const onEndTimerEffect = useCallback(() => {
+    setGameStarted(false);
+    isGameRunning = false;
+    clearBalls();
+    onOpen();
+  }, [onOpen, setGameStarted, clearBalls]);
 
   const closeModalHandle = useCallback(() => {
     onClose();
@@ -140,7 +139,7 @@ export const BaseGame: FC = () => {
         bgPosition="center"
         ref={bgRef}
       >
-        <GameHeader />
+        <GameHeader onEndEffect={onEndTimerEffect} />
         {balls.map((ball) => {
           return (
             <BallComponent

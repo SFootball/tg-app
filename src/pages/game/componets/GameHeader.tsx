@@ -1,24 +1,39 @@
-import { Box, Button, Container, Flex, Text } from "@chakra-ui/react";
-import { useCallback } from "react";
+import { Box, Flex } from "@chakra-ui/react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import { useGameContext } from "../GameContext/useGameContext";
 import style from "../game.module.css";
 import { TimerIcon } from "src/shared/components/icons/TimerIcon";
 import { CupIcon } from "src/shared/components/icons/CupIcon";
+import { useInterval } from "usehooks-ts";
+import { useUserQuery } from "src/shared/hooks/useUserQuery";
+
+const timerDelay = 1000;
+const gamePeriod = 20;
 
 type GameHeaderProps = {
-  // gamePointCount: number;
+  onEndEffect: () => void;
 };
 
-export const GameHeader: React.FC<GameHeaderProps> = () => {
+export const GameHeader: React.FC<GameHeaderProps> = ({ onEndEffect }) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const { gamePoints, setGameStarted } = useGameContext();
-  const closeGame = useCallback(() => {
-    setGameStarted(false);
-    navigate("/");
-  }, [navigate, setGameStarted]);
+  const [seconds, setSeconds] = useState(gamePeriod);
+  const { isGameStarted, gamePoints } = useGameContext();
+
+  const { user } = useUserQuery();
+
+  useInterval(
+    () => {
+      if (seconds !== 0) {
+        setSeconds(seconds - 1);
+      } else {
+        onEndEffect();
+        setSeconds(gamePeriod);
+      }
+    },
+    !isGameStarted ? null : timerDelay
+  );
+
   return (
     <Box
       as="header"
@@ -51,7 +66,7 @@ export const GameHeader: React.FC<GameHeaderProps> = () => {
           pb="6px"
         >
           <Box className={`${style.gameTextGradient} ${style.gameText}`}>
-            20
+            {seconds}
           </Box>
           <TimerIcon />
         </Flex>
@@ -70,13 +85,13 @@ export const GameHeader: React.FC<GameHeaderProps> = () => {
             fontSize="30px"
             className={`${style.gameTextGradient} ${style.gameText}`}
           >
-            1000 <CupIcon />
+            {user?.sfs_count || 0} <CupIcon />
           </Flex>
           <Box
             fontSize="20px"
             className={`${style.gameTextGradient} ${style.gameText}`}
           >
-            TOTAL
+            {t("TOTAL")}
           </Box>
         </Flex>
         <Flex
@@ -94,13 +109,14 @@ export const GameHeader: React.FC<GameHeaderProps> = () => {
             fontSize="30px"
             className={`${style.gameTextGradient} ${style.gameText}`}
           >
-            100 <CupIcon />
+            {gamePoints}
+            <CupIcon />
           </Flex>
           <Box
             fontSize="20px"
             className={`${style.gameTextGradient} ${style.gameText}`}
           >
-            SCORE
+            {t("SCORE")}
           </Box>
         </Flex>
       </Flex>

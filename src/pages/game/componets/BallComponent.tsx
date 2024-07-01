@@ -60,13 +60,13 @@ export const BallComponent: FC<Props> = ({
   }, []);
 
   const onClickBall = useCallback(() => {
-    console.log("webApp HapticFeedback ", webApp?.HapticFeedback);
     webApp?.HapticFeedback.impactOccurred("medium");
     setIsBang(true);
+    // TODO make blow up all balls
     // if (ball.type === "bomb") {}
     timerRef.current = setTimeout(() => {
       handleClickBall(ball.id, ball.type);
-    }, 700);
+    }, 600);
   }, [ball, handleClickBall, webApp]);
 
   return (
@@ -91,8 +91,8 @@ export const BallComponent: FC<Props> = ({
           src={`${ball?.src}`}
           width="100%"
           height="100%"
-          display={isBang ? "none" : "block"}
           onClick={onClickBall}
+          display={isBang ? "none" : "block"}
           cursor="pointer"
         />
       )}
