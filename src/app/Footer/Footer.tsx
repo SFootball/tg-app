@@ -14,7 +14,6 @@ import { useTranslation } from "react-i18next";
 export default function Footer() {
   const [t] = useTranslation();
   const location = useLocation();
-  console.log("Path: ", location.pathname);
   const navigation = useMemo(() => {
     return getNavigation(t);
   }, [t]);
