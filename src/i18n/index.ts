@@ -4,9 +4,16 @@ import Backend from "i18next-http-backend";
 import { initReactI18next } from "react-i18next";
 // import ChainedBackend from "i18next-chained-backend";
 
-i18n.use(Backend).use(LanguageDetector).use(initReactI18next).init({
-  fallbackLng: "en",
-  debug: false,
-});
+i18n
+  .use(Backend)
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    fallbackLng: "en",
+    debug: false,
+    interpolation: {
+      suffixEscaped: "_",
+    },
+  });
 
 export default i18n;

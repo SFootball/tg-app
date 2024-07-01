@@ -24,5 +24,6 @@
   "Game points": "Очки игры",
   "TIMER": "Таймер",
   "SCORE": "Счёт",
-  "TOTAL": "Всего"
+  "TOTAL": "Всего",
+  "you have attempts": "Осталось попыток: {{ attempts }}"
 }

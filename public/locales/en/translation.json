@@ -24,5 +24,6 @@
   "Game points": "Game points",
   "TIMER": "TIMER",
   "SCORE": "SCORE",
-  "TOTAL": "TOTAL"
+  "TOTAL": "TOTAL",
+  "you have attempts": "you have {{ attempts }} attempts"
 }
