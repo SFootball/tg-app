@@ -85,13 +85,13 @@ export const Component: FC = () => {
         w="100%"
       >
         <Flex alignItems={"center"}>
-          <SubTitle color="black">
+          <SubTitle color="whiteAlpha.900">
             {t("User info")}
             <Divider
               pt="10px"
               mt="auto"
               borderBottomWidth="2px"
-              borderColor="black"
+              borderColor="whiteAlpha.800"
               width="calc(100vw - 48px)"
             />
           </SubTitle>

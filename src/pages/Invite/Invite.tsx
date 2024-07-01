@@ -71,13 +71,13 @@ export const Component: FC = () => {
         gap={{ base: 6, md: 8 }}
       >
         <Flex alignItems={"center"}>
-          <SubTitle color="black">
+          <SubTitle color="whiteAlpha.900">
             {t("Invite your friends")}
             <Divider
               pt="10px"
               mt="auto"
               borderBottomWidth="2px"
-              borderColor="black"
+              borderColor="whiteAlpha.800"
               width="calc(100vw - 48px)"
             />
           </SubTitle>
@@ -113,26 +113,26 @@ export const Component: FC = () => {
         <Flex direction="column" gap={6}>
           {(isLoading || isUserLoading) && (
             <Skeleton>
-              <SubTitle color="black">
+              <SubTitle color="whiteAlpha.900">
                 {t("Your referals")}
                 <Divider
                   pt="10px"
                   mt="auto"
                   borderBottomWidth="2px"
-                  borderColor="black"
+                  borderColor="whiteAlpha.800"
                   width="calc(100vw - 48px)"
                 />
               </SubTitle>
             </Skeleton>
           )}
           {!!referrals && (
-            <SubTitle color="black">
+            <SubTitle color="whiteAlpha.900">
               {t("Your referals")}
               <Divider
                 pt="10px"
                 mt="auto"
                 borderBottomWidth="2px"
-                borderColor="black"
+                borderColor="whiteAlpha.800"
                 width="calc(100vw - 48px)"
               />
             </SubTitle>

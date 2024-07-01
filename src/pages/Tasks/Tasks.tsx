@@ -39,13 +39,13 @@ export const Component: FC = () => {
         py={{ base: 8 }}
         pb="200px"
       >
-        <SubTitle color="black">
+        <SubTitle color="whiteAlpha.900">
           {t("Tasks")}
           <Divider
             pt="10px"
             mt="auto"
             borderBottomWidth="2px"
-            borderColor="black"
+            borderColor="whiteAlpha.800"
           />
         </SubTitle>
 

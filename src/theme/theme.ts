@@ -29,7 +29,8 @@ export const appTheme = extendTheme({
   styles: {
     global: (props: StyleFunctionProps) => ({
       body: {
-        bg: mode("#78fd44", "#78fd44")(props),
+        bg: "blackAlpha.900",
+        // bg: mode("#78fd44", "#78fd44")(props),
         color: mode("gray.50", "gray.900")(props),
       },
     }),
