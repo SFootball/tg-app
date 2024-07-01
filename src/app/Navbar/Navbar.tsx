@@ -2,11 +2,11 @@
 import { Flex, Skeleton, Stack, Text } from "@chakra-ui/react";
 import { TonConnectButton } from "@tonconnect/ui-react";
 import { FC } from "react";
-import { bgNavGradient } from "src/shared/style/bgGradient";
 import { MainText } from "src/shared/components/MainText";
 import { useUserQuery } from "src/shared/hooks/useUserQuery";
-import { SfsIcon } from "src/shared/components/icons/SfsIcon";
 import style from "./Navbar.module.css";
+import { fontsSpecial } from "src/shared/style/fontsSpecial";
+import { CupIcon } from "src/shared/components/icons/CupIcon";
 
 export const Navbar: FC = () => {
   const { user, isUserLoading } = useUserQuery();
@@ -14,14 +14,23 @@ export const Navbar: FC = () => {
   return (
     <Flex
       as="header"
-      bgGradient={bgNavGradient}
+      bgColor={"black"}
       justifyContent={"space-between"}
       alignItems={"center"}
       px={{ base: 8 }}
       py={{ base: 8 }}
+      borderBottomLeftRadius={{ base: "45px" }}
+      borderBottomRightRadius={{ base: "45px" }}
     >
       <Flex>
-        <Text fontWeight={"bold"}>SFootball</Text>
+        <Text
+          fontWeight={"bold"}
+          fontFamily={fontsSpecial.family}
+          backgroundImage={fontsSpecial.bgImage}
+          backgroundClip={"text"}
+        >
+          SFootball
+        </Text>
       </Flex>
       {isUserLoading && (
         <Stack>
@@ -30,10 +39,16 @@ export const Navbar: FC = () => {
       )}
       {user && (
         <Flex gap={2} alignItems={"center"}>
-          <MainText color="white" fontWeight={"bold"}>
+          <MainText
+            color="white"
+            fontWeight={"bold"}
+            fontFamily={fontsSpecial.family}
+            bgImage={fontsSpecial.bgImage}
+            backgroundClip={"text"}
+          >
             {user?.sfs_count}
           </MainText>
-          <SfsIcon />
+          <CupIcon isGold />
         </Flex>
       )}
       <Flex gap={4}>

@@ -1,5 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Acme&display=swap");
 .tonBtn button {
-  background-color: #78fd44;
+  background: linear-gradient(
+    180deg,
+    #d2a245 0%,
+    #f7cf5e 16%,
+    #9e6823 58%,
+    #c79f4c 100%
+  );
 }
 
 .tonBtn button div {
