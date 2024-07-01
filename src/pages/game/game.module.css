@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
   font-family: "BLANGKON Remastered";
   src: url("./fonts/BLANGKONRemastered.eot");
   src: url("./fonts/BLANGKONRemastered.eot") format("embedded-opentype"),
@@ -9,14 +9,43 @@
   font-weight: normal;
   font-style: normal;
   font-display: swap;
-}
+} */
+
+@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap");
 
 .gameText {
-  font-family: "BLANGKON Remastered";
+  font-family: "Black Ops One", system-ui;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .without-bg-onclick {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.gameBage {
+  background: linear-gradient(
+    180deg,
+    #d2a245 0%,
+    #f7cf5e 16%,
+    #9e6823 58%,
+    #c79f4c 100%
+  );
+}
+
+.gameTextGradient {
+  background: linear-gradient(
+    360deg,
+    #000000 0%,
+    #1a1919 51.5%,
+    #4c484a 71.5%,
+    #272626 87.5%,
+    #000000 100%
+  );
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* ----------------------------------------------

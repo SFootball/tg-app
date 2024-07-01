@@ -5,6 +5,9 @@ export const genRandomNumber = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
+let attemptsCount = 0;
+const maxAttepmtCount = 10;
+
 export const generateTopLeftWithoutOverlapAndPaddingByBorders = (
   existingBalls: BallsType[],
   el: HTMLDivElement
@@ -15,8 +18,8 @@ export const generateTopLeftWithoutOverlapAndPaddingByBorders = (
   const containerWidth = el.offsetWidth || 0;
   const containerHeight = el.offsetHeight || 0;
 
-  const maxTop = containerHeight - ballDiametr - 270;
-  const minTop = ballDiametr + 20;
+  const maxTop = containerHeight - ballDiametr - 112;
+  const minTop = ballDiametr + 62;
   const maxLeft = containerWidth - ballDiametr - 10;
   const minLeft = ballDiametr + 10;
 
@@ -31,10 +34,13 @@ export const generateTopLeftWithoutOverlapAndPaddingByBorders = (
         left > ball.left - ballDiametr &&
         left < ball.left + ballDiametr
     );
-  while (isOverlaping()) {
+  while (isOverlaping() && attemptsCount !== maxAttepmtCount) {
+    attemptsCount++;
     top = genRandomNumber(minTop, maxTop);
     left = genRandomNumber(minLeft, maxLeft);
   }
+
+  attemptsCount = 0;
 
   return { top, left };
 };
