@@ -8,7 +8,7 @@ export const Component: FC = () => {
   return (
     <GameProvider>
       <Box alignSelf="center" top="0" left="0" width="100%" h="100vh">
-        <GameHeader />
+        {/* <GameHeader /> */}
         <BaseGame />
       </Box>
     </GameProvider>

@@ -21,7 +21,6 @@ export default function Footer() {
   return (
     <Box
       as="footer"
-      color="white"
       position={"fixed"}
       left={0}
       bottom={0}

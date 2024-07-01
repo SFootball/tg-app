@@ -7,15 +7,16 @@ import {
 import { BallsType, BallsTypes } from "./game.types";
 import { ballTypes, ballTypesByCoef, maxElCounts } from "./game.constants";
 import { BallComponent } from "./componets/BallComponent";
-import { GameFooter } from "./componets/GameFooter";
+// import { GameFooter } from "./componets/GameFooter";
 import { CloseGameModal } from "./componets/CloseGameModal";
 import { useGameContext } from "./GameContext/useGameContext";
 import { getImgPathForBallComponent } from "./game.utils";
 import { usePreloadImages } from "./hooks/usePreloadImages";
 import { useNavigate } from "react-router-dom";
+import Footer from "src/app/Footer/Footer";
+import { GameHeader } from "./componets/GameHeader";
 
-const playerImagePath = "/imgs/game/player.png";
-const bgImagePath = "/imgs/game/game-bg.jpg";
+const bgImagePath = "/imgs/game/football-field.png";
 const imagePatternPath = "/imgs/game/ball";
 
 let countId = 1;
@@ -62,7 +63,7 @@ export const BaseGame: FC = () => {
         );
         return (arr[i] = {
           id: countId,
-          src: `${imagePatternPath}-${type}.png`,
+          src: `${imagePatternPath}-${type}.svg`,
           type,
           top,
           left,
@@ -115,12 +116,12 @@ export const BaseGame: FC = () => {
     [setBalls, setGamePoints, clearBalls]
   );
 
-  const onEndTimerEffect = useCallback(() => {
-    setGameStarted(false);
-    isGameRunning = false;
-    clearBalls();
-    onOpen();
-  }, [onOpen, setGameStarted, clearBalls]);
+  // const onEndTimerEffect = useCallback(() => {
+  //   setGameStarted(false);
+  //   isGameRunning = false;
+  //   clearBalls();
+  //   onOpen();
+  // }, [onOpen, setGameStarted, clearBalls]);
 
   const closeModalHandle = useCallback(() => {
     onClose();
@@ -131,21 +132,15 @@ export const BaseGame: FC = () => {
     <>
       <Box
         width="100vw"
-        height="90vh"
+        height="100vh"
         overflow={"hidden"}
         bgImage={`url(${bgImagePath})`}
         bgRepeat="no-repeat"
-        backgroundSize={"100% 100%"}
+        backgroundSize="contain"
+        bgPosition="center"
         ref={bgRef}
       >
-        <Image
-          position="absolute"
-          src={playerImagePath}
-          height="40%"
-          width="auto"
-          right="0"
-          bottom="0"
-        />
+        <GameHeader />
         {balls.map((ball) => {
           return (
             <BallComponent
@@ -156,7 +151,8 @@ export const BaseGame: FC = () => {
             />
           );
         })}
-        <GameFooter onEndEffect={onEndTimerEffect} />
+        <Footer />
+        {/* <GameFooter onEndEffect={onEndTimerEffect} /> */}
       </Box>
       <CloseGameModal isOpen={isOpen} onClose={closeModalHandle} />
     </>
