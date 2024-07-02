@@ -16,6 +16,7 @@ import style from "../game.module.css";
 import { BigCupIcon } from "src/shared/components/icons/BigCupIcon";
 import { useCalculateGameAttempts } from "src/entities/game/useCalculateGameAttempts";
 import { useNavigate } from "react-router-dom";
+import { SadSmileIcon } from "src/shared/components/icons/SadSmileIcon";
 
 type Props = {
   isOpen: boolean;
@@ -116,28 +117,6 @@ export const CloseGameModal: FC<Props> = ({ isOpen, onClose }) => {
                       h={50}
                       borderRadius={45}
                       bg="linear-gradient(180deg, #D2A245 0%, #F7CF5E 16%, #9E6823 58%, #C79F4C 100%);"
-                      onClick={onClickCollectButton}
-                      isLoading={isLoading}
-                    >
-                      {t("PLAY AGAIN")}
-                    </Button>
-                    <Box
-                      className={`${style.gameModalTextGradient} ${style.gameText}`}
-                      fontSize={20}
-                    >
-                      {t(`you have ${attempts} attempts`)}
-                    </Box>
-                  </Flex>
-                ) : (
-                  <Flex direction="column" align="center" gap={2}>
-                    <Button
-                      className={style.gameText}
-                      fontWeight="normal"
-                      fontSize={20}
-                      w={180}
-                      h={50}
-                      borderRadius={45}
-                      bg="linear-gradient(180deg, #D2A245 0%, #F7CF5E 16%, #9E6823 58%, #C79F4C 100%);"
                       onClick={onCloseModalToMain}
                       isLoading={isLoading}
                     >
@@ -148,54 +127,6 @@ export const CloseGameModal: FC<Props> = ({ isOpen, onClose }) => {
                     >
                       {t("or")}
                     </Box>
-                    <Button
-                      className={style.gameText}
-                      fontWeight="normal"
-                      fontSize={20}
-                      w={180}
-                      h={50}
-                      borderRadius={45}
-                      bg="linear-gradient(180deg, #D2A245 0%, #F7CF5E 16%, #9E6823 58%, #C79F4C 100%);"
-                    >
-                      {t("INVITE (+4 att)")}
-                    </Button>
-                    <Box
-                      className={`${style.gameModalTextGradient} ${style.gameText}`}
-                      fontSize={20}
-                    >
-                      {t(`you have ${attempts} attempts`)}
-                    </Box>
-                  </Flex>
-                )}
-              </>
-            ) : (
-              <>
-                <Box
-                  className={`${style.gameModalTextGradient} ${style.gameText}`}
-                  fontSize={40}
-                >
-                  {t("GAME OVER")}
-                </Box>
-                <Flex direction="column" align="center">
-                  <Flex align="center" justify="center">
-                    <Box
-                      className={`${style.gameModalTextGradient} ${style.gameText}`}
-                      fontSize={96}
-                      lineHeight="80px"
-                    >
-                      {gamePoints}
-                    </Box>
-                    <BigCupIcon />
-                  </Flex>
-                  <Box
-                    className={`${style.gameModalTextGradient} ${style.gameText}`}
-                    fontSize={32}
-                  >
-                    {t("you reward")}
-                  </Box>
-                </Flex>
-                {attempts ? (
-                  <Flex direction="column" align="center" gap={2}>
                     <Button
                       className={style.gameText}
                       fontWeight="normal"
@@ -254,6 +185,81 @@ export const CloseGameModal: FC<Props> = ({ isOpen, onClose }) => {
                       {t(`you have ${attempts} attempts`)}
                     </Box>
                   </Flex>
+                )}
+              </>
+            ) : (
+              <>
+                {!isGameAttemptsLoading && (
+                  <>
+                    <Box
+                      className={`${style.gameModalTextGradient} ${style.gameText}`}
+                      fontSize={40}
+                    >
+                      {t("GAME OVER")}
+                    </Box>
+                    <SadSmileIcon />
+                    {attempts ? (
+                      <Flex direction="column" align="center" gap={2}>
+                        <Button
+                          className={style.gameText}
+                          fontWeight="normal"
+                          fontSize={20}
+                          w={180}
+                          h={50}
+                          borderRadius={45}
+                          bg="linear-gradient(180deg, #D2A245 0%, #F7CF5E 16%, #9E6823 58%, #C79F4C 100%);"
+                          onClick={onClickCollectButton}
+                          isLoading={isLoading}
+                        >
+                          {t("PLAY AGAIN")}
+                        </Button>
+                        <Box
+                          className={`${style.gameModalTextGradient} ${style.gameText}`}
+                          fontSize={20}
+                        >
+                          {t(`you have ${attempts} attempts`)}
+                        </Box>
+                      </Flex>
+                    ) : (
+                      <Flex direction="column" align="center" gap={2}>
+                        <Button
+                          className={style.gameText}
+                          fontWeight="normal"
+                          fontSize={20}
+                          w={180}
+                          h={50}
+                          borderRadius={45}
+                          bg="linear-gradient(180deg, #D2A245 0%, #F7CF5E 16%, #9E6823 58%, #C79F4C 100%);"
+                          onClick={onCloseModalToMain}
+                          isLoading={isLoading}
+                        >
+                          {t("ClOSE GAME")}
+                        </Button>
+                        <Box
+                          className={`${style.gameModalTextGradient} ${style.gameText}`}
+                        >
+                          {t("or")}
+                        </Box>
+                        <Button
+                          className={style.gameText}
+                          fontWeight="normal"
+                          fontSize={20}
+                          w={180}
+                          h={50}
+                          borderRadius={45}
+                          bg="linear-gradient(180deg, #D2A245 0%, #F7CF5E 16%, #9E6823 58%, #C79F4C 100%);"
+                        >
+                          {t("INVITE (+4 att)")}
+                        </Button>
+                        <Box
+                          className={`${style.gameModalTextGradient} ${style.gameText}`}
+                          fontSize={20}
+                        >
+                          {t(`you have ${attempts} attempts`)}
+                        </Box>
+                      </Flex>
+                    )}
+                  </>
                 )}
               </>
             )}
