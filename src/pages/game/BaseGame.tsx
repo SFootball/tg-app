@@ -11,7 +11,6 @@ import { CloseGameModal } from "./componets/CloseGameModal";
 import { useGameContext } from "./GameContext/useGameContext";
 import { getImgPathForBallComponent } from "./game.utils";
 import { usePreloadImages } from "./hooks/usePreloadImages";
-import { useNavigate } from "react-router-dom";
 import Footer from "src/app/Footer/Footer";
 import { GameHeader } from "./componets/GameHeader";
 
@@ -26,8 +25,6 @@ export const BaseGame: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bgRef = useRef<HTMLDivElement | null>(null);
   const [balls, setBalls] = useState<BallsType[]>([]);
-
-  const navigate = useNavigate();
 
   useEffect(
     function autoRunGame() {
@@ -124,8 +121,9 @@ export const BaseGame: FC = () => {
 
   const closeModalHandle = useCallback(() => {
     onClose();
-    navigate("/");
-  }, [navigate, onClose]);
+    setGameStarted(true);
+    isGameRunning = true;
+  }, [onClose, setGameStarted]);
 
   return (
     <>

@@ -19,6 +19,7 @@ export const Navbar: FC = () => {
       alignItems={"center"}
       px={{ base: 8 }}
       py={{ base: 8 }}
+      height="112px"
       borderBottomLeftRadius={{ base: "45px" }}
       borderBottomRightRadius={{ base: "45px" }}
     >
